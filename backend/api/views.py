@@ -6,22 +6,22 @@ from recipes.models import (
     Recipe, Favorite, Shoplist
 )
 from .serializers import (
-    UserSerializer, TagSerializer, IngredientSerializer,
+    UserCreateSerializer, TagSerializer, IngredientSerializer,
     RecipeSerializer, FollowSerializer, FavoriteSerializer,
     ShoplistSerializer, IngredientsSerializer
 )
 
 
 # app classes - users
-class UserViewSet(viewsets.ReadOnlyModelViewSet):
+class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
-    serializer_class = UserSerializer
+    serializer_class = UserCreateSerializer
 
     # Если в запросе есть /subscriptions/, вызвать Follow.objects.filter по юзеру
 
 
 # app classes - recipes
-class TagViewSet(viewsets.ModelViewSet):
+class TagViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
 

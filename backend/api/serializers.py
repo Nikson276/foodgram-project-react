@@ -1,5 +1,6 @@
 import base64
 import webcolors
+from djoser.serializers import UserCreateSerializer as BaseUserRegistrationSerializer
 from django.core.files.base import ContentFile
 from rest_framework import serializers
 from users.models import User, Follow
@@ -34,13 +35,28 @@ class Base64ImageField(serializers.ImageField):
 
 
 # app classes - users
-class UserSerializer(serializers.ModelSerializer):
-    #is_subscribed = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+class UserCreateSerializer(BaseUserRegistrationSerializer):
+    is_subscribed = serializers.SerializerMethodField()
 
     class Meta:
         model = User
-        fields = ('id', 'username', 'first_name', 'last_name')
-        ref_name = 'ReadOnlyUsers'
+        fields = (
+            'email', 'id', 'username',
+            'first_name', 'last_name',
+            'password', 'is_subscribed'
+        )
+
+    def get_is_subscribed(self, obj):
+        print(self.context['request'])
+        print(f'ОБЪЕКТ {obj}')
+        follower = Follow.objects.filter(
+            user=self.context['request'].user.id
+        )
+        if follower:
+            subscribtions = follower.following()
+            print(f'ЭТО ПОДПИСКИ МОИ? {subscribtions}')
+            return True
+        return False
 
 
 # app classes - recipes
@@ -49,7 +65,7 @@ class TagSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Tag
-        fields = ('id', 'name', 'color','slug')
+        fields = ('id', 'name', 'color', 'slug')
 
 
 class IngredientsSerializer(serializers.ModelSerializer):
@@ -150,7 +166,7 @@ class FavoriteSerializer(serializers.ModelSerializer):
             )
         ]
 
-  
+
 class ShoplistSerializer(serializers.ModelSerializer):
     user = serializers.SlugRelatedField(
         read_only=True,
