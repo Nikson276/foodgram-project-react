@@ -6,8 +6,8 @@ User = get_user_model()
 
 
 class Tag(models.Model):
-    name = models.CharField('Название', max_length=200)
-    color = models.CharField('Цвет', max_length=16)
+    name = models.CharField('Название', max_length=200, unique=True)
+    color = models.CharField('Цвет', max_length=16, unique=True)
     slug = models.SlugField(max_length=50, unique=True)
 
     def __str__(self):
@@ -33,7 +33,7 @@ class Ingredient(models.Model):
         )
 
     def __str__(self):
-        return self.title
+        return self.ingredient
 
 
 class Recipe(models.Model):
@@ -46,30 +46,29 @@ class Recipe(models.Model):
         default=None
         )
     text = models.TextField('Описание')
-    ingredients = models.ManyToManyField(Ingredient)
-    tags = models.ManyToManyField(Tag)
-    cooking_time = models.DateTimeField(
-        'Время приготовления',
-        auto_now_add=True
-        )
+    ingredients = models.ManyToManyField(Ingredient, verbose_name='Ингредиенты')
+    tags = models.ManyToManyField(Tag, verbose_name='Теги')
+    cooking_time = models.PositiveSmallIntegerField(
+        verbose_name='Время приготовления (в минутах)',
+    )
 
     def __str__(self):
-        return self.title
+        return self.name
 
 
-class Follow(models.Model):
-    user = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='follower')
-    following = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='following')
+# class Follow(models.Model):
+#     user = models.ForeignKey(
+#         User, on_delete=models.CASCADE, related_name='follower')
+#     following = models.ForeignKey(
+#         User, on_delete=models.CASCADE, related_name='following')
 
-    class Meta:
-        constraints = [
-            models.UniqueConstraint(
-                fields=['user_id', 'following_id'],
-                name='unique_user_following'
-            )
-        ]
+#     class Meta:
+#         constraints = [
+#             models.UniqueConstraint(
+#                 fields=['user_id', 'following_id'],
+#                 name='unique_user_following'
+#             )
+#         ]
 
 
 class Favorite(models.Model):

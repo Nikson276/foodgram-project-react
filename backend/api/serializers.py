@@ -2,10 +2,10 @@ import base64
 import webcolors
 from django.core.files.base import ContentFile
 from rest_framework import serializers
-from users.models import User
+from users.models import User, Follow
 from recipes.models import (
     Tag, Ingredients, Ingredient,
-    Recipe, Favorite, Follow, Shoplist
+    Recipe, Favorite, Shoplist
 )
 
 
@@ -52,6 +52,13 @@ class TagSerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'color','slug')
 
 
+class IngredientsSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Ingredients
+        fields = ('id', 'name', 'measurement_unit')
+
+
 class IngredientSerializer(serializers.ModelSerializer):
     ingredient = serializers.PrimaryKeyRelatedField(
         queryset=Ingredients.objects.all(),
@@ -61,8 +68,7 @@ class IngredientSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Ingredient
-        fields = ('id', 'name', 'measurement_unit', 'amount')
-        read_only_fields = ('measurement_unit',)
+        fields = ('id', 'ingredient', 'amount')
 
 
 class RecipeSerializer(serializers.ModelSerializer):
@@ -79,7 +85,7 @@ class RecipeSerializer(serializers.ModelSerializer):
         many=True
     )
     image = Base64ImageField(required=True)
-    #cooking_time  >=1
+    cooking_time = serializers.IntegerField(min_value=1)
 
     class Meta:
         fields = (
