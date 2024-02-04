@@ -4,8 +4,9 @@ from rest_framework.routers import DefaultRouter
 from api.views import (
     TagViewSet, IngredientViewSet, RecipeViewSet,
     FollowViewSet, FavoriteViewSet, ShoplistViewSet,
-    UserViewSet, IngredientsViewSet
+    CustomUserViewSet, IngredientsViewSet
 )
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 # All url variants
 # http://127.0.0.1:5500/api/users/
@@ -19,7 +20,7 @@ from api.views import (
 # http://127.0.0.1:5500/api/ingredients/
 
 router = DefaultRouter()
-router.register(r'users', UserViewSet, basename='users')
+router.register(r'users', CustomUserViewSet, basename='users')
 router.register(r'tags', TagViewSet, basename='tags')
 router.register(r'recipes', RecipeViewSet, basename='recipes')
 router.register(r'recipes/download_shopping_cart',
@@ -44,5 +45,5 @@ router.register(r'ingredients', IngredientsViewSet, basename='ingredients')
 urlpatterns = [
     path('', include(router.urls)),
     path('auth/', include('djoser.urls')),
-    path('auth/', include('djoser.urls.jwt')),
+    path('auth/', include('djoser.urls.authtoken')),
 ]

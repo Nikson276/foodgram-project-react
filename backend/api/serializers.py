@@ -1,6 +1,9 @@
 import base64
 import webcolors
-from djoser.serializers import UserCreateSerializer as BaseUserRegistrationSerializer
+from djoser.serializers import (
+    UserCreateSerializer as DjoserUserCreateSerializer,
+    SetPasswordSerializer
+    )
 from django.core.files.base import ContentFile
 from rest_framework import serializers
 from users.models import User, Follow
@@ -35,7 +38,7 @@ class Base64ImageField(serializers.ImageField):
 
 
 # app classes - users
-class UserCreateSerializer(BaseUserRegistrationSerializer):
+class UserCreateSerializer(DjoserUserCreateSerializer):
     is_subscribed = serializers.SerializerMethodField()
 
     class Meta:
@@ -47,17 +50,31 @@ class UserCreateSerializer(BaseUserRegistrationSerializer):
         )
 
     def get_is_subscribed(self, obj):
-        print(self.context['request'])
+        print(f'ЭТО РЕКВЕСТ____________{self.context["request"].user}')
+        print(f'ЭТО ЮЗЕР_ИД____________{self.context["request"].user.id}')
         print(f'ОБЪЕКТ {obj}')
-        follower = Follow.objects.filter(
+        
+        subscribtions = Follow.objects.filter(
             user=self.context['request'].user.id
         )
-        if follower:
-            subscribtions = follower.following()
+        if subscribtions:
             print(f'ЭТО ПОДПИСКИ МОИ? {subscribtions}')
-            return True
+            subscribtions = subscribtions.following().filter(
+                following=obj
+            )
+            if subscribtions:  
+                # Юзер найден в подписках          
+                return True
         return False
 
+
+class UserSetPassSerializer(SetPasswordSerializer):
+
+    class Meta:
+        model = User
+        fields = (
+            'new_password', 'current_password'
+        )
 
 # app classes - recipes
 class TagSerializer(serializers.ModelSerializer):
