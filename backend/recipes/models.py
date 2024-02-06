@@ -23,30 +23,40 @@ class Ingredients(models.Model):
 
 
 class Ingredient(models.Model):
-    ingredient = models.OneToOneField(
+    ingredient = models.ForeignKey(
         Ingredients,
         on_delete=models.CASCADE,
-        blank=True, null=True
-        )
+        related_name='ingredients'
+    )
     amount = models.DecimalField(
-        'Количество', max_digits=5, decimal_places=2, default=0
-        )
+        'Количество',
+        max_digits=5,
+        decimal_places=2,
+        default=0
+    )
 
     def __str__(self):
-        return self.ingredient
+        return self.ingredient.name
 
 
 class Recipe(models.Model):
     author = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='recipes')
+        User,
+        on_delete=models.CASCADE,
+        related_name='recipes'
+    )
     name = models.CharField('Название', max_length=200)
     image = models.ImageField(
         upload_to='recipes/images',
         null=True,
         default=None
-        )
+    )
     text = models.TextField('Описание')
-    ingredients = models.ManyToManyField(Ingredient, verbose_name='Ингредиенты')
+    ingredients = models.ManyToManyField(
+        Ingredient,
+        verbose_name='Ингредиенты',
+        related_name='ingredients'
+    )
     tags = models.ManyToManyField(Tag, verbose_name='Теги')
     cooking_time = models.PositiveSmallIntegerField(
         verbose_name='Время приготовления (в минутах)',
@@ -54,21 +64,6 @@ class Recipe(models.Model):
 
     def __str__(self):
         return self.name
-
-
-# class Follow(models.Model):
-#     user = models.ForeignKey(
-#         User, on_delete=models.CASCADE, related_name='follower')
-#     following = models.ForeignKey(
-#         User, on_delete=models.CASCADE, related_name='following')
-
-#     class Meta:
-#         constraints = [
-#             models.UniqueConstraint(
-#                 fields=['user_id', 'following_id'],
-#                 name='unique_user_following'
-#             )
-#         ]
 
 
 class Favorite(models.Model):

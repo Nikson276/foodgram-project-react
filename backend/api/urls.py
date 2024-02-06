@@ -6,7 +6,7 @@ from api.views import (
     FollowViewSet, FavoriteViewSet, ShoplistViewSet,
     CustomUserViewSet, IngredientsViewSet
 )
-from rest_framework_simplejwt.authentication import JWTAuthentication
+
 
 # All url variants
 # http://127.0.0.1:5500/api/users/
@@ -23,10 +23,10 @@ router = DefaultRouter()
 router.register(r'users', CustomUserViewSet, basename='users')
 router.register(r'tags', TagViewSet, basename='tags')
 router.register(r'recipes', RecipeViewSet, basename='recipes')
-router.register(r'recipes/download_shopping_cart',
-                ShoplistViewSet,
-                basename='download_shoplist'
-                )
+# router.register(r'recipes/download_shopping_cart',
+#                 ShoplistViewSet,
+#                 basename='download_shoplist'
+#                 )
 router.register(r'recipes/(?P<recipe_id>\d+)/shopping_cart',
                 ShoplistViewSet,
                 basename='shoplist'

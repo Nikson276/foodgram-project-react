@@ -53,7 +53,7 @@ class UserCreateSerializer(DjoserUserCreateSerializer):
         print(f'ЭТО РЕКВЕСТ____________{self.context["request"].user}')
         print(f'ЭТО ЮЗЕР_ИД____________{self.context["request"].user.id}')
         print(f'ОБЪЕКТ {obj}')
-        
+
         subscribtions = Follow.objects.filter(
             user=self.context['request'].user.id
         )
@@ -62,8 +62,8 @@ class UserCreateSerializer(DjoserUserCreateSerializer):
             subscribtions = subscribtions.following().filter(
                 following=obj
             )
-            if subscribtions:  
-                # Юзер найден в подписках          
+            if subscribtions:
+                # Юзер найден в подписках
                 return True
         return False
 
@@ -76,6 +76,7 @@ class UserSetPassSerializer(SetPasswordSerializer):
             'new_password', 'current_password'
         )
 
+
 # app classes - recipes
 class TagSerializer(serializers.ModelSerializer):
     color = Hex2NameColor()
@@ -85,18 +86,19 @@ class TagSerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'color', 'slug')
 
 
-class IngredientsSerializer(serializers.ModelSerializer):
+class IngredientsSerializer(serializers.PrimaryKeyRelatedField, serializers.ModelSerializer):
 
     class Meta:
         model = Ingredients
-        fields = ('id', 'name', 'measurement_unit')
+        fields = ('name', 'measurement_unit')
 
 
-class IngredientSerializer(serializers.ModelSerializer):
-    ingredient = serializers.PrimaryKeyRelatedField(
+class IngredientSerializer(serializers.PrimaryKeyRelatedField, serializers.ModelSerializer):
+    ingredient = IngredientsSerializer(
         queryset=Ingredients.objects.all(),
-        required=True,
-        many=True
+    )
+    amount = serializers.IntegerField(
+        default=0
     )
 
     class Meta:
@@ -104,29 +106,49 @@ class IngredientSerializer(serializers.ModelSerializer):
         fields = ('id', 'ingredient', 'amount')
 
 
-class RecipeSerializer(serializers.ModelSerializer):
-    author = serializers.SlugRelatedField(
+class RecipeBaseSerializer(serializers.ModelSerializer):
+    author = UserCreateSerializer(
         read_only=True,
-        slug_field='username',
         default=serializers.CurrentUserDefault()
     )
-    ingredients = IngredientSerializer(required=True, many=True)
-    tags = serializers.SlugRelatedField(
-        queryset=Tag.objects.all(),
-        slug_field='slug',
-        required=True,
-        many=True
+    ingredients = IngredientSerializer(
+        many=True,
+        queryset=Ingredient.objects.all()
     )
+    tags = serializers.PrimaryKeyRelatedField(many=True, queryset=Tag.objects.all())
     image = Base64ImageField(required=True)
     cooking_time = serializers.IntegerField(min_value=1)
+    # is_favorite = serializers.SerializerMethodField()
+    # is_in_shopping_cart = serializers.SerializerMethodField()
 
     class Meta:
-        fields = (
-            'id', 'author', 'name', 'image', 'text', 'ingredients',
-            'tags', 'cooking_time'
-            )
         model = Recipe
-        read_only_fields = ('author',)
+        fields = (
+            'id', 'tags', 'author', 'ingredients', 'name', 'image', 'text', 'cooking_time'
+            )
+
+    # def create(self, validated_data):
+    #     ingredients_data = validated_data.pop('ingredients')
+    #     recipe = Recipe.objects.create(**validated_data)
+    #     for ingredient in ingredients_data:
+    #         Ingredients.objects.create(recipe=recipe, **ingredients_data)
+    #     return recipe
+
+
+class RecipeListSerializer(RecipeBaseSerializer):
+    class Meta:
+        model = Recipe
+        fields = (
+            'id', 'tags', 'author', 'ingredients', 'name', 'image', 'text', 'cooking_time'
+            )
+
+
+class RecipeCreateSerializer(RecipeBaseSerializer):
+    class Meta:
+        model = Recipe
+        fields = (
+            'id', 'author', 'ingredients', 'tags', 'image', 'name', 'text', 'cooking_time'
+            )
 
 
 class FollowSerializer(serializers.ModelSerializer):

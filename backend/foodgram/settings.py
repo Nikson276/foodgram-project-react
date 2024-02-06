@@ -163,11 +163,11 @@ REST_FRAMEWORK = {
 
 }
 
-SIMPLE_JWT = {
-    # Устанавливаем срок жизни токена
-    'ACCESS_TOKEN_LIFETIME': timedelta(days=30),
-    'AUTH_HEADER_TYPES': ('Token',),
-}
+# SIMPLE_JWT = {
+#     # Устанавливаем срок жизни токена
+#     'ACCESS_TOKEN_LIFETIME': timedelta(days=30),
+#     'AUTH_HEADER_TYPES': ('Token',),
+# }
 
 DJOSER = {
     # 'PASSWORD_RESET_CONFIRM_URL': '#/password/reset/confirm/{uid}/{token}',

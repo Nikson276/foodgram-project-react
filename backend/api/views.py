@@ -14,9 +14,9 @@ from recipes.models import (
     Recipe, Favorite, Shoplist
 )
 from .serializers import (
-    UserCreateSerializer, UserSetPassSerializer, TagSerializer,
-    IngredientSerializer, RecipeSerializer, FollowSerializer,
-    FavoriteSerializer, ShoplistSerializer, IngredientsSerializer
+    IngredientSerializer, RecipeListSerializer, RecipeCreateSerializer,
+    FollowSerializer, FavoriteSerializer, ShoplistSerializer,
+    IngredientsSerializer, TagSerializer
 )
 from .mixins import PermissionMixin
 
@@ -24,7 +24,6 @@ from .mixins import PermissionMixin
 # app classes - users
 class CustomUserViewSet(DjoserUserViewSet, PermissionMixin):
     queryset = User.objects.all()
-    # serializer_class = UserCreateSerializer
     search_fields = ('username', 'email')
     pagination_class = LimitOffsetPagination
     permission_classes = [AllowAny,]
@@ -36,11 +35,10 @@ class CustomUserViewSet(DjoserUserViewSet, PermissionMixin):
             self.permission_classes = [CurrentUserOrAdmin,]
         return super().get_permissions()
 
-    
+
     # Если в запросе есть /subscriptions/, 
     # вызвать Follow.objects.filter по юзеру
     # TODO
-
 
 
 # app classes - recipes
@@ -61,7 +59,13 @@ class IngredientViewSet(viewsets.ModelViewSet):
 
 class RecipeViewSet(viewsets.ModelViewSet):
     queryset = Recipe.objects.all()
-    serializer_class = RecipeSerializer
+    # serializer_class = RecipeSerializer
+
+    def get_serializer_class(self):
+        if self.action in ('list', 'retrieve'):
+            return RecipeListSerializer
+        else:
+            return RecipeCreateSerializer
 
 
 class FollowViewSet(viewsets.ModelViewSet):
