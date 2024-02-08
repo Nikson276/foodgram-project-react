@@ -7,16 +7,15 @@ from rest_framework.permissions import AllowAny
 from rest_framework.pagination import LimitOffsetPagination
 from djoser.views import UserViewSet as DjoserUserViewSet
 from djoser.permissions import CurrentUserOrAdmin
-from foodgram.settings import DJOSER as settings
 from users.models import User, Follow
 from recipes.models import (
-    Tag, Ingredients, Ingredient,
+    Tag, Ingredient, IngredientRecipe,
     Recipe, Favorite, Shoplist
 )
 from .serializers import (
-    IngredientSerializer, RecipeListSerializer, RecipeCreateSerializer,
+    IngredientRecipeSerializer, RecipeListSerializer, RecipeCreateSerializer,
     FollowSerializer, FavoriteSerializer, ShoplistSerializer,
-    IngredientsSerializer, TagSerializer
+    IngredientSerializer, TagSerializer
 )
 from .mixins import PermissionMixin
 
@@ -48,13 +47,13 @@ class TagViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class IngredientsViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Ingredients.objects.all()
-    serializer_class = IngredientsSerializer
+    queryset = Ingredient.objects.all()
+    serializer_class = IngredientSerializer
 
 
 class IngredientViewSet(viewsets.ModelViewSet):
-    queryset = Ingredient.objects.all()
-    serializer_class = IngredientSerializer
+    queryset = IngredientRecipe.objects.all()
+    serializer_class = IngredientRecipeSerializer
 
 
 class RecipeViewSet(viewsets.ModelViewSet):

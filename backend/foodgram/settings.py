@@ -151,7 +151,7 @@ CORS_URLS_REGEX = r'^/api/.*$'
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.AllowAny', 
+        'rest_framework.permissions.AllowAny',
     ],
 
     'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -184,5 +184,6 @@ DJOSER = {
         'user_list': ['rest_framework.permissions.AllowAny'],
         'current_user': ['djoser.permissions.CurrentUserOrAdmin'],
         },
-    'HIDE_USERS': False
+    'HIDE_USERS': False,
+    'LOGIN_FIELD': 'email',
 }
