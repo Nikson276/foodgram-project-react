@@ -4,7 +4,7 @@ from rest_framework.routers import DefaultRouter
 from api.views import (
     TagViewSet, IngredientViewSet, RecipeViewSet,
     FollowViewSet, FavoriteViewSet, ShoplistViewSet,
-    CustomUserViewSet, IngredientsViewSet
+    CustomUserViewSet
 )
 
 
@@ -39,7 +39,7 @@ router.register(r'users/(?P<user_id>\d+)/subscribe',
                 FollowViewSet,
                 basename='users_subscribe'
                 )
-router.register(r'ingredients', IngredientsViewSet, basename='ingredients')
+router.register(r'ingredients', IngredientViewSet, basename='ingredients')
 
 
 urlpatterns = [

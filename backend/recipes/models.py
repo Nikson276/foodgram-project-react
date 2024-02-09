@@ -40,6 +40,7 @@ class Recipe(models.Model):
     ingredients = models.ManyToManyField(
         Ingredient,
         through='IngredientRecipe',
+        through_fields=('recipe', 'ingredient'),
         verbose_name='Ингредиенты',
         related_name='ingredients'
     )
@@ -54,16 +55,19 @@ class Recipe(models.Model):
 
 class IngredientRecipe(models.Model):
     """ Модель связи рецепта и ингредиентов."""
-    ingredient = models.ForeignKey(
-        Ingredient,
-        on_delete=models.CASCADE,
-        verbose_name='Ингредиент'
-    )
+
     recipe = models.ForeignKey(
         Recipe,
         on_delete=models.CASCADE,
-        verbose_name='Рецепт'
-    )    
+        verbose_name='Рецепт',
+        related_name='rel_IngredientRecipe'
+    )
+    ingredient = models.ForeignKey(
+        Ingredient,
+        on_delete=models.CASCADE,
+        verbose_name='Ингредиент',
+        related_name='rel_IngredientRecipe'
+    )
     amount = models.DecimalField(
         verbose_name='Количество ингредиента',
         max_digits=5,

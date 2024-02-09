@@ -13,8 +13,8 @@ from recipes.models import (
 )
 
 
-# image upload helper classes
 class Hex2NameColor(serializers.Field):
+    """ Преобразование hex цветов в имя"""
     def to_representation(self, value):
         return value
 
@@ -27,6 +27,8 @@ class Hex2NameColor(serializers.Field):
 
 
 class Base64ImageField(serializers.ImageField):
+    """ Декодирование бинарника картинок """
+    
     def to_internal_value(self, data):
         if isinstance(data, str) and data.startswith('data:image'):
             format, imgstr = data.split(';base64,')
@@ -39,6 +41,7 @@ class Base64ImageField(serializers.ImageField):
 
 # app classes - users
 class UserCreateSerializer(DjoserUserCreateSerializer):
+    """ Создание нового юзера"""
     is_subscribed = serializers.SerializerMethodField()
 
     class Meta:
@@ -69,7 +72,8 @@ class UserCreateSerializer(DjoserUserCreateSerializer):
 
 
 class UserSetPassSerializer(SetPasswordSerializer):
-
+    """ Смена пароля у юзера"""
+    
     class Meta:
         model = User
         fields = (
@@ -79,6 +83,8 @@ class UserSetPassSerializer(SetPasswordSerializer):
 
 # app classes - recipes
 class TagSerializer(serializers.ModelSerializer):
+    """ Теги """
+    
     color = Hex2NameColor()
 
     class Meta:
@@ -87,13 +93,15 @@ class TagSerializer(serializers.ModelSerializer):
 
 
 class IngredientSerializer(serializers.ModelSerializer):
-
+    """ Ингредиенты справочник"""
+    
     class Meta:
         model = Ingredient
-        fields = ('name', 'measurement_unit')
+        fields = ('id', 'name', 'measurement_unit')
 
 
 class IngredientRecipeSerializer(serializers.ModelSerializer):
+    """ Добавление ингредиента в рецепта"""
     id = serializers.PrimaryKeyRelatedField(
         queryset=Ingredient.objects.all()
     )
@@ -106,7 +114,17 @@ class IngredientRecipeSerializer(serializers.ModelSerializer):
         fields = ('id', 'amount')
 
 
+# class ReadIngredientRecipeSerializer(serializers.ModelSerializer):
+#     """ Рендер ингредиента в рецепт"""
+
+#     class Meta:
+#         model = IngredientRecipe
+#         fields = ('id', 'name', 'measurement_unit', 'amount')
+#         read_only_fields = ('id', 'name', 'measurement_unit', 'amount')
+
+
 class RecipeBaseSerializer(serializers.ModelSerializer):
+    """ Рецепт базовый сериализатор"""    
     author = UserCreateSerializer(
         read_only=True,
         default=serializers.CurrentUserDefault()
@@ -118,37 +136,52 @@ class RecipeBaseSerializer(serializers.ModelSerializer):
         queryset=Tag.objects.all(),
         many=True,
     )
-    image = Base64ImageField(required=True)
+    image = Base64ImageField(required=False)
     cooking_time = serializers.IntegerField(min_value=1)
+
+    class Meta:
+        model = Recipe
+        fields = (
+            'id', 'tags', 'author', 'ingredients',
+            'name', 'image', 'text', 'cooking_time'
+            )
+
+
+class RecipeListSerializer(RecipeBaseSerializer):
+    """ Сериализатор для возврата списка или рецепта"""
+    #tags = TagSerializer(read_only=True)
+    author = UserCreateSerializer(read_only=True)
+    ingredients = IngredientRecipeSerializer(
+        source='rel_IngredientRecipe',
+        many=True,
+    )
+    # TODO
     # is_favorite = serializers.SerializerMethodField()
     # is_in_shopping_cart = serializers.SerializerMethodField()
 
     class Meta:
         model = Recipe
         fields = (
-            'id', 'tags', 'author', 'ingredients', 'name', 'image', 'text', 'cooking_time'
+            'id', 'tags', 'author', 'ingredients',
+            'name', 'image', 'text', 'cooking_time'
             )
-
-
-class RecipeListSerializer(RecipeBaseSerializer):
-    class Meta:
-        model = Recipe
-        fields = (
-            'id', 'tags', 'author', 'ingredients', 'name', 'image', 'text', 'cooking_time'
-            )
+        read_only_fields = ('id', 'tags', 'name', 'image', 'text', 'cooking_time')
 
 
 class RecipeCreateSerializer(RecipeBaseSerializer):
+    """ Сериализатор создания рецепта"""
+
     class Meta:
         model = Recipe
         fields = (
-            'id', 'author', 'ingredients', 'tags', 'image', 'name', 'text', 'cooking_time'
+            'id', 'author', 'ingredients', 'tags',
+            'image', 'name', 'text', 'cooking_time'
             )
 
     def create(self, validated_data):
         # убираем ингредиенты и теги из словаря
         ingredients_data = validated_data.pop('ingredients')
-        # tags_data = validated_data.pop('tags')
+        tags_data = validated_data.pop('tags')
         # создаем пустой рецепт без них
         recipe = Recipe.objects.create(**validated_data)
 
@@ -162,7 +195,7 @@ class RecipeCreateSerializer(RecipeBaseSerializer):
             for ingredient in ingredients_data
         ]
 
-        # создаем связи с тегами
+        # создаем связи с тегами TODO
         # create_tags = [
         #     TagRecipe(
         #         recipe=recipe,
@@ -176,7 +209,9 @@ class RecipeCreateSerializer(RecipeBaseSerializer):
 
         return recipe
 
+
 class FollowSerializer(serializers.ModelSerializer):
+    """ Подписки """
     user = serializers.SlugRelatedField(
         read_only=True,
         slug_field='username',
@@ -208,6 +243,7 @@ class FollowSerializer(serializers.ModelSerializer):
 
 
 class FavoriteSerializer(serializers.ModelSerializer):
+    """ Списко избранное"""
     user = serializers.SlugRelatedField(
         read_only=True,
         slug_field='username',
@@ -232,6 +268,7 @@ class FavoriteSerializer(serializers.ModelSerializer):
 
 
 class ShoplistSerializer(serializers.ModelSerializer):
+    """ Корзина список покупок"""
     user = serializers.SlugRelatedField(
         read_only=True,
         slug_field='username',
