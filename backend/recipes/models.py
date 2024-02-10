@@ -24,7 +24,7 @@ class Ingredient(models.Model):
 
 
 class Recipe(models.Model):
-    """ Модель рецепта"""     
+    """ Модель рецепта"""    
     author = models.ForeignKey(
         User,
         on_delete=models.CASCADE,

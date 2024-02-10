@@ -150,6 +150,7 @@ CORS_ALLOWED_ORIGINS = [
 CORS_URLS_REGEX = r'^/api/.*$'
 
 REST_FRAMEWORK = {
+    'COERCE_DECIMAL_TO_STRING': False,
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',
     ],
