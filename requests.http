@@ -74,6 +74,9 @@ Authorization: Token 1172388a9d06436513c59c8b67347c8e0dc437b2
 GET http://127.0.0.1:8000/api/users/
 Authorization: Token 1172388a9d06436513c59c8b67347c8e0dc437b2
 ###
+GET http://127.0.0.1:8000/api/users/subscribtions/
+Authorization: Token 1172388a9d06436513c59c8b67347c8e0dc437b2
+###
 GET http://127.0.0.1:8000/api/tags/
 Authorization: Token 1172388a9d06436513c59c8b67347c8e0dc437b2
 ###

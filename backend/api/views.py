@@ -4,7 +4,7 @@ from rest_framework.decorators import action
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.pagination import LimitOffsetPagination
 from djoser.views import UserViewSet as DjoserUserViewSet
 from djoser.permissions import CurrentUserOrAdmin
@@ -16,7 +16,7 @@ from recipes.models import (
 from .serializers import (
     IngredientRecipeSerializer, RecipeListSerializer, RecipeCreateSerializer,
     FollowSerializer, FavoriteSerializer, ShoplistSerializer,
-    IngredientSerializer, TagSerializer
+    IngredientSerializer, TagSerializer, FollowListSerializer
 )
 from .mixins import PermissionMixin
 
@@ -37,7 +37,35 @@ class CustomUserViewSet(DjoserUserViewSet, PermissionMixin):
     # Если в запросе есть /subscriptions/, 
     # вызвать Follow.objects.filter по юзеру
     # TODO
+    @action(
+            detail=False,
+            methods=['get'],
+            permission_classes=[CurrentUserOrAdmin,],
+            url_path='subscribtions',
+        )
+    def subscribtions(self, request):
+        """ Метод вывода списка подписок юзера"""
+        user: User = request.user
+        subscribtions = user.follower.all()
+        serializer = FollowListSerializer(subscribtions, many=True)
+        return Response(serializer.data)
 
+
+    @action(
+            detail=True,
+            methods=['post'],
+            permission_classes=[IsAuthenticated,],
+            url_name='subscribe',
+        )
+    def subscribe(self, request, id):
+        """ Метод для создание подписки на юзера по ид"""
+        user = request.user
+        author = get_object_or_404(User, id=id)
+
+        if Follow.objects.filter(user=user, author=author).exists():
+            return Response({'error': 'Вы уже подписаны на этого пользователя'}, status=status.HTTP_STATUS_400_BAD_REQUEST)
+        serializer = FollowSerializer(author, context={'request': request})
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 # app classes - recipes
 class TagViewSet(viewsets.ReadOnlyModelViewSet):

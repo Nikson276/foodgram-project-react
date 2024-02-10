@@ -70,13 +70,12 @@ class UserListSerializer(DjoserUserSerializer):
         print(f'ЭТО ЮЗЕР_ИД____________{self.context["request"].user.id}')
         print(f'ОБЪЕКТ {obj}')
 
-        subscribtions = Follow.objects.filter(
-            user=self.context['request'].user.id
-        )
+        user = self.context['request'].user
+        subscribtions = user.follower.all()
         if subscribtions:
             print(f'ЭТО ПОДПИСКИ МОИ? {subscribtions}')
-            subscribtions = subscribtions.following().filter(
-                following=obj
+            subscribtions = subscribtions.filter(
+                following=obj.id
             )
             if subscribtions:
                 # Юзер найден в подписках
@@ -179,6 +178,19 @@ class RecipeListSerializer(serializers.ModelSerializer):
         read_only_fields = ('id', 'name', 'image', 'text', 'cooking_time')
 
 
+class RecipeShortListSerializer(serializers.ModelSerializer):
+    """ Сериализатор для возврата короткой инфы о рецепте"""
+
+    class Meta:
+        model = Recipe
+        fields = (
+            'id', 'name', 'image', 'cooking_time'
+            )
+        read_only_fields = (
+            'id', 'name', 'image', 'cooking_time'
+            )
+
+
 class RecipeCreateSerializer(serializers.ModelSerializer):
     """ Сериализатор создания рецепта"""
     author = UserListSerializer(
@@ -231,8 +243,36 @@ class RecipeCreateSerializer(serializers.ModelSerializer):
         return data
 
 
+class FollowerRecipeListSerializer(serializers.ModelSerializer):
+    """ Список рецептов по каждому юзеру"""
+    follower = UserListSerializer(
+        read_only=True
+    )
+    recipes = RecipeShortListSerializer(
+        read_only=True
+    )
+    recipes_count = serializers.SerializerMethodField()
+
+    class Meta:
+        model = User
+        fields = ('follower', 'recipes', 'recipes_count')
+
+    def get_recipes_count(self, obj):
+        # TODO
+        pass
+
+
+class FollowListSerializer(serializers.ModelSerializer):
+    """ Подписки список"""
+    following = FollowerRecipeListSerializer()
+
+    class Meta:
+        fields = ('following',)
+        model = Follow
+
+
 class FollowSerializer(serializers.ModelSerializer):
-    """ Подписки """
+    """ Подписки создание"""
     user = serializers.SlugRelatedField(
         read_only=True,
         slug_field='username',
