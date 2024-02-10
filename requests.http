@@ -1,0 +1,114 @@
+# User creation request
+POST http://127.0.0.1:8000/api/users/
+Authorization: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA5NDczNDQ3LCJqdGkiOiJlZmM1MWE1MjE4MDU0NDQxYWM3MjRlZjBjNzY1ZTM0YiIsInVzZXJfaWQiOjF9.NsSlQ7S2E5gZXk_yG1MRKby7fwm2AsGmIrwxMKGvLT8
+Content-type: application/json
+
+{
+  "email": "user1@ya.ru",
+  "username": "user1",
+  "first_name": "Вася",
+  "last_name": "Пупкин",
+  "password": "12345"
+}
+
+###
+# Users token receiving part
+POST http://127.0.0.1:8000/api/auth/token/login/
+Content-type: application/json
+
+{
+  "password": "fw9S3YJsyLG5Zjw",
+  "email": "admin@admin.ru"
+}
+
+###
+POST http://127.0.0.1:8000/api/users/set_password/
+Authorization: Token
+Content-type: application/json
+
+{
+    "new_password": "123",
+    "current_password": "fw9S3YJsyLG5Zjw"
+}
+###
+# ______________________________ANonymus _________________________________________
+GET http://127.0.0.1:8000/api/recipes/
+###
+
+GET http://127.0.0.1:8000/api/tags/
+###
+GET http://127.0.0.1:8000/api/users/
+###
+GET http://127.0.0.1:8000/api/users/me/
+###
+GET http://127.0.0.1:8000/api/users/2/
+###
+# _____________________________Users requests part ____________________
+
+# ____________Admin
+GET http://127.0.0.1:8000/api/users/
+Authorization: Token 887d946ac671e57707b2125eb2260f456c025f62
+###
+GET http://127.0.0.1:8000/api/users/me/
+Authorization: Token 887d946ac671e57707b2125eb2260f456c025f62
+###
+GET http://127.0.0.1:8000/api/users/2/
+Authorization: Token 887d946ac671e57707b2125eb2260f456c025f62
+###
+POST http://127.0.0.1:8000/api/users/set_password/
+Authorization: Token 887d946ac671e57707b2125eb2260f456c025f62
+Content-type: application/json
+
+{
+    "new_password": "123",
+    "current_password": "fw9S3YJsyLG5Zjw"
+}
+###
+
+
+
+# ____________USER 2 
+
+GET http://127.0.0.1:8000/api/users/me/
+Authorization: Token 637bedd56ac9c8b4d1e87f9c5eaf927ab465547d
+###
+GET http://127.0.0.1:8000/api/recipes/
+Authorization: Token 887d946ac671e57707b2125eb2260f456c025f62
+###
+GET http://127.0.0.1:8000/api/tags/
+Authorization: Token 887d946ac671e57707b2125eb2260f456c025f62
+###
+GET http://127.0.0.1:8000/api/ingredients/
+Authorization: Token 887d946ac671e57707b2125eb2260f456c025f62
+###
+GET http://127.0.0.1:8000/api/recipes/
+Authorization: Token 887d946ac671e57707b2125eb2260f456c025f62
+###
+POST http://127.0.0.1:8000/api/recipes/
+Authorization: Token 887d946ac671e57707b2125eb2260f456c025f62
+Content-type: application/json
+
+{
+  "ingredients": [
+    {
+      "id": 18,
+      "amount": 0.5
+    },
+    {
+      "id": 2,
+      "amount": 1
+    }
+  ],
+  "tags": [
+    2,
+    3
+  ],
+  "name": "My recipe6",
+  "text": "Значит, готовим еду. Я беру сковороду. Потом на сковороду я эту, мать ее, курицу кладу. Потом туда в догонку ей подсолнечного масла. Еще немного перца и протертой сырной массы. Потом потру морковки и покрошу лучку, А чтоб не мучал запах, можно врезать коньячку",
+  "cooking_time": 15
+}
+###
+
+DELETE http://127.0.0.1:8000/api/recipes/5/
+Authorization: Token 887d946ac671e57707b2125eb2260f456c025f62
+###

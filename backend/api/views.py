@@ -3,6 +3,7 @@ from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.request import Request
 from rest_framework.response import Response
+from rest_framework import status
 from rest_framework.permissions import AllowAny
 from rest_framework.pagination import LimitOffsetPagination
 from djoser.views import UserViewSet as DjoserUserViewSet
@@ -27,7 +28,6 @@ class CustomUserViewSet(DjoserUserViewSet, PermissionMixin):
     pagination_class = LimitOffsetPagination
     permission_classes = [AllowAny,]
 
-
     def get_permissions(self):
         """ Переопределим полномочия для ендпоинта /me"""
         if self.action == "me":
@@ -44,14 +44,16 @@ class CustomUserViewSet(DjoserUserViewSet, PermissionMixin):
 class TagViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
+    pagination_class = None
 
 
-class IngredientsViewSet(viewsets.ReadOnlyModelViewSet):
+class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Ingredient.objects.all()
     serializer_class = IngredientSerializer
+    pagination_class = None
 
 
-class IngredientViewSet(viewsets.ModelViewSet):
+class IngredientRecipeViewSet(viewsets.ModelViewSet):
     queryset = IngredientRecipe.objects.all()
     serializer_class = IngredientRecipeSerializer
 
@@ -65,6 +67,9 @@ class RecipeViewSet(viewsets.ModelViewSet):
             return RecipeListSerializer
         else:
             return RecipeCreateSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
 
 
 class FollowViewSet(viewsets.ModelViewSet):

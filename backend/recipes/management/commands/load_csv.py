@@ -1,10 +1,10 @@
 import csv
 from django.core.management.base import BaseCommand
-from recipes.models import Ingredients
+from recipes.models import Ingredient
 # import subprocess
 
 models_1 = [
-    (Ingredients, 'ingredients.csv')
+    (Ingredient, 'ingredients.csv')
 ]
 
 # Если нужны связи
@@ -14,7 +14,7 @@ models_1 = [
 
 
 class Command(BaseCommand):
-    help_text = 'load recipes models'
+    help_text = 'load ingredient models'
 
     def handle(self, *args, **options):
         log_file = open('load_csv.log', 'w', encoding='UTF-8')
