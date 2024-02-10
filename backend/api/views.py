@@ -26,7 +26,6 @@ class CustomUserViewSet(DjoserUserViewSet, PermissionMixin):
     queryset = User.objects.all()
     search_fields = ('username', 'email')
     pagination_class = LimitOffsetPagination
-    permission_classes = [AllowAny,]
 
     def get_permissions(self):
         """ Переопределим полномочия для ендпоинта /me"""

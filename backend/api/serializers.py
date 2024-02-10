@@ -2,6 +2,7 @@ import base64
 import webcolors
 from djoser.serializers import (
     UserCreateSerializer as DjoserUserCreateSerializer,
+    UserSerializer as DjoserUserSerializer,
     SetPasswordSerializer
     )
 from django.core.files.base import ContentFile
@@ -40,16 +41,28 @@ class Base64ImageField(serializers.ImageField):
 
 
 # app classes - users
-class UserCreateSerializer(DjoserUserCreateSerializer):
+class CustomUserCreateSerializer(DjoserUserCreateSerializer):
     """ Создание нового юзера"""
-    is_subscribed = serializers.SerializerMethodField()
 
     class Meta:
         model = User
         fields = (
             'email', 'id', 'username',
             'first_name', 'last_name',
-            'password', 'is_subscribed'
+            'password',
+        )
+
+
+class UserListSerializer(DjoserUserSerializer):
+    """ Чтение и апдейт юзера"""
+    is_subscribed = serializers.SerializerMethodField(read_only=True)
+
+    class Meta:
+        model = User
+        fields = (
+            'email', 'id', 'username',
+            'first_name', 'last_name',
+            'is_subscribed',
         )
 
     def get_is_subscribed(self, obj):
@@ -68,12 +81,12 @@ class UserCreateSerializer(DjoserUserCreateSerializer):
             if subscribtions:
                 # Юзер найден в подписках
                 return True
-        return False
+        return False    
 
 
 class UserSetPassSerializer(SetPasswordSerializer):
     """ Смена пароля у юзера"""
-    
+
     class Meta:
         model = User
         fields = (
@@ -145,7 +158,7 @@ class RecipeListSerializer(serializers.ModelSerializer):
         many=True,
         read_only=True
     )
-    author = UserCreateSerializer(
+    author = UserListSerializer(
         read_only=True
     )
     ingredients = ReadIngredientRecipeSerializer(
@@ -168,7 +181,7 @@ class RecipeListSerializer(serializers.ModelSerializer):
 
 class RecipeCreateSerializer(serializers.ModelSerializer):
     """ Сериализатор создания рецепта"""
-    author = UserCreateSerializer(
+    author = UserListSerializer(
         read_only=True,
         default=serializers.CurrentUserDefault()
     )
