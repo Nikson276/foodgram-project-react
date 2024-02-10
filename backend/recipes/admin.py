@@ -11,8 +11,13 @@ class RecipeAdmin(admin.ModelAdmin):
     filter_horizontal = ('ingredients', 'tags')
 
 
+class IngredientAdmin(admin.ModelAdmin):
+    list_display = ('name', 'measurement_unit')
+    list_filter = ('name',)
+
+
 admin.site.register(Tag)
-admin.site.register(Ingredient)
+admin.site.register(Ingredient, IngredientAdmin)
 admin.site.register(IngredientRecipe)
 admin.site.register(Recipe, RecipeAdmin)
 admin.site.register(Favorite)
