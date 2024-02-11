@@ -64,6 +64,10 @@ class UserListSerializer(DjoserUserSerializer):
             'first_name', 'last_name',
             'is_subscribed',
         )
+        read_only_fields = (
+            'email', 'id', 'username',
+            'first_name', 'last_name',
+        )        
 
     def get_is_subscribed(self, obj):
         print(f'ЭТО РЕКВЕСТ____________{self.context["request"].user}')
@@ -80,7 +84,14 @@ class UserListSerializer(DjoserUserSerializer):
             if subscribtions:
                 # Юзер найден в подписках
                 return True
-        return False    
+        return False
+        # TODO возможно этот вариант лучше (меньше запросов)
+        # request = self.context.get('request')
+        # return (request.user.is_authenticated
+        #         and Follow.objects.filter(
+        #             user=request.user,
+        #             following=obj
+        #         ))
 
 
 class UserSetPassSerializer(SetPasswordSerializer):
@@ -243,23 +254,44 @@ class RecipeCreateSerializer(serializers.ModelSerializer):
         return data
 
 
-class FollowerRecipeListSerializer(serializers.ModelSerializer):
-    """ Список рецептов по каждому юзеру"""
-    follower = UserListSerializer(
-        read_only=True
-    )
-    recipes = RecipeShortListSerializer(
-        read_only=True
-    )
+class FollowerRecipeListSerializer(UserListSerializer):
+    """ Подписки с рецептами"""
+    recipes = serializers.SerializerMethodField()
     recipes_count = serializers.SerializerMethodField()
 
     class Meta:
         model = User
-        fields = ('follower', 'recipes', 'recipes_count')
+        fields = (
+            'email', 'id', 'username',
+            'first_name', 'last_name',
+            'is_subscribed', 'recipes', 'recipes_count'
+        )
+        read_only_fields = (
+            'email', 'id', 'username',
+            'first_name', 'last_name',
+            'is_subscribed',
+        )
+
+    def get_recipes(self, obj):
+        # TODO
+        request = self.context.get('request')
+        recipes_limit = None
+        if request:
+            recipes_limit = request.data.get('recipes_limit')
+        recipes = obj.following.recipes.all()
+        if recipes_limit:
+            recipes = recipes[:int(recipes_limit)]
+
+        serializer = RecipeShortListSerializer(
+            recipes,
+            many=True,
+            context={'request': request}
+        )
+        return serializer.data
 
     def get_recipes_count(self, obj):
         # TODO
-        pass
+        return obj.following.recipes.all().count()
 
 
 class FollowListSerializer(serializers.ModelSerializer):

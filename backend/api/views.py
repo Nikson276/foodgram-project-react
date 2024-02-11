@@ -16,7 +16,7 @@ from recipes.models import (
 from .serializers import (
     IngredientRecipeSerializer, RecipeListSerializer, RecipeCreateSerializer,
     FollowSerializer, FavoriteSerializer, ShoplistSerializer,
-    IngredientSerializer, TagSerializer, FollowListSerializer
+    IngredientSerializer, TagSerializer, FollowListSerializer, FollowerRecipeListSerializer
 )
 from .mixins import PermissionMixin
 
@@ -47,7 +47,12 @@ class CustomUserViewSet(DjoserUserViewSet, PermissionMixin):
         """ Метод вывода списка подписок юзера"""
         user: User = request.user
         subscribtions = user.follower.all()
-        serializer = FollowListSerializer(subscribtions, many=True)
+        print(f'ПОДПИСКИ_________{subscribtions}')
+        serializer = FollowerRecipeListSerializer(
+            subscribtions,
+            many=True,
+            context={'request': request}
+        )
         return Response(serializer.data)
 
 
@@ -66,6 +71,7 @@ class CustomUserViewSet(DjoserUserViewSet, PermissionMixin):
             return Response({'error': 'Вы уже подписаны на этого пользователя'}, status=status.HTTP_STATUS_400_BAD_REQUEST)
         serializer = FollowSerializer(author, context={'request': request})
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
 
 # app classes - recipes
 class TagViewSet(viewsets.ReadOnlyModelViewSet):
