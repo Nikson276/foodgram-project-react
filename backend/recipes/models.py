@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.contrib import admin
 from django.db import models
 from django.core.validators import MinValueValidator
 
@@ -49,6 +50,13 @@ class Recipe(models.Model):
         verbose_name='Время приготовления (в минутах)',
     )
 
+    @admin.display(
+        description='Избранное (кол-во чел)',
+    )
+    def favorite_counter(self):
+        """ Вывод в админку счетчик у рецепта"""
+        return self.recipe_favorites.count()
+
     def __str__(self):
         return self.name
 
@@ -92,9 +100,9 @@ class IngredientRecipe(models.Model):
 
 class Favorite(models.Model):
     user = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='favorites')
-    recipe = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='users_favorite')
+    recipe = models.ForeignKey(
+        Recipe, on_delete=models.CASCADE, related_name='recipe_favorites')
 
     class Meta:
         constraints = [
@@ -104,17 +112,23 @@ class Favorite(models.Model):
             )
         ]
 
+    def __str__(self):
+        return self.user.username
 
-class Shoplist(models.Model):
+
+class ShoppingList(models.Model):
     user = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='shoplist')
+        User, on_delete=models.CASCADE, related_name='users_shoppinglist')
     recipe = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='users_shoplist')
+        Recipe, on_delete=models.CASCADE, related_name='recipe_shoppinglists')
 
     class Meta:
         constraints = [
             models.UniqueConstraint(
                 fields=['user', 'recipe'],
-                name='unique_user_shoplist'
+                name='unique_user_shoppinglist'
             )
         ]
+
+    def __str__(self):
+        return self.user.username

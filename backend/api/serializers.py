@@ -11,7 +11,7 @@ from rest_framework import serializers
 from users.models import User, Follow
 from recipes.models import (
     Tag, Ingredient, IngredientRecipe,
-    Recipe, Favorite, Shoplist
+    Recipe, Favorite, ShoppingList
 )
 
 
@@ -172,18 +172,34 @@ class RecipeListSerializer(serializers.ModelSerializer):
         source='rel_IngredientRecipe',
         many=True,
     )
-    # TODO
-    # is_favorite = serializers.SerializerMethodField()
-    # is_in_shopping_cart = serializers.SerializerMethodField()
+    is_favorite = serializers.SerializerMethodField()
+    is_in_shopping_cart = serializers.SerializerMethodField()
 
     class Meta:
         model = Recipe
         many_to_many = 'tags'
         fields = (
             'id', 'tags', 'author', 'ingredients',
+            'is_favorite', 'is_in_shopping_cart',
             'name', 'image', 'text', 'cooking_time'
             )
         read_only_fields = ('id', 'name', 'image', 'text', 'cooking_time')
+
+    def is_model_instance_exist(self, obj, model):
+        """ Находится ли в модели объект """
+        request = self.context.get('request')
+        return model.objects.filter(
+            user=request.user.pk,
+            recipe=obj.pk
+            ).exists()
+
+    def get_is_favorite(self, obj):
+        """ Находится ли в избранном """
+        return self.is_model_instance_exist(obj=obj, model=Favorite)
+
+    def get_is_in_shopping_cart(self, obj):
+        """ Находится ли в списке покупок """
+        return self.is_model_instance_exist(obj=obj, model=ShoppingList)
 
 
 class RecipeShortListSerializer(serializers.ModelSerializer):
@@ -315,7 +331,6 @@ class FollowSerializer(serializers.ModelSerializer):
             )
         return super().validate(attrs)
 
-
     def to_representation(self, instance):
 
         return FollowReadListSerializer(
@@ -324,20 +339,18 @@ class FollowSerializer(serializers.ModelSerializer):
         ).data
 
 
+class FavoriteReadListSerializer(RecipeShortListSerializer):
+    """ Отображение избранного 
+    Полностью наследует все из Рецептов.
+    """
+    pass
+
+
 class FavoriteSerializer(serializers.ModelSerializer):
-    """ Списко избранное"""
-    user = serializers.SlugRelatedField(
-        read_only=True,
-        slug_field='username',
-        default=serializers.CurrentUserDefault()
-    )
-    recipe = serializers.PrimaryKeyRelatedField(
-        queryset=Recipe.objects.all(),
-        required=True
-    )
+    """ Списоr избранное создание/удаление/чтение"""
 
     class Meta:
-        fields = ('id', 'user', 'recipe')
+        fields = ('user', 'recipe')
         model = Favorite
 
         validators = [
@@ -348,8 +361,15 @@ class FavoriteSerializer(serializers.ModelSerializer):
             )
         ]
 
+    def to_representation(self, instance):
 
-class ShoplistSerializer(serializers.ModelSerializer):
+        return RecipeShortListSerializer(
+            context=self.context,
+            instance=instance.recipe
+        ).data
+
+
+class ShoppingListSerializer(serializers.ModelSerializer):
     """ Корзина список покупок"""
     user = serializers.SlugRelatedField(
         read_only=True,
@@ -363,11 +383,11 @@ class ShoplistSerializer(serializers.ModelSerializer):
     
     class Meta:
         fields = ('id', 'user', 'recipe')
-        model = Shoplist
+        model = ShoppingList
 
         validators = [
             serializers.UniqueTogetherValidator(
-                queryset=Shoplist.objects.all(),
+                queryset=ShoppingList.objects.all(),
                 fields=('user', 'recipe'),
                 message='Рецепт уже в списке покупок!'
             )

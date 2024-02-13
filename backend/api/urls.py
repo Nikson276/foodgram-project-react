@@ -3,7 +3,7 @@ from rest_framework.routers import DefaultRouter
 
 from api.views import (
     TagViewSet, IngredientViewSet, RecipeViewSet,
-    FollowViewSet, FavoriteViewSet, ShoplistViewSet,
+    FollowViewSet, FavoriteViewSet, ShoppingListViewSet,
     CustomUserViewSet
 )
 
@@ -24,17 +24,17 @@ router.register(r'users', CustomUserViewSet, basename='users')
 router.register(r'tags', TagViewSet, basename='tags')
 router.register(r'recipes', RecipeViewSet, basename='recipes')
 # router.register(r'recipes/download_shopping_cart',
-#                 ShoplistViewSet,
-#                 basename='download_shoplist'
+#                 ShoppingListViewSet,
+#                 basename='download_ShoppingList'
 #                 )
-router.register(r'recipes/(?P<recipe_id>\d+)/shopping_cart',
-                ShoplistViewSet,
-                basename='shoplist'
-                )
-router.register(r'recipes/(?P<recipe_id>\d+)/favorite',
-                FavoriteViewSet,
-                basename='favorite'
-                )
+# router.register(r'recipes/(?P<recipe_id>\d+)/shopping_cart',
+#                 ShoppingListViewSet,
+#                 basename='ShoppingList'
+#                 )
+# router.register(r'recipes/(?P<recipe_id>\d+)/favorite',
+#                 FavoriteViewSet,
+#                 basename='favorite'
+#                 )
 router.register(r'users/(?P<user_id>\d+)/subscribe',
                 FollowViewSet,
                 basename='users_subscribe'
