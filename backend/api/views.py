@@ -16,7 +16,7 @@ from recipes.models import (
 from .serializers import (
     IngredientRecipeSerializer, RecipeListSerializer, RecipeCreateSerializer,
     FollowSerializer, FavoriteSerializer, ShoplistSerializer,
-    IngredientSerializer, TagSerializer, FollowListSerializer, FollowerRecipeListSerializer
+    IngredientSerializer, TagSerializer, FollowReadListSerializer
 )
 from .mixins import PermissionMixin
 
@@ -33,44 +33,60 @@ class CustomUserViewSet(DjoserUserViewSet, PermissionMixin):
             self.permission_classes = [CurrentUserOrAdmin,]
         return super().get_permissions()
 
-
-    # Если в запросе есть /subscriptions/, 
-    # вызвать Follow.objects.filter по юзеру
-    # TODO
     @action(
             detail=False,
             methods=['get'],
+            serializer_class=FollowReadListSerializer,
             permission_classes=[CurrentUserOrAdmin,],
+            pagination_class=LimitOffsetPagination,
             url_path='subscribtions',
         )
     def subscribtions(self, request):
         """ Метод вывода списка подписок юзера"""
-        user: User = request.user
-        subscribtions = user.follower.all()
-        print(f'ПОДПИСКИ_________{subscribtions}')
-        serializer = FollowerRecipeListSerializer(
-            subscribtions,
-            many=True,
-            context={'request': request}
-        )
-        return Response(serializer.data)
+        user: User() = request.user
+        subscribtions: Follow() = user.follower.all()
+        user_list = [follow_obj.following.id for follow_obj in subscribtions]
 
+        # Создадим кверисет, с объектами модели Юзера, для всех подписок.
+        queryset = User.objects.filter(pk__in=user_list)
+
+        page = self.paginate_queryset(queryset)
+        context = {
+            'request': request,
+            'subscribtions': True
+        }
+        if page is not None:
+            serializer = self.get_serializer(page, many=True, context=context)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = self.get_serializer(queryset, many=True, context=context)
+        return Response(serializer.data)
 
     @action(
             detail=True,
-            methods=['post'],
+            methods=['post', 'delete'],
             permission_classes=[IsAuthenticated,],
             url_name='subscribe',
         )
     def subscribe(self, request, id):
-        """ Метод для создание подписки на юзера по ид"""
-        user = request.user
-        author = get_object_or_404(User, id=id)
+        """ Метод для создание и удаления подписки на юзера по ид"""
+        user: User() = request.user
+        author: User() = get_object_or_404(User, id=id)
 
-        if Follow.objects.filter(user=user, author=author).exists():
-            return Response({'error': 'Вы уже подписаны на этого пользователя'}, status=status.HTTP_STATUS_400_BAD_REQUEST)
-        serializer = FollowSerializer(author, context={'request': request})
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+        if request.method == 'POST':
+            serializer = FollowSerializer(
+                data={'user': user.pk, 'following': author.pk},
+                context={'request': request}
+            )
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            else:
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            subscription = get_object_or_404(Follow, user=user, following=author)
+            subscription.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 # app classes - recipes

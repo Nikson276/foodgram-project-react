@@ -6,6 +6,7 @@ from djoser.serializers import (
     SetPasswordSerializer
     )
 from django.core.files.base import ContentFile
+from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import serializers
 from users.models import User, Follow
 from recipes.models import (
@@ -42,7 +43,7 @@ class Base64ImageField(serializers.ImageField):
 
 # app classes - users
 class CustomUserCreateSerializer(DjoserUserCreateSerializer):
-    """ Создание нового юзера"""
+    """ Создание или изменение юзера"""
 
     class Meta:
         model = User
@@ -54,7 +55,7 @@ class CustomUserCreateSerializer(DjoserUserCreateSerializer):
 
 
 class UserListSerializer(DjoserUserSerializer):
-    """ Чтение и апдейт юзера"""
+    """ Чтение данных юзера"""
     is_subscribed = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
@@ -70,28 +71,24 @@ class UserListSerializer(DjoserUserSerializer):
         )        
 
     def get_is_subscribed(self, obj):
-        print(f'ЭТО РЕКВЕСТ____________{self.context["request"].user}')
-        print(f'ЭТО ЮЗЕР_ИД____________{self.context["request"].user.id}')
-        print(f'ОБЪЕКТ {obj}')
+        """ Метод для поля в ответе Подписан я или нет"""
 
-        user = self.context['request'].user
-        subscribtions = user.follower.all()
-        if subscribtions:
-            print(f'ЭТО ПОДПИСКИ МОИ? {subscribtions}')
-            subscribtions = subscribtions.filter(
-                following=obj.id
-            )
-            if subscribtions:
-                # Юзер найден в подписках
-                return True
-        return False
-        # TODO возможно этот вариант лучше (меньше запросов)
-        # request = self.context.get('request')
-        # return (request.user.is_authenticated
-        #         and Follow.objects.filter(
-        #             user=request.user,
-        #             following=obj
-        #         ))
+        view = self.context.get('view')
+        if view is not None:
+            if view.action == 'me':
+                return False
+        request = self.context.get('request')
+        get_subscribtions = self.context.get('subscribtions')
+
+        if get_subscribtions:
+            # from subscribtions endpoint, always True
+            return True
+        return (request.user.is_authenticated
+                and Follow.objects.filter(
+                    user=request.user,
+                    following=obj
+                    ).exists()
+                )
 
 
 class UserSetPassSerializer(SetPasswordSerializer):
@@ -250,12 +247,14 @@ class RecipeCreateSerializer(serializers.ModelSerializer):
         return recipe
 
     def to_representation(self, instance):
-        data = RecipeListSerializer(context=self.context, instance=instance).data
-        return data
+        return RecipeListSerializer(
+            context=self.context,
+            instance=instance
+        ).data
 
 
-class FollowerRecipeListSerializer(UserListSerializer):
-    """ Подписки с рецептами"""
+class FollowReadListSerializer(UserListSerializer):
+    """ Подписки с рецептами пользователя"""
     recipes = serializers.SerializerMethodField()
     recipes_count = serializers.SerializerMethodField()
 
@@ -273,50 +272,32 @@ class FollowerRecipeListSerializer(UserListSerializer):
         )
 
     def get_recipes(self, obj):
-        # TODO
+        """" Чтение всех рецептов юзера, с учетом лимита (если есть)"""
         request = self.context.get('request')
         recipes_limit = None
         if request:
-            recipes_limit = request.data.get('recipes_limit')
-        recipes = obj.following.recipes.all()
+            recipes_limit = request.query_params.get('recipes_limit')
+
+        recipes = obj.recipes.all()
         if recipes_limit:
             recipes = recipes[:int(recipes_limit)]
 
         serializer = RecipeShortListSerializer(
             recipes,
             many=True,
-            context={'request': request}
         )
         return serializer.data
 
     def get_recipes_count(self, obj):
-        # TODO
-        return obj.following.recipes.all().count()
-
-
-class FollowListSerializer(serializers.ModelSerializer):
-    """ Подписки список"""
-    following = FollowerRecipeListSerializer()
-
-    class Meta:
-        fields = ('following',)
-        model = Follow
+        """ Счетчик кол-ва рецептов юзера"""
+        return obj.recipes.all().count()
 
 
 class FollowSerializer(serializers.ModelSerializer):
     """ Подписки создание"""
-    user = serializers.SlugRelatedField(
-        read_only=True,
-        slug_field='username',
-        default=serializers.CurrentUserDefault()
-    )
-    following = serializers.SlugRelatedField(
-        slug_field='username',
-        queryset=User.objects.all(),
-    )
 
     class Meta:
-        fields = ('id', 'user', 'following')
+        fields = ('user', 'following')
         model = Follow
 
         validators = [
@@ -335,6 +316,14 @@ class FollowSerializer(serializers.ModelSerializer):
         return super().validate(attrs)
 
 
+    def to_representation(self, instance):
+
+        return FollowReadListSerializer(
+            context=self.context,
+            instance=instance.following
+        ).data
+
+
 class FavoriteSerializer(serializers.ModelSerializer):
     """ Списко избранное"""
     user = serializers.SlugRelatedField(
@@ -346,7 +335,7 @@ class FavoriteSerializer(serializers.ModelSerializer):
         queryset=Recipe.objects.all(),
         required=True
     )
-    
+
     class Meta:
         fields = ('id', 'user', 'recipe')
         model = Favorite

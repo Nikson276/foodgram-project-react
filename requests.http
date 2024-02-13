@@ -67,13 +67,19 @@ Content-type: application/json
 
 
 # ____________USER 6 
-
 GET http://127.0.0.1:8000/api/users/me/
 Authorization: Token 1172388a9d06436513c59c8b67347c8e0dc437b2
 ###
 GET http://127.0.0.1:8000/api/users/
 Authorization: Token 1172388a9d06436513c59c8b67347c8e0dc437b2
 ###
+POST http://127.0.0.1:8000/api/users/7/subscribe/
+Authorization: Token 1172388a9d06436513c59c8b67347c8e0dc437b2
+###
+DELETE http://127.0.0.1:8000/api/users/6/subscribe/
+Authorization: Token 1172388a9d06436513c59c8b67347c8e0dc437b2
+###
+##?limit=1&recipes_limit=4
 GET http://127.0.0.1:8000/api/users/subscribtions/
 Authorization: Token 1172388a9d06436513c59c8b67347c8e0dc437b2
 ###
