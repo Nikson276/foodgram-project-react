@@ -6,7 +6,6 @@ from djoser.serializers import (
     SetPasswordSerializer
     )
 from django.core.files.base import ContentFile
-from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import serializers
 from users.models import User, Follow
 from recipes.models import (
@@ -340,14 +339,14 @@ class FollowSerializer(serializers.ModelSerializer):
 
 
 class FavoriteReadListSerializer(RecipeShortListSerializer):
-    """ Отображение избранного 
+    """ Отображение избранного
     Полностью наследует все из Рецептов.
     """
     pass
 
 
 class FavoriteSerializer(serializers.ModelSerializer):
-    """ Списоr избранное создание/удаление/чтение"""
+    """ Списоr избранное создание/удаление """
 
     class Meta:
         fields = ('user', 'recipe')
@@ -363,32 +362,37 @@ class FavoriteSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
 
-        return RecipeShortListSerializer(
+        return FavoriteReadListSerializer(
             context=self.context,
             instance=instance.recipe
         ).data
 
 
+class ShoppingReadListSerializer(RecipeShortListSerializer):
+    """ Отображение списка покупок
+    Полностью наследует все из Рецептов.
+    """
+    pass
+
+
 class ShoppingListSerializer(serializers.ModelSerializer):
-    """ Корзина список покупок"""
-    user = serializers.SlugRelatedField(
-        read_only=True,
-        slug_field='username',
-        default=serializers.CurrentUserDefault()
-    )
-    recipe = serializers.PrimaryKeyRelatedField(
-        queryset=Recipe.objects.all(),
-        required=True
-    )
-    
+    """ Список покупок добавление/удаление """
+
     class Meta:
-        fields = ('id', 'user', 'recipe')
+        fields = ('user', 'recipe')
         model = ShoppingList
 
         validators = [
             serializers.UniqueTogetherValidator(
                 queryset=ShoppingList.objects.all(),
                 fields=('user', 'recipe'),
-                message='Рецепт уже в списке покупок!'
+                message='Такой рецепт уже в списке покупок!'
             )
         ]
+
+    def to_representation(self, instance):
+
+        return ShoppingReadListSerializer(
+            context=self.context,
+            instance=instance.recipe
+        ).data

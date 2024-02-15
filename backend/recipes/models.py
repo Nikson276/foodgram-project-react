@@ -21,7 +21,7 @@ class Ingredient(models.Model):
     measurement_unit = models.CharField('ЕИ', max_length=4, default='г')
 
     def __str__(self):
-        return self.name
+        return ('{n} ({u})').format(n=self.name, u=self.measurement_unit)
 
 
 class Recipe(models.Model):

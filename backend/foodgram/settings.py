@@ -191,3 +191,7 @@ DJOSER = {
     'LOGIN_FIELD': 'email'
 
 }
+
+# /api/recipes/download_shopping_cart/ settings
+# 'csv', 'pdf'
+ATTACHMENT_FORMAT = 'csv'
