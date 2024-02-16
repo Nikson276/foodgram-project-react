@@ -1,8 +1,10 @@
-from django.shortcuts import render, get_object_or_404
+import csv
+from reportlab.pdfgen import canvas
+from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
 from rest_framework.decorators import action
-from rest_framework.request import Request
 from rest_framework.response import Response
+from django.http import HttpResponse
 from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.pagination import LimitOffsetPagination
@@ -11,14 +13,15 @@ from djoser.permissions import CurrentUserOrAdmin
 from users.models import User, Follow
 from recipes.models import (
     Tag, Ingredient, IngredientRecipe,
-    Recipe, Favorite, Shoplist
+    Recipe, Favorite, ShoppingList
 )
 from .serializers import (
     IngredientRecipeSerializer, RecipeListSerializer, RecipeCreateSerializer,
-    FollowSerializer, FavoriteSerializer, ShoplistSerializer,
+    FollowSerializer, FavoriteSerializer, ShoppingListSerializer,
     IngredientSerializer, TagSerializer, FollowReadListSerializer
 )
-from .mixins import PermissionMixin
+from .mixins import PermissionMixin, UserRecipeModelMixin, ShoppingListDownloadHelper
+from foodgram.settings import ATTACHMENT_FORMAT
 
 
 # app classes - users
@@ -80,11 +83,21 @@ class CustomUserViewSet(DjoserUserViewSet, PermissionMixin):
             )
             if serializer.is_valid():
                 serializer.save()
-                return Response(serializer.data, status=status.HTTP_201_CREATED)
+                return Response(
+                    serializer.data,
+                    status=status.HTTP_201_CREATED
+                    )
             else:
-                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+                return Response(
+                    serializer.errors,
+                    status=status.HTTP_400_BAD_REQUEST
+                    )
         else:
-            subscription = get_object_or_404(Follow, user=user, following=author)
+            subscription = get_object_or_404(
+                Follow,
+                user=user,
+                following=author
+            )
             subscription.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
 
@@ -107,9 +120,12 @@ class IngredientRecipeViewSet(viewsets.ModelViewSet):
     serializer_class = IngredientRecipeSerializer
 
 
-class RecipeViewSet(viewsets.ModelViewSet):
+class RecipeViewSet(
+    viewsets.ModelViewSet,
+    UserRecipeModelMixin,
+    ShoppingListDownloadHelper
+    ):
     queryset = Recipe.objects.all()
-    # serializer_class = RecipeSerializer
 
     def get_serializer_class(self):
         if self.action in ('list', 'retrieve'):
@@ -119,6 +135,79 @@ class RecipeViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
+
+    @action(
+            detail=True,
+            methods=['post', 'delete'],
+            permission_classes=[IsAuthenticated,],
+            url_name='favorite'
+    )
+    def favorite(self, request, pk):
+        """ Метод добавления/удаления рецепта в избранное"""
+        model = Favorite
+        serializer_class = FavoriteSerializer
+        return self.add_delete_model_helper(
+            model=model,
+            serializer_class=serializer_class,
+            request=request,
+            pk=pk
+        )
+
+    @action(
+            detail=True,
+            methods=['post', 'delete'],
+            permission_classes=[IsAuthenticated,],
+            url_name='shopping_cart'
+    )
+    def shopping_cart(self, request, pk):
+        """ Метод добавления/удаления в список покупок"""
+        model = ShoppingList
+        serializer_class = ShoppingListSerializer
+        return self.add_delete_model_helper(
+            model=model,
+            serializer_class=serializer_class,
+            request=request,
+            pk=pk
+        )
+
+    @action(
+        detail=False,
+        methods=['get'],
+        permission_classes=(IsAuthenticated,),
+        url_path='download_shopping_cart'
+    )
+    def download_shopping_cart(self, request):
+        """ Метод выгрузки списка продуктов"""
+        user = request.user
+        shopping_list = ShoppingList.objects.filter(
+            user=user
+        ).prefetch_related('recipe')
+
+        final_list: dict = {}
+        recipe_list: list = []
+        # Сбор данных рецептов в список
+        for item in shopping_list:
+            ingredient_list = item.recipe.rel_IngredientRecipe.all()
+
+            for position in ingredient_list:
+                if position.ingredient in final_list:
+                    final_list[position.ingredient] += position.amount
+                else:
+                    final_list[position.ingredient] = position.amount
+            recipe_list.append(f'# {item.recipe.name}')
+
+        if ATTACHMENT_FORMAT == 'csv':
+            # Создание .csv файла:
+            return self.create_csv(array1=recipe_list, array2=final_list)
+
+        elif ATTACHMENT_FORMAT == 'pdf':
+            # Создание PDF-файла
+            return self.create_pdf(array1=recipe_list, array2=final_list)
+
+        return Response(
+            'ATTACHMENT_FORMAT_ERROR Please contact your administrator',
+            status=status.HTTP_400_BAD_REQUEST
+            )
 
 
 class FollowViewSet(viewsets.ModelViewSet):
@@ -131,6 +220,6 @@ class FavoriteViewSet(viewsets.ModelViewSet):
     serializer_class = FavoriteSerializer
 
 
-class ShoplistViewSet(viewsets.ModelViewSet):
-    queryset = Shoplist.objects.all()
-    serializer_class = ShoplistSerializer
+class ShoppingListViewSet(viewsets.ModelViewSet):
+    queryset = ShoppingList.objects.all()
+    serializer_class = ShoppingListSerializer

@@ -89,7 +89,7 @@ Authorization: Token 1172388a9d06436513c59c8b67347c8e0dc437b2
 GET http://127.0.0.1:8000/api/ingredients/
 Authorization: Token 1172388a9d06436513c59c8b67347c8e0dc437b2
 ###
-GET http://127.0.0.1:8000/api/recipes/
+GET http://127.0.0.1:8000/api/recipes/6/
 Authorization: Token 1172388a9d06436513c59c8b67347c8e0dc437b2
 ###
 POST http://127.0.0.1:8000/api/recipes/
@@ -99,24 +99,145 @@ Content-type: application/json
 {
   "ingredients": [
     {
-      "id": 18,
-      "amount": 0.5
+      "id": 102,
+      "amount": 2000
     },
     {
-      "id": 2,
-      "amount": 1
+      "id": 280,
+      "amount": 2000
+    },
+    {
+      "id": 11,
+      "amount": 100
+    },
+    {
+      "id": 886,
+      "amount": 1500
+    },
+    {
+      "id": 19,
+      "amount": 3
+    },
+    {
+      "id": 564,
+      "amount": 0.5
     }
   ],
   "tags": [
     2,
     3
   ],
-  "name": "My recipe1",
+  "name": "LuLya-Kebab",
   "text": "Значит, готовим еду. Я беру сковороду. Потом на сковороду я эту, мать ее, курицу кладу. Потом туда в догонку ей подсолнечного масла. Еще немного перца и протертой сырной массы. Потом потру морковки и покрошу лучку, А чтоб не мучал запах, можно врезать коньячку",
-  "cooking_time": 15
+  "cooking_time": 120
 }
+
+# ___________Favorite
+###
+POST http://127.0.0.1:8000/api/recipes/6/favorite/
+Authorization: Token 1172388a9d06436513c59c8b67347c8e0dc437b2
+###
+DELETE http://127.0.0.1:8000/api/recipes/6/favorite/
+Authorization: Token 1172388a9d06436513c59c8b67347c8e0dc437b2
+###
+POST http://127.0.0.1:8000/api/recipes/17/shopping_cart/
+Authorization: Token 1172388a9d06436513c59c8b67347c8e0dc437b2
+###
+DELETE http://127.0.0.1:8000/api/recipes/8/shopping_cart/
+Authorization: Token 1172388a9d06436513c59c8b67347c8e0dc437b2
+###
+#http://127.0.0.1:5500/api/recipes/download_shopping_cart/
+GET http://127.0.0.1:8000/api/recipes/download_shopping_cart/
+Authorization: Token 1172388a9d06436513c59c8b67347c8e0dc437b2
+###
+GET http://127.0.0.1:8000/api/recipes/17/
+Authorization: Token 1172388a9d06436513c59c8b67347c8e0dc437b2
 ###
 
-DELETE http://127.0.0.1:8000/api/recipes/5/
+
+
+# Recipe creation
+#ADMIN
+###
+POST http://127.0.0.1:8000/api/recipes/
 Authorization: Token 887d946ac671e57707b2125eb2260f456c025f62
+Content-type: application/json
+
+{
+  "ingredients": [
+    {
+      "id": 102,
+      "amount": 2000
+    },
+    {
+      "id": 280,
+      "amount": 2000
+    },
+    {
+      "id": 11,
+      "amount": 100
+    },
+    {
+      "id": 886,
+      "amount": 1500
+    },
+    {
+      "id": 19,
+      "amount": 3
+    },
+    {
+      "id": 564,
+      "amount": 0.5
+    }
+  ],
+  "tags": [
+    2,
+    3
+  ],
+  "name": "LuLya-Kebab",
+  "text": "Значит, готовим еду. Я беру сковороду. Потом на сковороду я эту, мать ее, курицу кладу. Потом туда в догонку ей подсолнечного масла. Еще немного перца и протертой сырной массы. Потом потру морковки и покрошу лучку, А чтоб не мучал запах, можно врезать коньячку",
+  "cooking_time": 120
+}
+###
+# USER 6
+###
+POST http://127.0.0.1:8000/api/recipes/
+Authorization: Token 1172388a9d06436513c59c8b67347c8e0dc437b2
+Content-type: application/json
+
+{
+  "ingredients": [
+    {
+      "id": 102,
+      "amount": 3000
+    },
+    {
+      "id": 280,
+      "amount": 1500
+    },
+    {
+      "id": 11,
+      "amount": 0.5
+    },
+    {
+      "id": 886,
+      "amount": 1000
+    },
+    {
+      "id": 19,
+      "amount": 1
+    },
+    {
+      "id": 564,
+      "amount": 2.5
+    }
+  ],
+  "tags": [
+    2,
+    3
+  ],
+  "name": "Kazan-Mangal-Kebab",
+  "text": "Значит, готовим еду. Я беру сковороду. Потом на сковороду я эту, мать ее, курицу кладу. Потом туда в догонку ей подсолнечного масла. Еще немного перца и протертой сырной массы. Потом потру морковки и покрошу лучку, А чтоб не мучал запах, можно врезать коньячку",
+  "cooking_time": 60
+}
 ###
