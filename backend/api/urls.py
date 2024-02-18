@@ -23,22 +23,6 @@ router = DefaultRouter()
 router.register(r'users', CustomUserViewSet, basename='users')
 router.register(r'tags', TagViewSet, basename='tags')
 router.register(r'recipes', RecipeViewSet, basename='recipes')
-# router.register(r'recipes/download_shopping_cart',
-#                 ShoppingListViewSet,
-#                 basename='download_ShoppingList'
-#                 )
-# router.register(r'recipes/(?P<recipe_id>\d+)/shopping_cart',
-#                 ShoppingListViewSet,
-#                 basename='ShoppingList'
-#                 )
-# router.register(r'recipes/(?P<recipe_id>\d+)/favorite',
-#                 FavoriteViewSet,
-#                 basename='favorite'
-#                 )
-router.register(r'users/(?P<user_id>\d+)/subscribe',
-                FollowViewSet,
-                basename='users_subscribe'
-                )
 router.register(r'ingredients', IngredientViewSet, basename='ingredients')
 
 

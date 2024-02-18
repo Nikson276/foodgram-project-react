@@ -1,10 +1,7 @@
-import csv
-from reportlab.pdfgen import canvas
 from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from django.http import HttpResponse
 from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.pagination import LimitOffsetPagination
@@ -20,7 +17,9 @@ from .serializers import (
     FollowSerializer, FavoriteSerializer, ShoppingListSerializer,
     IngredientSerializer, TagSerializer, FollowReadListSerializer
 )
-from .mixins import PermissionMixin, UserRecipeModelMixin, ShoppingListDownloadHelper
+from .mixins import (
+    PermissionMixin, UserRecipeModelMixin, ShoppingListDownloadHelper
+)
 from foodgram.settings import ATTACHMENT_FORMAT
 
 
@@ -46,8 +45,8 @@ class CustomUserViewSet(DjoserUserViewSet, PermissionMixin):
         )
     def subscribtions(self, request):
         """ Метод вывода списка подписок юзера"""
-        user: User() = request.user
-        subscribtions: Follow() = user.follower.all()
+        user: User = request.user
+        subscribtions: Follow = user.follower.all()
         user_list = [follow_obj.following.id for follow_obj in subscribtions]
 
         # Создадим кверисет, с объектами модели Юзера, для всех подписок.
@@ -73,8 +72,8 @@ class CustomUserViewSet(DjoserUserViewSet, PermissionMixin):
         )
     def subscribe(self, request, id):
         """ Метод для создание и удаления подписки на юзера по ид"""
-        user: User() = request.user
-        author: User() = get_object_or_404(User, id=id)
+        user: User = request.user
+        author: User = get_object_or_404(User, id=id)
 
         if request.method == 'POST':
             serializer = FollowSerializer(
@@ -124,7 +123,9 @@ class RecipeViewSet(
     viewsets.ModelViewSet,
     UserRecipeModelMixin,
     ShoppingListDownloadHelper
-    ):
+):
+    """ Обработка эндпоинта /recipes"""
+
     queryset = Recipe.objects.all()
 
     def get_serializer_class(self):

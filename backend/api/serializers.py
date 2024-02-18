@@ -12,6 +12,8 @@ from recipes.models import (
     Tag, Ingredient, IngredientRecipe,
     Recipe, Favorite, ShoppingList
 )
+from .mixins import RecipeRelationHelper
+from rest_framework.utils import html, model_meta
 
 
 class Hex2NameColor(serializers.Field):
@@ -29,7 +31,7 @@ class Hex2NameColor(serializers.Field):
 
 class Base64ImageField(serializers.ImageField):
     """ Декодирование бинарника картинок """
-    
+
     def to_internal_value(self, data):
         if isinstance(data, str) and data.startswith('data:image'):
             format, imgstr = data.split(';base64,')
@@ -214,7 +216,10 @@ class RecipeShortListSerializer(serializers.ModelSerializer):
             )
 
 
-class RecipeCreateSerializer(serializers.ModelSerializer):
+class RecipeCreateSerializer(
+    serializers.ModelSerializer,
+    RecipeRelationHelper
+):
     """ Сериализатор создания рецепта"""
     author = UserListSerializer(
         read_only=True,
@@ -227,7 +232,7 @@ class RecipeCreateSerializer(serializers.ModelSerializer):
         queryset=Tag.objects.all(),
         many=True,
     )
-    image = Base64ImageField(required=False) # TODO убери false
+    image = Base64ImageField(required=True, allow_null=True)
     cooking_time = serializers.IntegerField(min_value=1)
 
     class Meta:
@@ -244,22 +249,36 @@ class RecipeCreateSerializer(serializers.ModelSerializer):
         # создаем пустой рецепт без них
         recipe = Recipe.objects.create(**validated_data)
 
-        # создаем связи рецепт-ингредиент
-        create_ingredients = [
-            IngredientRecipe(
-                recipe=recipe,
-                ingredient=ingredient['id'],
-                amount=ingredient['amount'],
-            )
-            for ingredient in ingredients_data
-        ]
-        IngredientRecipe.objects.bulk_create(create_ingredients)
+        return self.create_ingredient_tags_recipe(
+            recipe,
+            ingredients_data,
+            tags_data
+        )
 
-        # создаем связи рецепт теги
-        for tag_id in tags_data:
-            recipe.tags.add(tag_id)
+    def update(self, instance, validated_data):
+        """ Метод обновления рецепта """
 
-        return recipe
+        info = model_meta.get_field_info(instance)
+
+        for attr, value in validated_data.items():
+            if attr in info.relations and info.relations[attr].to_many:
+                if attr == 'ingredients':
+                    ingredients_data = value
+                elif attr == 'tags':
+                    tags_data = value
+            else:
+                setattr(instance, attr, value)
+
+        instance.save()
+        instance.rel_IngredientRecipe.all().delete()
+        field = getattr(instance, 'tags')
+        field.clear()
+
+        return self.create_ingredient_tags_recipe(
+            instance,
+            ingredients_data,
+            tags_data
+        )
 
     def to_representation(self, instance):
         return RecipeListSerializer(

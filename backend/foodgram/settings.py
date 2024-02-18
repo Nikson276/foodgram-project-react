@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-!jl5%6h12oi-3w0%0lfukl7%(38a6=^99etu6^)sk@)ie*s^rl
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 # For Django Debug
 INTERNAL_IPS = [
@@ -134,6 +134,7 @@ AUTH_USER_MODEL = 'users.User'
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'collected_static'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -194,4 +195,4 @@ DJOSER = {
 
 # /api/recipes/download_shopping_cart/ settings
 # 'csv', 'pdf'
-ATTACHMENT_FORMAT = 'csv'
+ATTACHMENT_FORMAT = 'pdf'
