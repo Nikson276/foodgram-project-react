@@ -9,11 +9,11 @@ from djoser.views import UserViewSet as DjoserUserViewSet
 from djoser.permissions import CurrentUserOrAdmin
 from users.models import User, Follow
 from recipes.models import (
-    Tag, Ingredient, IngredientRecipe,
+    Tag, Ingredient, RecipeIngredient,
     Recipe, Favorite, ShoppingList
 )
 from .serializers import (
-    IngredientRecipeSerializer, RecipeListSerializer, RecipeCreateSerializer,
+    RecipeIngredientSerializer, RecipeListSerializer, RecipeCreateSerializer,
     FollowSerializer, FavoriteSerializer, ShoppingListSerializer,
     IngredientSerializer, TagSerializer, FollowReadListSerializer
 )
@@ -114,9 +114,9 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
     pagination_class = None
 
 
-class IngredientRecipeViewSet(viewsets.ModelViewSet):
-    queryset = IngredientRecipe.objects.all()
-    serializer_class = IngredientRecipeSerializer
+class RecipeIngredientViewSet(viewsets.ModelViewSet):
+    queryset = RecipeIngredient.objects.all()
+    serializer_class = RecipeIngredientSerializer
 
 
 class RecipeViewSet(
@@ -188,7 +188,7 @@ class RecipeViewSet(
         recipe_list: list = []
         # Сбор данных рецептов в список
         for item in shopping_list:
-            ingredient_list = item.recipe.rel_IngredientRecipe.all()
+            ingredient_list = item.recipe.rel_RecipeIngredient.all()
 
             for position in ingredient_list:
                 if position.ingredient in final_list:

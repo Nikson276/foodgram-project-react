@@ -8,7 +8,7 @@ from rest_framework.exceptions import PermissionDenied, AuthenticationFailed
 from rest_framework.response import Response
 from rest_framework import status
 from users.models import User
-from recipes.models import Recipe, IngredientRecipe
+from recipes.models import Recipe, RecipeIngredient
 from typing import Optional
 
 
@@ -136,14 +136,14 @@ class RecipeRelationHelper:
 
         # создаем связи рецепт-ингредиент
         create_ingredients = [
-            IngredientRecipe(
+            RecipeIngredient(
                 recipe=instance,
                 ingredient=ingredient['id'],
                 amount=ingredient['amount'],
             )
             for ingredient in ingredients_data
         ]
-        IngredientRecipe.objects.bulk_create(create_ingredients)
+        RecipeIngredient.objects.bulk_create(create_ingredients)
 
         # создаем связи рецепт теги
         for tag_id in tags_data:

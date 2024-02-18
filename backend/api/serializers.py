@@ -9,7 +9,7 @@ from django.core.files.base import ContentFile
 from rest_framework import serializers
 from users.models import User, Follow
 from recipes.models import (
-    Tag, Ingredient, IngredientRecipe,
+    Tag, Ingredient, RecipeIngredient,
     Recipe, Favorite, ShoppingList
 )
 from .mixins import RecipeRelationHelper
@@ -121,7 +121,7 @@ class IngredientSerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'measurement_unit')
 
 
-class IngredientRecipeSerializer(serializers.ModelSerializer):
+class RecipeIngredientSerializer(serializers.ModelSerializer):
     """ Добавление ингредиента в рецепта"""
     id = serializers.PrimaryKeyRelatedField(
         queryset=Ingredient.objects.all()
@@ -133,11 +133,11 @@ class IngredientRecipeSerializer(serializers.ModelSerializer):
     )
 
     class Meta:
-        model = IngredientRecipe
+        model = RecipeIngredient
         fields = ('id', 'amount')
 
 
-class ReadIngredientRecipeSerializer(serializers.ModelSerializer):
+class ReadRecipeIngredientSerializer(serializers.ModelSerializer):
     """ Рендер ингредиента в рецепт"""
     name = serializers.CharField(
         source="ingredient.name",
@@ -155,7 +155,7 @@ class ReadIngredientRecipeSerializer(serializers.ModelSerializer):
     )
 
     class Meta:
-        model = IngredientRecipe
+        model = RecipeIngredient
         fields = ('id', 'name', 'measurement_unit', 'amount')
         read_only_fields = ('id',)
 
@@ -169,8 +169,8 @@ class RecipeListSerializer(serializers.ModelSerializer):
     author = UserListSerializer(
         read_only=True
     )
-    ingredients = ReadIngredientRecipeSerializer(
-        source='rel_IngredientRecipe',
+    ingredients = ReadRecipeIngredientSerializer(
+        source='rel_RecipeIngredient',
         many=True,
     )
     is_favorite = serializers.SerializerMethodField()
@@ -225,7 +225,7 @@ class RecipeCreateSerializer(
         read_only=True,
         default=serializers.CurrentUserDefault()
     )
-    ingredients = IngredientRecipeSerializer(
+    ingredients = RecipeIngredientSerializer(
         many=True,
     )
     tags = serializers.PrimaryKeyRelatedField(
@@ -270,7 +270,7 @@ class RecipeCreateSerializer(
                 setattr(instance, attr, value)
 
         instance.save()
-        instance.rel_IngredientRecipe.all().delete()
+        instance.rel_RecipeIngredient.all().delete()
         field = getattr(instance, 'tags')
         field.clear()
 
