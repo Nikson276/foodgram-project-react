@@ -20,7 +20,9 @@ from .serializers import (
 from .mixins import (
     PermissionMixin, UserRecipeModelMixin, ShoppingListDownloadHelper
 )
+from .filters import RecipeViewSetFilter
 from foodgram.settings import ATTACHMENT_FORMAT
+from django_filters import rest_framework as filters
 
 
 # app classes - users
@@ -125,8 +127,8 @@ class RecipeViewSet(
     ShoppingListDownloadHelper
 ):
     """ Обработка эндпоинта /recipes"""
-
     queryset = Recipe.objects.all()
+    filterset_class = RecipeViewSetFilter
 
     def get_serializer_class(self):
         if self.action in ('list', 'retrieve'):

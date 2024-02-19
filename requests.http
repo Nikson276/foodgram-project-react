@@ -134,10 +134,10 @@ Content-type: application/json
 
 # ___________Favorite
 ###
-POST http://127.0.0.1:8000/api/recipes/6/favorite/
+POST http://127.0.0.1:8000/api/recipes/17/favorite/
 Authorization: Token 1172388a9d06436513c59c8b67347c8e0dc437b2
 ###
-DELETE http://127.0.0.1:8000/api/recipes/6/favorite/
+DELETE http://127.0.0.1:8000/api/recipes/17/favorite/
 Authorization: Token 1172388a9d06436513c59c8b67347c8e0dc437b2
 ###
 POST http://127.0.0.1:8000/api/recipes/17/shopping_cart/
@@ -153,7 +153,9 @@ Authorization: Token 1172388a9d06436513c59c8b67347c8e0dc437b2
 GET http://127.0.0.1:8000/api/recipes/17/
 Authorization: Token 1172388a9d06436513c59c8b67347c8e0dc437b2
 ###
-
+GET http://127.0.0.1:8000/api/recipes/?page=1&limit=6&tags=breakfast&tags=lunch&tags=diner
+Authorization: Token 1172388a9d06436513c59c8b67347c8e0dc437b2
+###
 
 
 # Recipe creation

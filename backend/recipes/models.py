@@ -7,6 +7,7 @@ User = get_user_model()
 
 
 class Tag(models.Model):
+    """ Теги """
     name = models.CharField('Название', max_length=200, unique=True)
     color = models.CharField('Цвет', max_length=16, unique=True)
     slug = models.SlugField(max_length=50, unique=True)
@@ -25,7 +26,7 @@ class Ingredient(models.Model):
 
 
 class Recipe(models.Model):
-    """ Модель рецепта"""    
+    """ Модель рецепта"""
     author = models.ForeignKey(
         User,
         on_delete=models.CASCADE,

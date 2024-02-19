@@ -173,7 +173,7 @@ class RecipeListSerializer(serializers.ModelSerializer):
         source='rel_RecipeIngredient',
         many=True,
     )
-    is_favorite = serializers.SerializerMethodField()
+    is_favorited = serializers.SerializerMethodField()
     is_in_shopping_cart = serializers.SerializerMethodField()
 
     class Meta:
@@ -181,7 +181,7 @@ class RecipeListSerializer(serializers.ModelSerializer):
         many_to_many = 'tags'
         fields = (
             'id', 'tags', 'author', 'ingredients',
-            'is_favorite', 'is_in_shopping_cart',
+            'is_favorited', 'is_in_shopping_cart',
             'name', 'image', 'text', 'cooking_time'
             )
         read_only_fields = ('id', 'name', 'image', 'text', 'cooking_time')
@@ -194,7 +194,7 @@ class RecipeListSerializer(serializers.ModelSerializer):
             recipe=obj.pk
             ).exists()
 
-    def get_is_favorite(self, obj):
+    def get_is_favorited(self, obj):
         """ Находится ли в избранном """
         return self.is_model_instance_exist(obj=obj, model=Favorite)
 
