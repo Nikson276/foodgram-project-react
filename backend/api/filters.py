@@ -2,29 +2,37 @@ import django_filters
 from recipes.models import Recipe
 
 
-class IsFavoriteFilter(django_filters.BooleanFilter):
-    field_name = 'is_favorited'
-    method = 'filter_by_is_favorited'
-
-    def filter_by_is_favorited(self, queryset, name, value):
-        print(f'ЧТО ТАМ В FAVORITE ____{value}')
-        if value is not None:
-            value = value.lower() == '1'  # Преобразуем строку в булево значение
-            return [obj for obj in queryset if obj.is_favorited == value]
-        return queryset
-
-
 class RecipeViewSetFilter(django_filters.FilterSet):
     """ Класс для Фильтрации по Тегам на страницах"""
-    is_favorited = IsFavoriteFilter()
+
     tags = django_filters.CharFilter(
         method='filter_tags'
     )
 
-    class Meta:
-        model = Recipe
-        fields = ['is_favorited', 'tags']
-
     def filter_tags(self, queryset, name, value):
+        """ Метод фильтрации по тегам в параметрах запроса"""
         tags = self.request.GET.getlist('tags')
         return queryset.filter(tags__slug__in=tags).distinct()
+
+    class Meta:
+        model = Recipe
+        fields = ['tags']
+
+
+class RecipeCustomFilter():
+    """ Дополнительная фильтрация исходнго queryset модели Recipe"""
+    FAVORITE_PARAM = 'is_favorited'
+    SHOPPING_CART_PARAM = 'is_in_shopping_cart'
+
+    def get_filtered_queryset(self, query_param, user):
+        """ Фильтруем queryset по переданному параметру"""
+        if query_param == self.FAVORITE_PARAM:
+            param_queryset = user.users_favorite.all()
+        elif query_param == self.SHOPPING_CART_PARAM:
+            param_queryset = user.users_shoppinglist.all()
+
+        param_list = [
+            param['recipe_id']
+            for param in param_queryset.values()
+        ]
+        return Recipe.objects.filter(pk__in=param_list)

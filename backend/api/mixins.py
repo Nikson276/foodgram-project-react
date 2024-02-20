@@ -121,6 +121,21 @@ class ShoppingListDownloadHelper:
 
         return response
 
+    def create_file_helper(self, file_format, array1: list, array2: dict) -> HttpResponse:
+        """ Медот для создания файла выгрузки в нужном формате"""
+        if file_format == 'csv':
+            # Создание .csv файла:
+            return self.create_csv(array1=array1, array2=array2)
+
+        elif file_format == 'pdf':
+            # Создание PDF-файла
+            return self.create_pdf(array1=array1, array2=array2)
+        return Response(
+            'ATTACHMENT_FORMAT_ERROR Please contact your administrator',
+            status=status.HTTP_400_BAD_REQUEST
+            )
+
+
 
 class RecipeRelationHelper:
     """ Class helper to create new relations

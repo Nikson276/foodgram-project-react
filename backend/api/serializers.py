@@ -187,7 +187,7 @@ class RecipeListSerializer(serializers.ModelSerializer):
         read_only_fields = ('id', 'name', 'image', 'text', 'cooking_time')
 
     def is_model_instance_exist(self, obj, model):
-        """ Находится ли в модели объект """
+        """ Метод хелпер - находится ли в модели объект """
         request = self.context.get('request')
         return model.objects.filter(
             user=request.user.pk,

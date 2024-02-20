@@ -20,9 +20,8 @@ from .serializers import (
 from .mixins import (
     PermissionMixin, UserRecipeModelMixin, ShoppingListDownloadHelper
 )
-from .filters import RecipeViewSetFilter
+from .filters import RecipeViewSetFilter, RecipeCustomFilter
 from foodgram.settings import ATTACHMENT_FORMAT
-from django_filters import rest_framework as filters
 
 
 # app classes - users
@@ -124,13 +123,32 @@ class RecipeIngredientViewSet(viewsets.ModelViewSet):
 class RecipeViewSet(
     viewsets.ModelViewSet,
     UserRecipeModelMixin,
-    ShoppingListDownloadHelper
+    ShoppingListDownloadHelper,
+    RecipeCustomFilter
 ):
     """ Обработка эндпоинта /recipes"""
     queryset = Recipe.objects.all()
     filterset_class = RecipeViewSetFilter
 
+    def get_queryset(self):
+        """ Добавим фильтр по Избранному, на уровне queryset"""
+        query_params = self.request.query_params
+        if query_params.get(self.FAVORITE_PARAM) is not None:
+            queryset = self.get_filtered_queryset(
+                query_param=self.FAVORITE_PARAM,
+                user=self.request.user
+            )
+        elif query_params.get(self.SHOPPING_CART_PARAM) is not None:
+            queryset = self.get_filtered_queryset(
+                query_param=self.SHOPPING_CART_PARAM,
+                user=self.request.user
+            )
+        else:
+            queryset = super().get_queryset()
+        return queryset
+
     def get_serializer_class(self):
+        """ Определим какой сериализатор выдать"""
         if self.action in ('list', 'retrieve'):
             return RecipeListSerializer
         else:
@@ -199,18 +217,11 @@ class RecipeViewSet(
                     final_list[position.ingredient] = position.amount
             recipe_list.append(f'# {item.recipe.name}')
 
-        if ATTACHMENT_FORMAT == 'csv':
-            # Создание .csv файла:
-            return self.create_csv(array1=recipe_list, array2=final_list)
-
-        elif ATTACHMENT_FORMAT == 'pdf':
-            # Создание PDF-файла
-            return self.create_pdf(array1=recipe_list, array2=final_list)
-
-        return Response(
-            'ATTACHMENT_FORMAT_ERROR Please contact your administrator',
-            status=status.HTTP_400_BAD_REQUEST
-            )
+        return self.create_file_helper(
+            file_format=ATTACHMENT_FORMAT,
+            array1=recipe_list,
+            array2=final_list
+        )
 
 
 class FollowViewSet(viewsets.ModelViewSet):
