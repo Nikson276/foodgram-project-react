@@ -61,6 +61,9 @@ class Recipe(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        ordering = ('name',)
+
 
 class RecipeIngredient(models.Model):
     """ Модель связи рецепта и ингредиентов."""

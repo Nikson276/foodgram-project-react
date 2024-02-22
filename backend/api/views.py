@@ -20,7 +20,7 @@ from .serializers import (
 from .mixins import (
     PermissionMixin, UserRecipeModelMixin, ShoppingListDownloadHelper
 )
-from .filters import RecipeViewSetFilter, RecipeCustomFilter
+from .filters import RecipeViewSetFilter, RecipeCustomFilter, CustomSearchFilter
 from foodgram.settings import ATTACHMENT_FORMAT
 
 
@@ -42,9 +42,9 @@ class CustomUserViewSet(DjoserUserViewSet, PermissionMixin):
             serializer_class=FollowReadListSerializer,
             permission_classes=[CurrentUserOrAdmin,],
             pagination_class=LimitOffsetPagination,
-            url_path='subscribtions',
+            url_path='subscriptions',
         )
-    def subscribtions(self, request):
+    def subscriptions(self, request):
         """ Метод вывода списка подписок юзера"""
         user: User = request.user
         subscribtions: Follow = user.follower.all()
@@ -113,6 +113,8 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Ingredient.objects.all()
     serializer_class = IngredientSerializer
     pagination_class = None
+    filter_backends = (CustomSearchFilter,)
+    search_fields = ('^name',)
 
 
 class RecipeIngredientViewSet(viewsets.ModelViewSet):

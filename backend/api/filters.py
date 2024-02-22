@@ -1,5 +1,7 @@
 import django_filters
+from rest_framework import filters
 from recipes.models import Recipe
+from django.db.models import Q
 
 
 class RecipeViewSetFilter(django_filters.FilterSet):
@@ -36,3 +38,23 @@ class RecipeCustomFilter():
             for param in param_queryset.values()
         ]
         return Recipe.objects.filter(pk__in=param_list)
+
+
+class CustomSearchFilter(filters.SearchFilter):
+    """ Хелпер для поиска по ингредиентам"""
+    search_param = "name"
+
+    def filter_queryset(self, request, queryset, view):
+        search_param = request.query_params.get(
+            self.search_param, ''
+        ).lower()
+
+        startswith_results = queryset.filter(
+            name__istartswith=search_param
+        )
+        contains_results = queryset.filter(
+            ~Q(name__istartswith=search_param),
+            name__icontains=search_param
+        )
+
+        return startswith_results | contains_results
