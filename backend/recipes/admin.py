@@ -6,7 +6,7 @@ from .models import (
 
 
 class RecipeAdmin(admin.ModelAdmin):
-    list_display = ('name', 'author', 'favorite_counter')
+    list_display = ('name', 'author', 'favorite_counter', 'pub_date')
     list_filter = ('author', 'name', 'tags')
     filter_horizontal = ('ingredients', 'tags')
 

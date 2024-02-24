@@ -7,6 +7,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.pagination import LimitOffsetPagination
 from djoser.views import UserViewSet as DjoserUserViewSet
 from djoser.permissions import CurrentUserOrAdmin
+from rest_framework import permissions
 from users.models import User, Follow
 from recipes.models import (
     Tag, Ingredient, RecipeIngredient,
@@ -18,21 +19,28 @@ from .serializers import (
     IngredientSerializer, TagSerializer, FollowReadListSerializer
 )
 from .mixins import (
-    PermissionMixin, UserRecipeModelMixin, ShoppingListDownloadHelper
+    UserRecipeModelMixin, ShoppingListDownloadHelper, AuthorUserOrAdmin
 )
-from .filters import RecipeViewSetFilter, RecipeCustomFilter, CustomSearchFilter
+from .filters import (
+    RecipeViewSetFilter, RecipeCustomFilter, CustomSearchFilter
+)
 from foodgram.settings import ATTACHMENT_FORMAT
 
 
 # app classes - users
-class CustomUserViewSet(DjoserUserViewSet, PermissionMixin):
+class CustomUserViewSet(DjoserUserViewSet):
     queryset = User.objects.all()
     search_fields = ('username', 'email')
     pagination_class = LimitOffsetPagination
 
     def get_permissions(self):
-        """ Переопределим полномочия для ендпоинта /me"""
+        """ Переопределим полномочия в зависимости от действия"""
         if self.action == "me":
+            self.permission_classes = [CurrentUserOrAdmin,]
+        elif self.request.method in permissions.SAFE_METHODS:
+            # allow GET, HEAD or OPTIONS requests
+            self.permission_classes = [AllowAny,]
+        else:
             self.permission_classes = [CurrentUserOrAdmin,]
         return super().get_permissions()
 
@@ -131,6 +139,15 @@ class RecipeViewSet(
     """ Обработка эндпоинта /recipes"""
     queryset = Recipe.objects.all()
     filterset_class = RecipeViewSetFilter
+
+    def get_permissions(self):
+        """ Переопределим полномочия в зависимости от действия"""
+        if self.request.method in permissions.SAFE_METHODS:
+            # allow GET, HEAD or OPTIONS requests
+            self.permission_classes = [AllowAny,]
+        else:
+            self.permission_classes = [AuthorUserOrAdmin,]
+        return super().get_permissions()
 
     def get_queryset(self):
         """ Добавим фильтр по Избранному, на уровне queryset"""

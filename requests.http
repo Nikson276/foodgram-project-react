@@ -3,6 +3,14 @@ POST http://127.0.0.1:8000/api/users/
 Content-type: application/json
 
 {
+    "email": "no-username@user.ru",
+    "username": "withoutlastname",
+    "first_name": "NotProvided",
+    "password": "fw9S3YJsyLG5Zjw"
+}
+
+###
+{
   "email": "user7@ya.ru",
   "username": "user7",
   "first_name": "Вася",
@@ -17,7 +25,7 @@ Content-type: application/json
 
 {
   "password": "fw9S3YJsyLG5Zjw",
-  "email": "user6@ya.ru"
+  "email": "admin@admin.ru"
 }
 
 ###
@@ -40,22 +48,22 @@ GET http://127.0.0.1:8000/api/users/
 ###
 GET http://127.0.0.1:8000/api/users/me/
 ###
-GET http://127.0.0.1:8000/api/users/2/
+GET http://127.0.0.1:8000/api/users/10/
 ###
 # _____________________________Users requests part ____________________
 
 # ____________Admin
 GET http://127.0.0.1:8000/api/users/
-Authorization: Token 887d946ac671e57707b2125eb2260f456c025f62
+Authorization: Token 0422ba4c75436603caf5f6c97ba31a39f7852dbf
 ###
 GET http://127.0.0.1:8000/api/users/me/
-Authorization: Token 887d946ac671e57707b2125eb2260f456c025f62
+Authorization: Token 0422ba4c75436603caf5f6c97ba31a39f7852dbf
 ###
 GET http://127.0.0.1:8000/api/users/2/
-Authorization: Token 887d946ac671e57707b2125eb2260f456c025f62
+Authorization: Token 0422ba4c75436603caf5f6c97ba31a39f7852dbf
 ###
 POST http://127.0.0.1:8000/api/users/set_password/
-Authorization: Token 887d946ac671e57707b2125eb2260f456c025f62
+Authorization: Token 0422ba4c75436603caf5f6c97ba31a39f7852dbf
 Content-type: application/json
 
 {
@@ -162,7 +170,7 @@ Authorization: Token 1172388a9d06436513c59c8b67347c8e0dc437b2
 #ADMIN
 ###
 POST http://127.0.0.1:8000/api/recipes/
-Authorization: Token 887d946ac671e57707b2125eb2260f456c025f62
+Authorization: Token 0422ba4c75436603caf5f6c97ba31a39f7852dbf
 Content-type: application/json
 
 {

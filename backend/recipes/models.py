@@ -12,6 +12,11 @@ class Tag(models.Model):
     color = models.CharField('Цвет', max_length=16, unique=True)
     slug = models.SlugField(max_length=50, unique=True)
 
+
+    class Meta:
+        verbose_name = 'Тег'
+        verbose_name_plural = 'Теги'
+
     def __str__(self):
         return self.name
 
@@ -20,6 +25,11 @@ class Ingredient(models.Model):
     """ Модель ингредиентов."""
     name = models.CharField('Название', max_length=200, default='dummy')
     measurement_unit = models.CharField('ЕИ', max_length=4, default='г')
+
+
+    class Meta:
+        verbose_name = 'Ингредиент'
+        verbose_name_plural = 'Ингредиенты'
 
     def __str__(self):
         return ('{n} ({u})').format(n=self.name, u=self.measurement_unit)
@@ -30,15 +40,20 @@ class Recipe(models.Model):
     author = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
+        verbose_name='Автор',
         related_name='recipes'
     )
-    name = models.CharField('Название', max_length=200)
+    name = models.CharField(
+        verbose_name='Название',
+        max_length=200
+    )
     image = models.ImageField(
+        verbose_name='Изображение',
         upload_to='images/',
         null=True,
         default=None
     )
-    text = models.TextField('Описание')
+    text = models.TextField(verbose_name='Описание')
     ingredients = models.ManyToManyField(
         Ingredient,
         through='RecipeIngredient',
@@ -46,9 +61,16 @@ class Recipe(models.Model):
         verbose_name='Ингредиенты',
         related_name='ingredients'
     )
-    tags = models.ManyToManyField(Tag, verbose_name='Теги')
+    tags = models.ManyToManyField(
+        Tag,
+        verbose_name='Теги'
+    )
     cooking_time = models.PositiveSmallIntegerField(
         verbose_name='Время приготовления (в минутах)',
+    )
+    pub_date = models.DateTimeField(
+        verbose_name='Дата публикации',
+        auto_now_add=True
     )
 
     @admin.display(
@@ -58,11 +80,14 @@ class Recipe(models.Model):
         """ Вывод в админку счетчик у рецепта"""
         return self.recipe_favorites.count()
 
-    def __str__(self):
-        return self.name
 
     class Meta:
-        ordering = ('name',)
+        ordering = ('-pub_date',)
+        verbose_name = 'Рецепт'
+        verbose_name_plural = 'Рецепты'
+
+    def __str__(self):
+        return self.name
 
 
 class RecipeIngredient(models.Model):
@@ -88,8 +113,6 @@ class RecipeIngredient(models.Model):
         validators=[MinValueValidator(1, 'Кол-во не может быть менее 0.5')],
     )
 
-    def __str__(self):
-        return self.ingredient.name
 
     class Meta:
         verbose_name = 'Ингредиент в рецепте'
@@ -100,6 +123,9 @@ class RecipeIngredient(models.Model):
                 name='unique_ingredient_recipe'
             )
         ]
+
+    def __str__(self):
+        return self.ingredient.name
 
 
 class Favorite(models.Model):
@@ -115,6 +141,8 @@ class Favorite(models.Model):
                 name='unique_user_favorite'
             )
         ]
+        verbose_name = 'Избранное'
+        verbose_name_plural = 'Избранное'
 
     def __str__(self):
         return self.user.username
@@ -133,6 +161,8 @@ class ShoppingList(models.Model):
                 name='unique_user_shoppinglist'
             )
         ]
+        verbose_name = 'Список покупок'
+        verbose_name_plural = 'Списки покупок'
 
     def __str__(self):
         return self.user.username

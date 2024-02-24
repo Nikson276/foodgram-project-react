@@ -7,7 +7,7 @@ sys.path.append(root_dir)
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 root_dir_content = os.listdir(BASE_DIR)
-PROJECT_DIR_NAME = 'yatube_api'
+PROJECT_DIR_NAME = 'foodgram-project-react'
 
 if (
         PROJECT_DIR_NAME not in root_dir_content

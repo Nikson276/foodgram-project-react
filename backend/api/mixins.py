@@ -3,30 +3,30 @@ from reportlab.pdfgen import canvas
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfbase import pdfmetrics
 from django.http import HttpResponse
+from rest_framework import permissions
 from django.shortcuts import get_object_or_404
-from rest_framework.exceptions import PermissionDenied, AuthenticationFailed
 from rest_framework.response import Response
 from rest_framework import status
 from users.models import User
 from recipes.models import Recipe, RecipeIngredient
 from typing import Optional
 
+# TODO DELETE
+# class PermissionMixin:
+#     """ Class for custom permission """
 
-class PermissionMixin:
+#     def check_author_permision(self):
+#         """ Check if user is author or raise exception"""
+#         obj = self.get_object()
+#         if self.request.user != obj.author:
+#             raise PermissionDenied({"message": "У вас нет прав на это действие. Только автор."})
+
+
+class AuthorUserOrAdmin(permissions.IsAuthenticated):
     """ Class for custom permission """
-
-    def check_auth_permision(self):
-        """ Check if user is authorized or raise exception"""
-        if self.request.user.id is None:
-            raise AuthenticationFailed(
-                {"detail": "Учетные данные не были предоставлены."}
-            )
-
-    def check_author_permision(self):
-        """ Check if user is author or raise exception"""
-        obj = self.get_object()
-        if self.request.user != obj.author:
-            raise PermissionDenied({"message": "You don't have permission"})
+    def has_object_permission(self, request, view, obj):
+        user = request.user
+        return user.is_staff or obj.author_id == user.id
 
 
 class UserRecipeModelMixin:
@@ -90,7 +90,7 @@ class ShoppingListDownloadHelper:
         return response
 
     def create_pdf(self, array1: list, array2: dict) -> HttpResponse:
-        """ Создание .pdf файла """   
+        """ Создание .pdf файла """
         response = HttpResponse(content_type='application/pdf')
         response[
             'Content-Disposition'
@@ -99,7 +99,7 @@ class ShoppingListDownloadHelper:
         # Генерация содержимого PDF
         p = canvas.Canvas(response)
         # Устанавливаем шрифт и кодировку для кириллицы
-        pdfmetrics.registerFont(TTFont('Arial', './fonts/Arial.ttf'))
+        pdfmetrics.registerFont(TTFont('Arial', './static/fonts/Arial.ttf'))
         p.setFont('Arial', 12)
 
         p.drawString(100, 800, "Список рецептов:")
@@ -121,7 +121,9 @@ class ShoppingListDownloadHelper:
 
         return response
 
-    def create_file_helper(self, file_format, array1: list, array2: dict) -> HttpResponse:
+    def create_file_helper(
+        self, file_format, array1: list, array2: dict
+    ) -> HttpResponse:
         """ Медот для создания файла выгрузки в нужном формате"""
         if file_format == 'csv':
             # Создание .csv файла:
@@ -134,7 +136,6 @@ class ShoppingListDownloadHelper:
             'ATTACHMENT_FORMAT_ERROR Please contact your administrator',
             status=status.HTTP_400_BAD_REQUEST
             )
-
 
 
 class RecipeRelationHelper:

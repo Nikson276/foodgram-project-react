@@ -5,6 +5,11 @@ from django.db import models
 # Create your models here.
 class User(AbstractUser):
     """"Кастомный класс пользователя"""
+    first_name = models.CharField(('first name'), max_length=150)
+    last_name = models.CharField(('last name'), max_length=150)
+    email = models.EmailField(('email address'))
+
+    REQUIRED_FIELDS = ['email', 'first_name', 'last_name']
 
     def __str__(self):
         return self.username
@@ -23,3 +28,8 @@ class Follow(models.Model):
                 name='unique_user_following'
             )
         ]
+        verbose_name = 'Подписки'
+        verbose_name_plural = 'Подписки'
+
+    def __str__(self):
+        return self.user.username

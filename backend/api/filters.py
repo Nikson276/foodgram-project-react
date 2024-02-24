@@ -18,7 +18,7 @@ class RecipeViewSetFilter(django_filters.FilterSet):
 
     class Meta:
         model = Recipe
-        fields = ['tags']
+        fields = ['author', 'tags']
 
 
 class RecipeCustomFilter():
