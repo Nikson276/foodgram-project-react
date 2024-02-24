@@ -7,6 +7,7 @@ User = get_user_model()
 
 
 class Tag(models.Model):
+    """ Теги """
     name = models.CharField('Название', max_length=200, unique=True)
     color = models.CharField('Цвет', max_length=16, unique=True)
     slug = models.SlugField(max_length=50, unique=True)
@@ -25,7 +26,7 @@ class Ingredient(models.Model):
 
 
 class Recipe(models.Model):
-    """ Модель рецепта"""    
+    """ Модель рецепта"""
     author = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
@@ -33,14 +34,14 @@ class Recipe(models.Model):
     )
     name = models.CharField('Название', max_length=200)
     image = models.ImageField(
-        upload_to='recipes/images',
+        upload_to='images/',
         null=True,
         default=None
     )
     text = models.TextField('Описание')
     ingredients = models.ManyToManyField(
         Ingredient,
-        through='IngredientRecipe',
+        through='RecipeIngredient',
         through_fields=('recipe', 'ingredient'),
         verbose_name='Ингредиенты',
         related_name='ingredients'
@@ -60,21 +61,24 @@ class Recipe(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        ordering = ('name',)
 
-class IngredientRecipe(models.Model):
+
+class RecipeIngredient(models.Model):
     """ Модель связи рецепта и ингредиентов."""
 
     recipe = models.ForeignKey(
         Recipe,
         on_delete=models.CASCADE,
         verbose_name='Рецепт',
-        related_name='rel_IngredientRecipe'
+        related_name='rel_RecipeIngredient'
     )
     ingredient = models.ForeignKey(
         Ingredient,
         on_delete=models.CASCADE,
         verbose_name='Ингредиент',
-        related_name='rel_IngredientRecipe'
+        related_name='rel_RecipeIngredient'
     )
     amount = models.DecimalField(
         verbose_name='Количество ингредиента',

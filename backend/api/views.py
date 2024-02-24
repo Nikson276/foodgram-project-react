@@ -1,10 +1,7 @@
-import csv
-from reportlab.pdfgen import canvas
 from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from django.http import HttpResponse
 from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.pagination import LimitOffsetPagination
@@ -12,15 +9,18 @@ from djoser.views import UserViewSet as DjoserUserViewSet
 from djoser.permissions import CurrentUserOrAdmin
 from users.models import User, Follow
 from recipes.models import (
-    Tag, Ingredient, IngredientRecipe,
+    Tag, Ingredient, RecipeIngredient,
     Recipe, Favorite, ShoppingList
 )
 from .serializers import (
-    IngredientRecipeSerializer, RecipeListSerializer, RecipeCreateSerializer,
+    RecipeIngredientSerializer, RecipeListSerializer, RecipeCreateSerializer,
     FollowSerializer, FavoriteSerializer, ShoppingListSerializer,
     IngredientSerializer, TagSerializer, FollowReadListSerializer
 )
-from .mixins import PermissionMixin, UserRecipeModelMixin, ShoppingListDownloadHelper
+from .mixins import (
+    PermissionMixin, UserRecipeModelMixin, ShoppingListDownloadHelper
+)
+from .filters import RecipeViewSetFilter, RecipeCustomFilter, CustomSearchFilter
 from foodgram.settings import ATTACHMENT_FORMAT
 
 
@@ -42,12 +42,12 @@ class CustomUserViewSet(DjoserUserViewSet, PermissionMixin):
             serializer_class=FollowReadListSerializer,
             permission_classes=[CurrentUserOrAdmin,],
             pagination_class=LimitOffsetPagination,
-            url_path='subscribtions',
+            url_path='subscriptions',
         )
-    def subscribtions(self, request):
+    def subscriptions(self, request):
         """ Метод вывода списка подписок юзера"""
-        user: User() = request.user
-        subscribtions: Follow() = user.follower.all()
+        user: User = request.user
+        subscribtions: Follow = user.follower.all()
         user_list = [follow_obj.following.id for follow_obj in subscribtions]
 
         # Создадим кверисет, с объектами модели Юзера, для всех подписок.
@@ -73,8 +73,8 @@ class CustomUserViewSet(DjoserUserViewSet, PermissionMixin):
         )
     def subscribe(self, request, id):
         """ Метод для создание и удаления подписки на юзера по ид"""
-        user: User() = request.user
-        author: User() = get_object_or_404(User, id=id)
+        user: User = request.user
+        author: User = get_object_or_404(User, id=id)
 
         if request.method == 'POST':
             serializer = FollowSerializer(
@@ -113,21 +113,44 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Ingredient.objects.all()
     serializer_class = IngredientSerializer
     pagination_class = None
+    filter_backends = (CustomSearchFilter,)
+    search_fields = ('^name',)
 
 
-class IngredientRecipeViewSet(viewsets.ModelViewSet):
-    queryset = IngredientRecipe.objects.all()
-    serializer_class = IngredientRecipeSerializer
+class RecipeIngredientViewSet(viewsets.ModelViewSet):
+    queryset = RecipeIngredient.objects.all()
+    serializer_class = RecipeIngredientSerializer
 
 
 class RecipeViewSet(
     viewsets.ModelViewSet,
     UserRecipeModelMixin,
-    ShoppingListDownloadHelper
-    ):
+    ShoppingListDownloadHelper,
+    RecipeCustomFilter
+):
+    """ Обработка эндпоинта /recipes"""
     queryset = Recipe.objects.all()
+    filterset_class = RecipeViewSetFilter
+
+    def get_queryset(self):
+        """ Добавим фильтр по Избранному, на уровне queryset"""
+        query_params = self.request.query_params
+        if query_params.get(self.FAVORITE_PARAM) is not None:
+            queryset = self.get_filtered_queryset(
+                query_param=self.FAVORITE_PARAM,
+                user=self.request.user
+            )
+        elif query_params.get(self.SHOPPING_CART_PARAM) is not None:
+            queryset = self.get_filtered_queryset(
+                query_param=self.SHOPPING_CART_PARAM,
+                user=self.request.user
+            )
+        else:
+            queryset = super().get_queryset()
+        return queryset
 
     def get_serializer_class(self):
+        """ Определим какой сериализатор выдать"""
         if self.action in ('list', 'retrieve'):
             return RecipeListSerializer
         else:
@@ -187,7 +210,7 @@ class RecipeViewSet(
         recipe_list: list = []
         # Сбор данных рецептов в список
         for item in shopping_list:
-            ingredient_list = item.recipe.rel_IngredientRecipe.all()
+            ingredient_list = item.recipe.rel_RecipeIngredient.all()
 
             for position in ingredient_list:
                 if position.ingredient in final_list:
@@ -196,18 +219,11 @@ class RecipeViewSet(
                     final_list[position.ingredient] = position.amount
             recipe_list.append(f'# {item.recipe.name}')
 
-        if ATTACHMENT_FORMAT == 'csv':
-            # Создание .csv файла:
-            return self.create_csv(array1=recipe_list, array2=final_list)
-
-        elif ATTACHMENT_FORMAT == 'pdf':
-            # Создание PDF-файла
-            return self.create_pdf(array1=recipe_list, array2=final_list)
-
-        return Response(
-            'ATTACHMENT_FORMAT_ERROR Please contact your administrator',
-            status=status.HTTP_400_BAD_REQUEST
-            )
+        return self.create_file_helper(
+            file_format=ATTACHMENT_FORMAT,
+            array1=recipe_list,
+            array2=final_list
+        )
 
 
 class FollowViewSet(viewsets.ModelViewSet):
