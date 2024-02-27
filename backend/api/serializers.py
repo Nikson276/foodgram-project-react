@@ -227,13 +227,20 @@ class RecipeCreateSerializer(
     )
     ingredients = RecipeIngredientSerializer(
         many=True,
+        required=True
     )
     tags = serializers.PrimaryKeyRelatedField(
         queryset=Tag.objects.all(),
         many=True,
+        required=True
     )
-    image = Base64ImageField(required=True, allow_null=True)
-    cooking_time = serializers.IntegerField(min_value=1)
+    image = Base64ImageField(
+        required=True,
+        allow_null=True)
+    cooking_time = serializers.IntegerField(
+        min_value=1,
+        required=True
+    )
 
     class Meta:
         model = Recipe

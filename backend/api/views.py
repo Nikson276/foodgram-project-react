@@ -8,6 +8,7 @@ from rest_framework.pagination import LimitOffsetPagination
 from djoser.views import UserViewSet as DjoserUserViewSet
 from djoser.permissions import CurrentUserOrAdmin
 from rest_framework import permissions
+from typing import Optional
 from users.models import User, Follow
 from recipes.models import (
     Tag, Ingredient, RecipeIngredient,
@@ -139,6 +140,7 @@ class RecipeViewSet(
     """ Обработка эндпоинта /recipes"""
     queryset = Recipe.objects.all()
     filterset_class = RecipeViewSetFilter
+    pagination_class = LimitOffsetPagination
 
     def get_permissions(self):
         """ Переопределим полномочия в зависимости от действия"""
@@ -151,7 +153,10 @@ class RecipeViewSet(
 
     def get_queryset(self):
         """ Добавим фильтр по Избранному, на уровне queryset"""
-        query_params = self.request.query_params
+        query_params: Optional[dict] = {}
+        if self.request.user.is_authenticated:
+            query_params = self.request.query_params
+
         if query_params.get(self.FAVORITE_PARAM) is not None:
             queryset = self.get_filtered_queryset(
                 query_param=self.FAVORITE_PARAM,

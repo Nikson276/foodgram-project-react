@@ -12,7 +12,6 @@ class Tag(models.Model):
     color = models.CharField('Цвет', max_length=16, unique=True)
     slug = models.SlugField(max_length=50, unique=True)
 
-
     class Meta:
         verbose_name = 'Тег'
         verbose_name_plural = 'Теги'
@@ -25,7 +24,6 @@ class Ingredient(models.Model):
     """ Модель ингредиентов."""
     name = models.CharField('Название', max_length=200, default='dummy')
     measurement_unit = models.CharField('ЕИ', max_length=4, default='г')
-
 
     class Meta:
         verbose_name = 'Ингредиент'
@@ -80,7 +78,6 @@ class Recipe(models.Model):
         """ Вывод в админку счетчик у рецепта"""
         return self.recipe_favorites.count()
 
-
     class Meta:
         ordering = ('-pub_date',)
         verbose_name = 'Рецепт'
@@ -112,7 +109,6 @@ class RecipeIngredient(models.Model):
         default=1,
         validators=[MinValueValidator(1, 'Кол-во не может быть менее 0.5')],
     )
-
 
     class Meta:
         verbose_name = 'Ингредиент в рецепте'
