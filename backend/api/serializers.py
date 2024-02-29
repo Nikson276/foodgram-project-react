@@ -6,6 +6,7 @@ from djoser.serializers import (
     SetPasswordSerializer
     )
 from django.core.files.base import ContentFile
+from typing import Optional
 from rest_framework import serializers
 from users.models import User, Follow
 from recipes.models import (
@@ -13,6 +14,7 @@ from recipes.models import (
     Recipe, Favorite, ShoppingList
 )
 from .mixins import RecipeRelationHelper
+from .validators import RecipeCreateValidation
 from rest_framework.utils import html, model_meta
 
 
@@ -218,7 +220,8 @@ class RecipeShortListSerializer(serializers.ModelSerializer):
 
 class RecipeCreateSerializer(
     serializers.ModelSerializer,
-    RecipeRelationHelper
+    RecipeRelationHelper,
+    RecipeCreateValidation
 ):
     """ Сериализатор создания рецепта"""
     author = UserListSerializer(
@@ -248,6 +251,14 @@ class RecipeCreateSerializer(
             'id', 'author', 'ingredients', 'tags',
             'image', 'name', 'text', 'cooking_time'
             )
+
+    def validate(self, attrs):
+        error_message = self.run_custom_validation(attrs)
+        if error_message:
+            raise serializers.ValidationError(
+                {"message": error_message}
+            )
+        return super().validate(attrs)    
 
     def create(self, validated_data):
         # убираем ингредиенты и теги из словаря

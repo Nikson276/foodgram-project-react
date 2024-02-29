@@ -10,16 +10,9 @@ from rest_framework import status
 from users.models import User
 from recipes.models import Recipe, RecipeIngredient
 from typing import Optional
-
-# TODO DELETE
-# class PermissionMixin:
-#     """ Class for custom permission """
-
-#     def check_author_permision(self):
-#         """ Check if user is author or raise exception"""
-#         obj = self.get_object()
-#         if self.request.user != obj.author:
-#             raise PermissionDenied({"message": "У вас нет прав на это действие. Только автор."})
+from django.http import Http404
+from django.core.exceptions import BadRequest
+from rest_framework.exceptions import APIException
 
 
 class AuthorUserOrAdmin(permissions.IsAuthenticated):
@@ -29,17 +22,29 @@ class AuthorUserOrAdmin(permissions.IsAuthenticated):
         return user.is_staff or obj.author_id == user.id
 
 
+class RecipeNotFound(APIException):
+    """ Class helper with recipe exceptions 400"""
+    status_code = status.HTTP_400_BAD_REQUEST
+    default_detail = 'Рецепт не найден'
+    default_code = 'Not found'
+
+
 class UserRecipeModelMixin:
     """
     Class helper for working with related models
     to user and recipe model
     """
+    def get_or_400(self, model_or_qs, **kwargs):
+        try:
+            return get_object_or_404(model_or_qs, **kwargs)
+        except Http404:
+            raise RecipeNotFound
 
     def add_delete_model_helper(self, model, serializer_class, request, pk):
         """ Helper method to add/delete obj to model"""
 
         user: Optional[User] = request.user
-        recipe: Optional[Recipe] = get_object_or_404(Recipe, id=pk)
+        recipe: Optional[Recipe] = self.get_or_400(Recipe, id=pk)
 
         if request.method == 'POST':
             serializer = serializer_class(
