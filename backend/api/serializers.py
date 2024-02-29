@@ -4,9 +4,8 @@ from djoser.serializers import (
     UserCreateSerializer as DjoserUserCreateSerializer,
     UserSerializer as DjoserUserSerializer,
     SetPasswordSerializer
-    )
+)
 from django.core.files.base import ContentFile
-from typing import Optional
 from rest_framework import serializers
 from users.models import User, Follow
 from recipes.models import (
@@ -15,7 +14,7 @@ from recipes.models import (
 )
 from .mixins import RecipeRelationHelper
 from .validators import RecipeCreateValidation
-from rest_framework.utils import html, model_meta
+from rest_framework.utils import model_meta
 
 
 class Hex2NameColor(serializers.Field):
@@ -71,7 +70,7 @@ class UserListSerializer(DjoserUserSerializer):
         read_only_fields = (
             'email', 'id', 'username',
             'first_name', 'last_name',
-        )        
+        )
 
     def get_is_subscribed(self, obj):
         """ Метод для поля в ответе Подписан я или нет"""
@@ -90,7 +89,7 @@ class UserListSerializer(DjoserUserSerializer):
                 and Follow.objects.filter(
                     user=request.user,
                     following=obj
-                    ).exists()
+                ).exists()
                 )
 
 
@@ -185,7 +184,7 @@ class RecipeListSerializer(serializers.ModelSerializer):
             'id', 'tags', 'author', 'ingredients',
             'is_favorited', 'is_in_shopping_cart',
             'name', 'image', 'text', 'cooking_time'
-            )
+        )
         read_only_fields = ('id', 'name', 'image', 'text', 'cooking_time')
 
     def is_model_instance_exist(self, obj, model):
@@ -194,7 +193,7 @@ class RecipeListSerializer(serializers.ModelSerializer):
         return model.objects.filter(
             user=request.user.pk,
             recipe=obj.pk
-            ).exists()
+        ).exists()
 
     def get_is_favorited(self, obj):
         """ Находится ли в избранном """
@@ -212,10 +211,10 @@ class RecipeShortListSerializer(serializers.ModelSerializer):
         model = Recipe
         fields = (
             'id', 'name', 'image', 'cooking_time'
-            )
+        )
         read_only_fields = (
             'id', 'name', 'image', 'cooking_time'
-            )
+        )
 
 
 class RecipeCreateSerializer(
@@ -250,7 +249,7 @@ class RecipeCreateSerializer(
         fields = (
             'id', 'author', 'ingredients', 'tags',
             'image', 'name', 'text', 'cooking_time'
-            )
+        )
 
     def validate(self, attrs):
         error_message = self.run_custom_validation(attrs)
@@ -258,7 +257,7 @@ class RecipeCreateSerializer(
             raise serializers.ValidationError(
                 {"message": error_message}
             )
-        return super().validate(attrs)    
+        return super().validate(attrs)
 
     def create(self, validated_data):
         # убираем ингредиенты и теги из словаря

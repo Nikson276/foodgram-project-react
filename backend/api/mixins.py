@@ -11,7 +11,6 @@ from users.models import User
 from recipes.models import Recipe, RecipeIngredient
 from typing import Optional
 from django.http import Http404
-from django.core.exceptions import BadRequest
 from rest_framework.exceptions import APIException
 
 
@@ -22,33 +21,41 @@ class AuthorUserOrAdmin(permissions.IsAuthenticated):
         return user.is_staff or obj.author_id == user.id
 
 
-class RecipeNotFound(APIException):
-    """ Class helper with recipe exceptions 400"""
+class ObjectNotFound(APIException):
+    """ Class helper with exceptions 400"""
     status_code = status.HTTP_400_BAD_REQUEST
-    default_detail = 'Рецепт не найден'
+    default_detail = 'Объект не найден'
     default_code = 'Not found'
 
 
-class UserRecipeModelMixin:
+class UserRelatedModelMixin:
     """
     Class helper for working with related models
-    to user and recipe model
+    to user
     """
     def get_or_400(self, model_or_qs, **kwargs):
         try:
             return get_object_or_404(model_or_qs, **kwargs)
         except Http404:
-            raise RecipeNotFound
+            raise ObjectNotFound
 
-    def add_delete_model_helper(self, model, serializer_class, request, pk):
+    def add_delete_model_helper(
+        self,
+        par_model,
+        rel_model,
+        rel_name,
+        serializer_class,
+        request,
+        pk
+    ):
         """ Helper method to add/delete obj to model"""
 
         user: Optional[User] = request.user
-        recipe: Optional[Recipe] = self.get_or_400(Recipe, id=pk)
+        parent_obj = get_object_or_404(par_model, id=pk)
 
         if request.method == 'POST':
             serializer = serializer_class(
-                data={'user': user.pk, 'recipe': recipe.pk},
+                data={'user': user.pk, rel_name: parent_obj.pk},
                 context={'request': request}
             )
             if serializer.is_valid():
@@ -56,15 +63,31 @@ class UserRecipeModelMixin:
                 return Response(
                     serializer.data,
                     status=status.HTTP_201_CREATED
-                    )
+                )
             else:
                 return Response(
                     serializer.errors,
                     status=status.HTTP_400_BAD_REQUEST
-                    )
+                )
         else:
             # DELETE
-            model_obj = get_object_or_404(model, user=user, recipe=recipe)
+            if isinstance(parent_obj, Recipe):
+                model_obj = self.get_or_400(
+                    rel_model,
+                    user=user,
+                    recipe=parent_obj
+                )
+            elif isinstance(parent_obj, User):
+                model_obj = self.get_or_400(
+                    rel_model,
+                    user=user,
+                    following=parent_obj
+                )
+            else:
+                return Response(
+                    'Not implemented parent model',
+                    status=status.HTTP_400_BAD_REQUEST
+                )
             model_obj.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
 
@@ -140,7 +163,7 @@ class ShoppingListDownloadHelper:
         return Response(
             'ATTACHMENT_FORMAT_ERROR Please contact your administrator',
             status=status.HTTP_400_BAD_REQUEST
-            )
+        )
 
 
 class RecipeRelationHelper:

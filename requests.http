@@ -44,7 +44,7 @@ GET http://127.0.0.1:8000/api/recipes/?is_in_shopping_cart=1
 
 GET http://127.0.0.1:8000/api/tags/
 ###
-GET http://127.0.0.1:8000/api/users/
+GET http://127.0.0.1:8000/api/users/1/
 ###
 GET http://127.0.0.1:8000/api/users/me/
 ###
@@ -110,37 +110,46 @@ Authorization: Token 0422ba4c75436603caf5f6c97ba31a39f7852dbf
 Content-type: application/json
 
 {
-  "ingredients": [],
-  "tags": [
-    1,
-    2
-  ],
-  "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==",
-  "name": "Неправильный рецепт",
-  "text": "А ингредиенты я не скажу!",
-  "cooking_time": 15
+    "ingredients": [
+        {
+            "id": 1,
+            "amount": 10
+        },
+        {
+            "id": 1,
+            "amount": 10
+        }
+    ],
+    "tags": [
+        1,
+        2
+    ],
+    "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==",
+    "name": "Повторяющиеся теги",
+    "text": "Проверка валидации",
+    "cooking_time": 5
 }
 
 # ___________Favorite
 ###
-POST http://127.0.0.1:8000/api/recipes/17/favorite/
-Authorization: Token 1172388a9d06436513c59c8b67347c8e0dc437b2
+POST http://127.0.0.1:8000/api/recipes/62/favorite/
+Authorization: Token 0422ba4c75436603caf5f6c97ba31a39f7852dbf
 ###
 DELETE http://127.0.0.1:8000/api/recipes/17/favorite/
-Authorization: Token 1172388a9d06436513c59c8b67347c8e0dc437b2
+Authorization: Token 0422ba4c75436603caf5f6c97ba31a39f7852dbf
 ###
-POST http://127.0.0.1:8000/api/recipes/17/shopping_cart/
-Authorization: Token 1172388a9d06436513c59c8b67347c8e0dc437b2
+POST http://127.0.0.1:8000/api/recipes/62/shopping_cart/
+Authorization: Token 0422ba4c75436603caf5f6c97ba31a39f7852dbf
 ###
-DELETE http://127.0.0.1:8000/api/recipes/8/shopping_cart/
-Authorization: Token 1172388a9d06436513c59c8b67347c8e0dc437b2
+DELETE http://127.0.0.1:8000/api/recipes/62/shopping_cart/
+Authorization: Token 0422ba4c75436603caf5f6c97ba31a39f7852dbf
 ###
 #http://127.0.0.1:5500/api/recipes/download_shopping_cart/
 GET http://127.0.0.1:8000/api/recipes/download_shopping_cart/
 Authorization: Token 1172388a9d06436513c59c8b67347c8e0dc437b2
 ###
-GET http://127.0.0.1:8000/api/recipes/17/
-Authorization: Token 1172388a9d06436513c59c8b67347c8e0dc437b2
+GET http://127.0.0.1:8000/api/recipes/?is_in_shopping_cart=1
+Authorization: Token 0422ba4c75436603caf5f6c97ba31a39f7852dbf
 ###
 GET http://127.0.0.1:8000/api/recipes/?page=1&limit=6&tags=breakfast&tags=lunch&tags=diner
 Authorization: Token 1172388a9d06436513c59c8b67347c8e0dc437b2
@@ -181,13 +190,28 @@ Content-type: application/json
       "amount": 0.5
     }
   ],
-  "tags": [
-    2,
-    3
-  ],
+  "tags": [],
+  "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==",
   "name": "LuLya-Kebab",
   "text": "Значит, готовим еду. Я беру сковороду. Потом на сковороду я эту, мать ее, курицу кладу. Потом туда в догонку ей подсолнечного масла. Еще немного перца и протертой сырной массы. Потом потру морковки и покрошу лучку, А чтоб не мучал запах, можно врезать коньячку",
   "cooking_time": 120
+}
+###
+PATCH http://127.0.0.1:8000/api/recipes/62/
+Authorization: Token 0422ba4c75436603caf5f6c97ba31a39f7852dbf
+Content-type: application/json
+
+{
+    "ingredients": [
+      {
+        "id": 102,
+        "amount": 2000
+      }
+    ],
+    "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==",
+    "name": "Нет поля с ингредиентами",
+    "text": "Ингредиенты не указаны",
+    "cooking_time": 12
 }
 ###
 # USER 6

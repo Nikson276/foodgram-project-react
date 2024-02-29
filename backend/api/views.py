@@ -1,8 +1,6 @@
-from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.pagination import LimitOffsetPagination
 from djoser.views import UserViewSet as DjoserUserViewSet
@@ -20,7 +18,7 @@ from .serializers import (
     IngredientSerializer, TagSerializer, FollowReadListSerializer
 )
 from .mixins import (
-    UserRecipeModelMixin, ShoppingListDownloadHelper, AuthorUserOrAdmin
+    UserRelatedModelMixin, ShoppingListDownloadHelper, AuthorUserOrAdmin
 )
 from .filters import (
     RecipeViewSetFilter, RecipeCustomFilter, CustomSearchFilter
@@ -29,7 +27,10 @@ from foodgram.settings import ATTACHMENT_FORMAT
 
 
 # app classes - users
-class CustomUserViewSet(DjoserUserViewSet):
+class CustomUserViewSet(
+    DjoserUserViewSet,
+    UserRelatedModelMixin
+):
     queryset = User.objects.all()
     search_fields = ('username', 'email')
     pagination_class = LimitOffsetPagination
@@ -45,14 +46,13 @@ class CustomUserViewSet(DjoserUserViewSet):
             self.permission_classes = [CurrentUserOrAdmin,]
         return super().get_permissions()
 
-    @action(
-            detail=False,
+    @action(detail=False,
             methods=['get'],
             serializer_class=FollowReadListSerializer,
             permission_classes=[CurrentUserOrAdmin,],
             pagination_class=LimitOffsetPagination,
             url_path='subscriptions',
-        )
+            )
     def subscriptions(self, request):
         """ Метод вывода списка подписок юзера"""
         user: User = request.user
@@ -74,41 +74,24 @@ class CustomUserViewSet(DjoserUserViewSet):
         serializer = self.get_serializer(queryset, many=True, context=context)
         return Response(serializer.data)
 
-    @action(
-            detail=True,
+    @action(detail=True,
             methods=['post', 'delete'],
             permission_classes=[IsAuthenticated,],
             url_name='subscribe',
-        )
+            )
     def subscribe(self, request, id):
         """ Метод для создание и удаления подписки на юзера по ид"""
-        user: User = request.user
-        author: User = get_object_or_404(User, id=id)
+        model = Follow
+        serializer_class = FollowSerializer
 
-        if request.method == 'POST':
-            serializer = FollowSerializer(
-                data={'user': user.pk, 'following': author.pk},
-                context={'request': request}
-            )
-            if serializer.is_valid():
-                serializer.save()
-                return Response(
-                    serializer.data,
-                    status=status.HTTP_201_CREATED
-                    )
-            else:
-                return Response(
-                    serializer.errors,
-                    status=status.HTTP_400_BAD_REQUEST
-                    )
-        else:
-            subscription = get_object_or_404(
-                Follow,
-                user=user,
-                following=author
-            )
-            subscription.delete()
-            return Response(status=status.HTTP_204_NO_CONTENT)
+        return self.add_delete_model_helper(
+            par_model=User,
+            rel_model=model,
+            rel_name='following',
+            serializer_class=serializer_class,
+            request=request,
+            pk=id
+        )
 
 
 # app classes - recipes
@@ -133,7 +116,7 @@ class RecipeIngredientViewSet(viewsets.ModelViewSet):
 
 class RecipeViewSet(
     viewsets.ModelViewSet,
-    UserRecipeModelMixin,
+    UserRelatedModelMixin,
     ShoppingListDownloadHelper,
     RecipeCustomFilter
 ):
@@ -181,46 +164,47 @@ class RecipeViewSet(
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
 
-    @action(
-            detail=True,
+    @action(detail=True,
             methods=['post', 'delete'],
             permission_classes=[IsAuthenticated,],
             url_name='favorite'
-    )
+            )
     def favorite(self, request, pk):
         """ Метод добавления/удаления рецепта в избранное"""
         model = Favorite
         serializer_class = FavoriteSerializer
         return self.add_delete_model_helper(
-            model=model,
+            par_model=Recipe,
+            rel_model=model,
+            rel_name='recipe',
             serializer_class=serializer_class,
             request=request,
             pk=pk
         )
 
-    @action(
-            detail=True,
+    @action(detail=True,
             methods=['post', 'delete'],
             permission_classes=[IsAuthenticated,],
             url_name='shopping_cart'
-    )
+            )
     def shopping_cart(self, request, pk):
         """ Метод добавления/удаления в список покупок"""
         model = ShoppingList
         serializer_class = ShoppingListSerializer
         return self.add_delete_model_helper(
-            model=model,
+            par_model=Recipe,
+            rel_model=model,
+            rel_name='recipe',
             serializer_class=serializer_class,
             request=request,
             pk=pk
         )
 
-    @action(
-        detail=False,
-        methods=['get'],
-        permission_classes=(IsAuthenticated,),
-        url_path='download_shopping_cart'
-    )
+    @action(detail=False,
+            methods=['get'],
+            permission_classes=(IsAuthenticated,),
+            url_path='download_shopping_cart'
+            )
     def download_shopping_cart(self, request):
         """ Метод выгрузки списка продуктов"""
         user = request.user

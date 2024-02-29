@@ -17,13 +17,15 @@ class Command(BaseCommand):
     help_text = 'load ingredient models'
 
     def handle(self, *args, **options):
-        log_file = open('load_csv.log', 'w', encoding='UTF-8')
+        # log_file = open('load_csv.log', 'w', encoding='UTF-8')
         path = 'static/data/'
         records = {}
         for model, file_name in models_1:
             with open(f'{path}{file_name}', 'r', encoding='UTF-8') as file:
                 rows = csv.DictReader(file)
-                records[model.__name__] = [model.objects.create(**row) for row in rows]
+                records[model.__name__] = [
+                    model.objects.create(**row) for row in rows
+                ]
             self.stdout.write(self.style.SUCCESS(f'Done {file_name}'))
         # for model, file_name in models_2:
         #     s = subprocess.call([

@@ -6,27 +6,27 @@ class RecipeCreateValidation():
 
     def run_custom_validation(self, attrs: dict) -> Optional[str]:
         """ Реализация дополнительной валидации ингредиентов и тегов"""
-        if not attrs['ingredients']:
+        if not attrs.get('ingredients'):
             self.error_message = "Ингредиенты не переданы"
         else:
             ingredients_list: list = []
             for ingredient in attrs['ingredients']:
-                if ingredient['amount'] < 1:
+                if ingredient['amount'] < 0.5:
                     self.error_message = (
-                        f"Кол-во ингредиента {ingredient['id']} меньше 1."
+                        f"Кол-во ингредиента {ingredient['id']} меньше 0.5."
                     )
                     break
                 else:
                     ingredients_list.append(ingredient['id'])
 
-            if (len(ingredients_list) > 0 and
-                    len(ingredients_list) != len(set(ingredients_list))):
+            if (len(ingredients_list) > 0
+                    and len(ingredients_list) != len(set(ingredients_list))):
                 self.error_message = "Ингредиенты повторяются"
 
         if self.error_message:
             return self.error_message
 
-        if not attrs['tags']:
+        if not attrs.get('tags'):
             self.error_message = "Теги не переданы"
         else:
             tags_list = [tag.id for tag in attrs['tags']]

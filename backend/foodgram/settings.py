@@ -31,7 +31,7 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 # For Django Debug
 INTERNAL_IPS = [
     '127.0.0.1',
-] 
+]
 
 # Application definition
 
@@ -63,6 +63,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'foodgram.middleware.Handle404Middleware',
 ]
 
 ROOT_URLCONF = 'foodgram.urls'
@@ -174,13 +175,13 @@ DJOSER = {
         'user_create': 'api.serializers.CustomUserCreateSerializer',
         'current_user': 'api.serializers.UserListSerializer',
         'set_password': 'api.serializers.UserSetPassSerializer',
-        },
+    },
     'PERMISSIONS': {
         'user': ['djoser.permissions.CurrentUserOrAdmin'],
         'user_create': ['rest_framework.permissions.AllowAny'],
         'user_list': ['rest_framework.permissions.AllowAny'],
         'current_user': ['djoser.permissions.CurrentUserOrAdmin'],
-        },
+    },
     'HIDE_USERS': False,
     'LOGIN_FIELD': 'email'
 
