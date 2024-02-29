@@ -1,0 +1,4958 @@
+{
+	"id": "b70eb00b-d10e-408d-8a24-8544929bbe94",
+	"name": "diploma",
+	"timestamp": "2024-02-24T23:27:06.441Z",
+	"collection_id": "29900559-e6586242-0151-4590-962d-e7efe7d9227d",
+	"folder_id": 0,
+	"environment_id": "0",
+	"totalPass": 182,
+	"delay": 0,
+	"persist": true,
+	"status": "finished",
+	"startedAt": "2024-02-24T23:25:16.693Z",
+	"totalFail": 24,
+	"results": [
+		{
+			"id": "a00473f6-9db3-472e-8ce4-f2fcf75db89c",
+			"name": "create_first_user",
+			"url": "http://127.0.0.1:8000/api/users/",
+			"time": 591,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 201": true,
+				"Структура ответа должна соответствовать ожидаемой": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Структура ответа должна соответствовать ожидаемой": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				591
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 201": true,
+					"Структура ответа должна соответствовать ожидаемой": true
+				}
+			]
+		},
+		{
+			"id": "7983cd7a-0e75-46af-b2e6-3c10b8d2f952",
+			"name": "create_second_user",
+			"url": "http://127.0.0.1:8000/api/users/",
+			"time": 575,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 201": true,
+				"Структура ответа должна соответствовать ожидаемой": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Структура ответа должна соответствовать ожидаемой": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				575
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 201": true,
+					"Структура ответа должна соответствовать ожидаемой": true
+				}
+			]
+		},
+		{
+			"id": "bd8562fd-9ca1-4eac-b76a-c11745b4d7a1",
+			"name": "create_third_user",
+			"url": "http://127.0.0.1:8000/api/users/",
+			"time": 633,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 201": true,
+				"Структура ответа должна соответствовать ожидаемой": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Структура ответа должна соответствовать ожидаемой": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				633
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 201": true,
+					"Структура ответа должна соответствовать ожидаемой": true
+				}
+			]
+		},
+		{
+			"id": "75bb8e65-ba6d-4ca1-9f6b-eeee1da44347",
+			"name": "get_token_for_first_user",
+			"url": "http://127.0.0.1:8000/api/auth/token/login/",
+			"time": 728,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 200": true,
+				"Структура ответа соответствует ожидаемой": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Структура ответа соответствует ожидаемой": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				728
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 200": true,
+					"Структура ответа соответствует ожидаемой": true
+				}
+			]
+		},
+		{
+			"id": "c11dc047-7b20-4804-9150-1d1db29e9b2e",
+			"name": "get_token_for_second_user",
+			"url": "http://127.0.0.1:8000/api/auth/token/login/",
+			"time": 823,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 200": true,
+				"Структура ответа соответствует ожидаемой": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Структура ответа соответствует ожидаемой": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				823
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 200": true,
+					"Структура ответа соответствует ожидаемой": true
+				}
+			]
+		},
+		{
+			"id": "0a08f52a-3cc3-45be-b5d6-8ff2ada069d0",
+			"name": "user_registration_without_email",
+			"url": "http://127.0.0.1:8000/api/users/",
+			"time": 105,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 400": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				105
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 400": true
+				}
+			]
+		},
+		{
+			"id": "d48721e2-5858-4af3-846a-42ee4de9ab80",
+			"name": "user_registration_without_username",
+			"url": "http://127.0.0.1:8000/api/users/",
+			"time": 48,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 400": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				48
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 400": true
+				}
+			]
+		},
+		{
+			"id": "389b0f31-53bc-4902-8ffa-24350a0ca36c",
+			"name": "user_registration_without_first_name",
+			"url": "http://127.0.0.1:8000/api/users/",
+			"time": 132,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 400": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				132
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 400": true
+				}
+			]
+		},
+		{
+			"id": "6de7b2ed-dc9f-43ce-a259-555fd4d88ae2",
+			"name": "user_registration_without_last_name",
+			"url": "http://127.0.0.1:8000/api/users/",
+			"time": 140,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 400": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				140
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 400": true
+				}
+			]
+		},
+		{
+			"id": "72d3f7ac-ea0b-4c90-a695-0ec1282c4bba",
+			"name": "user_registration_without_password_name",
+			"url": "http://127.0.0.1:8000/api/users/",
+			"time": 133,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 400": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				133
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 400": true
+				}
+			]
+		},
+		{
+			"id": "0f53ce6b-543b-43ae-93f0-3de7b48a0325",
+			"name": "user_registration_too_long_email",
+			"url": "http://127.0.0.1:8000/api/users/",
+			"time": 145,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 400": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				145
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 400": true
+				}
+			]
+		},
+		{
+			"id": "99b935ac-30dd-4bc9-8bc7-5e813c4f6285",
+			"name": "user_registration_too_long_username",
+			"url": "http://127.0.0.1:8000/api/users/",
+			"time": 156,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 400": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				156
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 400": true
+				}
+			]
+		},
+		{
+			"id": "774e58b7-5ae1-4afb-bf2d-09b23d28bba6",
+			"name": "user_registration_too_long_first_name",
+			"url": "http://127.0.0.1:8000/api/users/",
+			"time": 149,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 400": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				149
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 400": true
+				}
+			]
+		},
+		{
+			"id": "660ad920-e876-449c-83b5-f6e2b2c6f0f2",
+			"name": "user_registration_too_long_last_name",
+			"url": "http://127.0.0.1:8000/api/users/",
+			"time": 154,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 400": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				154
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 400": true
+				}
+			]
+		},
+		{
+			"id": "1fee5d8c-cedc-436f-875a-6ddbec5c130e",
+			"name": "user_registration_with_invalid_username",
+			"url": "http://127.0.0.1:8000/api/users/",
+			"time": 138,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 400": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				138
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 400": true
+				}
+			]
+		},
+		{
+			"id": "a60dbbea-a7ea-49f8-a5b3-85ca64418004",
+			"name": "user_registration_email_in_use",
+			"url": "http://127.0.0.1:8000/api/users/",
+			"time": 652,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 400": false
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 400": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				652
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 400": false
+				}
+			]
+		},
+		{
+			"id": "bb485789-b773-4086-b99b-dba725cb2fc1",
+			"name": "user_registration_username_in_use",
+			"url": "http://127.0.0.1:8000/api/users/",
+			"time": 194,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 400": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				194
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 400": true
+				}
+			]
+		},
+		{
+			"id": "d5436e3a-afc1-4612-a9e0-885f893e1c37",
+			"name": "get_token_username_and_email_mismatch",
+			"url": "http://127.0.0.1:8000/api/auth/token/login/",
+			"time": 203,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 400": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				203
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 400": true
+				}
+			]
+		},
+		{
+			"id": "b3ce31f7-03af-4ce1-bd6b-453e482d3cbb",
+			"name": "get_token_no_email",
+			"url": "http://127.0.0.1:8000/api/auth/token/login/",
+			"time": 133,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 400": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				133
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 400": true
+				}
+			]
+		},
+		{
+			"id": "17fdff60-a162-42fe-babb-9d63cd43a8dd",
+			"name": "get_token_no_password",
+			"url": "http://127.0.0.1:8000/api/auth/token/login/",
+			"time": 164,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 400": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				164
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 400": true
+				}
+			]
+		},
+		{
+			"id": "5e123fdf-f59f-4264-8e5e-ee148a6b2f76",
+			"name": "logout // User",
+			"url": "http://127.0.0.1:8000/api/auth/token/logout/",
+			"time": 284,
+			"responseCode": {
+				"code": 204,
+				"name": "No Content"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 204": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				284
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 204": true
+				}
+			]
+		},
+		{
+			"id": "0fda6b48-fd7b-47ea-a2ab-e10e8efff1c3",
+			"name": "get_token",
+			"url": "http://127.0.0.1:8000/api/auth/token/login/",
+			"time": 782,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 200": true,
+				"Структура ответа соответствует ожидаемой": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Структура ответа соответствует ожидаемой": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				782
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 200": true,
+					"Структура ответа соответствует ожидаемой": true
+				}
+			]
+		},
+		{
+			"id": "858dbb28-a8b2-4acd-9886-1742f0c2dcb5",
+			"name": "get_user_list // No Auth",
+			"url": "http://127.0.0.1:8000/api/users/",
+			"time": 192,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 200": true,
+				"Структура ответа должна соответствовать ожидаемой": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Структура ответа должна соответствовать ожидаемой": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				192
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 200": true,
+					"Структура ответа должна соответствовать ожидаемой": true
+				}
+			]
+		},
+		{
+			"id": "003518a0-74bb-43f6-9389-bcdac0933d81",
+			"name": "get_user_list// User",
+			"url": "http://127.0.0.1:8000/api/users/",
+			"time": 790,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 200": true,
+				"Структура ответа должна соответствовать ожидаемой": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Структура ответа должна соответствовать ожидаемой": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				790
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 200": true,
+					"Структура ответа должна соответствовать ожидаемой": true
+				}
+			]
+		},
+		{
+			"id": "f03cadae-0c12-42bc-9b73-b5a22cb1a95f",
+			"name": "get_user_list_with_limit_param // User",
+			"url": "http://127.0.0.1:8000/api/users/?limit=1",
+			"time": 557,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 200": true,
+				"Структура ответа должна соответствовать ожидаемой": true,
+				"Убедитесь, что можно изменить количество объектов на странице через параметр `limit`": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Структура ответа должна соответствовать ожидаемой": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Убедитесь, что можно изменить количество объектов на странице через параметр `limit`": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				557
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 200": true,
+					"Структура ответа должна соответствовать ожидаемой": true,
+					"Убедитесь, что можно изменить количество объектов на странице через параметр `limit`": true
+				}
+			]
+		},
+		{
+			"id": "eb02302c-61db-48f7-978d-60b0df01233b",
+			"name": "get_profile // No Auth",
+			"url": "http://127.0.0.1:8000/api/users/20/",
+			"time": 147,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 200": true,
+				"Структура ответа должна соответствовать ожидаемой": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Структура ответа должна соответствовать ожидаемой": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				147
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 200": true,
+					"Структура ответа должна соответствовать ожидаемой": true
+				}
+			]
+		},
+		{
+			"id": "e13cd168-5887-40ab-9147-97f7e24174df",
+			"name": "get_profile // User",
+			"url": "http://127.0.0.1:8000/api/users/20/",
+			"time": 268,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 200": true,
+				"Структура ответа должна соответствовать ожидаемой": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Структура ответа должна соответствовать ожидаемой": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				268
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 200": true,
+					"Структура ответа должна соответствовать ожидаемой": true
+				}
+			]
+		},
+		{
+			"id": "dac28e2a-dc85-4355-b162-5fe0ce21f10f",
+			"name": "users_me // User",
+			"url": "http://127.0.0.1:8000/api/users/me/",
+			"time": 178,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 200": true,
+				"Структура ответа должна соответствовать ожидаемой": true,
+				"Поле `is_subscribed` в ответе должно иметь значение `false`": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Структура ответа должна соответствовать ожидаемой": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Поле `is_subscribed` в ответе должно иметь значение `false`": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				178
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 200": true,
+					"Структура ответа должна соответствовать ожидаемой": true,
+					"Поле `is_subscribed` в ответе должно иметь значение `false`": true
+				}
+			]
+		},
+		{
+			"id": "3ac39b18-7b92-476c-9d9c-d62eb4cb3a9c",
+			"name": "reset_password // User",
+			"url": "http://127.0.0.1:8000/api/users/set_password/",
+			"time": 854,
+			"responseCode": {
+				"code": 204,
+				"name": "No Content"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 204": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				854
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 204": true
+				}
+			]
+		},
+		{
+			"id": "b80279de-3aaf-47e6-b6ad-5233914d1ddd",
+			"name": "get_token_with_new_password",
+			"url": "http://127.0.0.1:8000/api/auth/token/login/",
+			"time": 603,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 200": true,
+				"Структура ответа соответствует ожидаемой": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Структура ответа соответствует ожидаемой": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				603
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 200": true,
+					"Структура ответа соответствует ожидаемой": true
+				}
+			]
+		},
+		{
+			"id": "bdb54b50-e4b9-48f1-8852-e7b5841cf815",
+			"name": "roll_back_password // User",
+			"url": "http://127.0.0.1:8000/api/users/set_password/",
+			"time": 790,
+			"responseCode": {
+				"code": 204,
+				"name": "No Content"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 204": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				790
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 204": true
+				}
+			]
+		},
+		{
+			"id": "125ded83-282b-4c40-a5c4-a3f408be6c41",
+			"name": "get_token_for_first_user",
+			"url": "http://127.0.0.1:8000/api/auth/token/login/",
+			"time": 623,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 200": true,
+				"Структура ответа соответствует ожидаемой": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Структура ответа соответствует ожидаемой": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				623
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 200": true,
+					"Структура ответа соответствует ожидаемой": true
+				}
+			]
+		},
+		{
+			"id": "02772772-0710-4a44-89cd-444b1c21ad73",
+			"name": "users_me // No Auth",
+			"url": "http://127.0.0.1:8000/api/users/me/",
+			"time": 55,
+			"responseCode": {
+				"code": 401,
+				"name": "Unauthorized"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 401": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 401": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				55
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 401": true
+				}
+			]
+		},
+		{
+			"id": "6079b9e5-17c0-4f24-897b-46658c7fbda6",
+			"name": "get_non_existing_profile // User",
+			"url": "http://127.0.0.1:8000/api/users/9876/",
+			"time": 233,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 404": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 404": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				233
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 404": true
+				}
+			]
+		},
+		{
+			"id": "dc16c75b-0898-400b-a0ce-acf9f85578af",
+			"name": "reset_password_wrong_password // User",
+			"url": "http://127.0.0.1:8000/api/users/set_password/",
+			"time": 428,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 400": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				428
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 400": true
+				}
+			]
+		},
+		{
+			"id": "2c3d55b6-0c21-4fb6-b209-586932276aec",
+			"name": "get_tag_list // No Auth",
+			"url": "http://127.0.0.1:8000/api/tags/",
+			"time": 138,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 200": true,
+				"Структура ответа должна соответствовать ожидаемой": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Структура ответа должна соответствовать ожидаемой": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				138
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 200": true,
+					"Структура ответа должна соответствовать ожидаемой": true
+				}
+			]
+		},
+		{
+			"id": "828b45dc-9109-419a-8894-8669ab87db2e",
+			"name": "get_tag_list // User",
+			"url": "http://127.0.0.1:8000/api/tags/",
+			"time": 276,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 200": true,
+				"Структура ответа должна соответствовать ожидаемой": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Структура ответа должна соответствовать ожидаемой": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				276
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 200": true,
+					"Структура ответа должна соответствовать ожидаемой": true
+				}
+			]
+		},
+		{
+			"id": "f439c321-704d-46e9-b6a3-b0a8448efb3a",
+			"name": "get_tag_detail // No Auth",
+			"url": "http://127.0.0.1:8000/api/tags/1/",
+			"time": 130,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 200": true,
+				"Структура ответа должна соответствовать ожидаемой": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Структура ответа должна соответствовать ожидаемой": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				130
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 200": true,
+					"Структура ответа должна соответствовать ожидаемой": true
+				}
+			]
+		},
+		{
+			"id": "e4d8ca36-ed09-4e7b-b904-2056a22f1d87",
+			"name": "get_tag_detail // User",
+			"url": "http://127.0.0.1:8000/api/tags/1/",
+			"time": 215,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 200": true,
+				"Структура ответа должна соответствовать ожидаемой": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Структура ответа должна соответствовать ожидаемой": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				215
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 200": true,
+					"Структура ответа должна соответствовать ожидаемой": true
+				}
+			]
+		},
+		{
+			"id": "c0fa1314-07c9-4fc6-8a71-6fd53cc86d74",
+			"name": "get_non_existing_tag // User",
+			"url": "http://127.0.0.1:8000/api/tags/9876/",
+			"time": 289,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 404": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 404": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				289
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 404": true
+				}
+			]
+		},
+		{
+			"id": "afc86c6e-daab-44a7-b639-d9d1565ecaf0",
+			"name": "create_tag // User",
+			"url": "http://127.0.0.1:8000/api/tags/",
+			"time": 174,
+			"responseCode": {
+				"code": 405,
+				"name": "Method Not Allowed"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 405": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 405": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				174
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 405": true
+				}
+			]
+		},
+		{
+			"id": "d37fbe62-3ed5-4b72-92b9-a9b3ff1902c2",
+			"name": "put_tag // User",
+			"url": "http://127.0.0.1:8000/api/tags/1/",
+			"time": 191,
+			"responseCode": {
+				"code": 405,
+				"name": "Method Not Allowed"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 405": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 405": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				191
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 405": true
+				}
+			]
+		},
+		{
+			"id": "c6da5001-4414-4aa0-85cd-c83ea901921e",
+			"name": "patch_tag // User",
+			"url": "http://127.0.0.1:8000/api/tags/1/",
+			"time": 154,
+			"responseCode": {
+				"code": 405,
+				"name": "Method Not Allowed"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 405": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 405": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				154
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 405": true
+				}
+			]
+		},
+		{
+			"id": "16da8b6c-2ece-4856-81f2-a252d86253a0",
+			"name": "delete_tag // User",
+			"url": "http://127.0.0.1:8000/api/tags/1/",
+			"time": 166,
+			"responseCode": {
+				"code": 405,
+				"name": "Method Not Allowed"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 405": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 405": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				166
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 405": true
+				}
+			]
+		},
+		{
+			"id": "18107bab-2864-4278-abe0-925217cc205d",
+			"name": "get_ingredients_list // No Auth",
+			"url": "http://127.0.0.1:8000/api/ingredients/",
+			"time": 225,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 200": true,
+				"Структура ответа должна соответствовать ожидаемой": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Структура ответа должна соответствовать ожидаемой": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				225
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 200": true,
+					"Структура ответа должна соответствовать ожидаемой": true
+				}
+			]
+		},
+		{
+			"id": "86f2ab64-5d27-4e4f-92f6-ddca162840c2",
+			"name": "get_ingredients_list // User",
+			"url": "http://127.0.0.1:8000/api/ingredients/",
+			"time": 308,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 200": true,
+				"Структура ответа должна соответствовать ожидаемой": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Структура ответа должна соответствовать ожидаемой": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				308
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 200": true,
+					"Структура ответа должна соответствовать ожидаемой": true
+				}
+			]
+		},
+		{
+			"id": "ddd98e1c-991f-46b2-9afb-300f17e8668f",
+			"name": "get_ingredients_list_with_name_filter // User",
+			"url": "http://127.0.0.1:8000/api/ingredients/?name=а",
+			"time": 333,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 200": true,
+				"Структура ответа должна соответствовать ожидаемой": true,
+				"Ответ должен содержать данные, удовлетворяющие условиям поиска": false
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Структура ответа должна соответствовать ожидаемой": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Ответ должен содержать данные, удовлетворяющие условиям поиска": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				333
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 200": true,
+					"Структура ответа должна соответствовать ожидаемой": true,
+					"Ответ должен содержать данные, удовлетворяющие условиям поиска": false
+				}
+			]
+		},
+		{
+			"id": "7be4255b-bf9b-4767-a618-183f925aa37d",
+			"name": "get_ingredient // No Auth",
+			"url": "http://127.0.0.1:8000/api/ingredients/1/",
+			"time": 120,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 200": true,
+				"Структура ответа должна соответствовать ожидаемой": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Структура ответа должна соответствовать ожидаемой": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				120
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 200": true,
+					"Структура ответа должна соответствовать ожидаемой": true
+				}
+			]
+		},
+		{
+			"id": "62a866e2-a5b3-4e86-98af-031be3c1e846",
+			"name": "get_ingredient // User",
+			"url": "http://127.0.0.1:8000/api/ingredients/1/",
+			"time": 236,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 200": true,
+				"Структура ответа должна соответствовать ожидаемой": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Структура ответа должна соответствовать ожидаемой": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				236
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 200": true,
+					"Структура ответа должна соответствовать ожидаемой": true
+				}
+			]
+		},
+		{
+			"id": "57e9e054-3670-4413-ac09-f25859fdac7f",
+			"name": "get_non_existing_ingredient // User",
+			"url": "http://127.0.0.1:8000/api/ingredients/9876/",
+			"time": 224,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 404": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 404": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				224
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 404": true
+				}
+			]
+		},
+		{
+			"id": "dc9a4a37-e5c4-45f3-8563-5d9f0bb7464e",
+			"name": "create_ingredient // User",
+			"url": "http://127.0.0.1:8000/api/ingredients/",
+			"time": 161,
+			"responseCode": {
+				"code": 405,
+				"name": "Method Not Allowed"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 405": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 405": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				161
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 405": true
+				}
+			]
+		},
+		{
+			"id": "192f5878-8213-41bc-ab20-9938a04b05c3",
+			"name": "put_ingredient // User",
+			"url": "http://127.0.0.1:8000/api/ingredients/1/",
+			"time": 181,
+			"responseCode": {
+				"code": 405,
+				"name": "Method Not Allowed"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 405": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 405": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				181
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 405": true
+				}
+			]
+		},
+		{
+			"id": "c3245d2b-e241-45b4-97c1-5efbb62357a3",
+			"name": "patch_ingredient // User",
+			"url": "http://127.0.0.1:8000/api/ingredients/1/",
+			"time": 224,
+			"responseCode": {
+				"code": 405,
+				"name": "Method Not Allowed"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 405": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 405": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				224
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 405": true
+				}
+			]
+		},
+		{
+			"id": "4e98a5af-c6b4-4455-82b8-3c70d7306466",
+			"name": "delete_ingredient // User",
+			"url": "http://127.0.0.1:8000/api/ingredients/1/",
+			"time": 232,
+			"responseCode": {
+				"code": 405,
+				"name": "Method Not Allowed"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 405": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 405": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				232
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 405": true
+				}
+			]
+		},
+		{
+			"id": "cea7c12c-dc1a-478d-8c22-ad56bcdc13b4",
+			"name": "create_first_recipe // Second User",
+			"url": "http://127.0.0.1:8000/api/recipes/",
+			"time": 2629,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 201": true,
+				"Структура ответа должна соответстовать ожидаемой": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Структура ответа должна соответстовать ожидаемой": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				2629
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 201": true,
+					"Структура ответа должна соответстовать ожидаемой": true
+				}
+			]
+		},
+		{
+			"id": "28ee517b-1591-473e-9e1e-ac1d80e43745",
+			"name": "create_second_recipe // Second User",
+			"url": "http://127.0.0.1:8000/api/recipes/",
+			"time": 1975,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 201": true,
+				"Структура ответа должна соответстовать ожидаемой": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Структура ответа должна соответстовать ожидаемой": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				1975
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 201": true,
+					"Структура ответа должна соответстовать ожидаемой": true
+				}
+			]
+		},
+		{
+			"id": "03b4bf6e-fc87-401e-acc3-236be3b18a47",
+			"name": "create_third_recipe // Second User",
+			"url": "http://127.0.0.1:8000/api/recipes/",
+			"time": 1106,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 201": true,
+				"Структура ответа должна соответстовать ожидаемой": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Структура ответа должна соответстовать ожидаемой": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				1106
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 201": true,
+					"Структура ответа должна соответстовать ожидаемой": true
+				}
+			]
+		},
+		{
+			"id": "0135daf4-8191-43f8-957e-245c56ed2879",
+			"name": "create_fourth_recipe // Second User",
+			"url": "http://127.0.0.1:8000/api/recipes/",
+			"time": 1161,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 201": true,
+				"Структура ответа должна соответстовать ожидаемой": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Структура ответа должна соответстовать ожидаемой": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				1161
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 201": true,
+					"Структура ответа должна соответстовать ожидаемой": true
+				}
+			]
+		},
+		{
+			"id": "8cd6f987-0957-48f0-b7c5-688a92013c1f",
+			"name": "create_fifth_recipe // User",
+			"url": "http://127.0.0.1:8000/api/recipes/",
+			"time": 1205,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 201": true,
+				"Структура ответа должна соответстовать ожидаемой": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Структура ответа должна соответстовать ожидаемой": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				1205
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 201": true,
+					"Структура ответа должна соответстовать ожидаемой": true
+				}
+			]
+		},
+		{
+			"id": "d51c04c5-46c4-4866-80aa-0b1d37d01fda",
+			"name": "get_recipes_list // No Auth",
+			"url": "http://127.0.0.1:8000/api/recipes/",
+			"time": 3274,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 200": true,
+				"Структура ответа должна соответствовать ожидаемой": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Структура ответа должна соответствовать ожидаемой": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				3274
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 200": true,
+					"Структура ответа должна соответствовать ожидаемой": true
+				}
+			]
+		},
+		{
+			"id": "b2436b95-ee8d-4f2e-a910-365cd3950d05",
+			"name": "get_recipes_list // User",
+			"url": "http://127.0.0.1:8000/api/recipes/",
+			"time": 3719,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 200": true,
+				"Структура ответа должна соответствовать ожидаемой": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Структура ответа должна соответствовать ожидаемой": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				3719
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 200": true,
+					"Структура ответа должна соответствовать ожидаемой": true
+				}
+			]
+		},
+		{
+			"id": "9dad5f9d-1ebd-44c1-8d92-d9e4d252f5e3",
+			"name": "get_recipes_list_with_limit_param // User",
+			"url": "http://127.0.0.1:8000/api/recipes/?limit=2",
+			"time": 3641,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 200": true,
+				"Структура ответа должна соответствовать ожидаемой": true,
+				"Должна быть возможность изменить количество объектов на странице через параметр `limit`": false
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Структура ответа должна соответствовать ожидаемой": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Должна быть возможность изменить количество объектов на странице через параметр `limit`": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				3641
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 200": true,
+					"Структура ответа должна соответствовать ожидаемой": true,
+					"Должна быть возможность изменить количество объектов на странице через параметр `limit`": false
+				}
+			]
+		},
+		{
+			"id": "120186d1-f377-4126-be8d-e6a2c359c0b9",
+			"name": "get_recipes_list_with_author_param // User",
+			"url": "http://127.0.0.1:8000/api/recipes/?author=20",
+			"time": 1033,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 200": true,
+				"Структура ответа должна соответствовать ожидаемой": true,
+				"Должна быть возможность фильтрации рецептов через параметр запроса `author`": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Структура ответа должна соответствовать ожидаемой": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Должна быть возможность фильтрации рецептов через параметр запроса `author`": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				1033
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 200": true,
+					"Структура ответа должна соответствовать ожидаемой": true,
+					"Должна быть возможность фильтрации рецептов через параметр запроса `author`": true
+				}
+			]
+		},
+		{
+			"id": "bf650248-9c0f-4931-96da-8d86ff2ace65",
+			"name": "get_recipes_list_with_two_tags_param // User",
+			"url": "http://127.0.0.1:8000/api/recipes/?tags=lunch&tags=diner",
+			"time": 4128,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 200": true,
+				"Структура ответа должна соответствовать ожидаемой": true,
+				"Должна быть возможность фильтрации рецептов через параметр запроса `tags`": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Структура ответа должна соответствовать ожидаемой": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Должна быть возможность фильтрации рецептов через параметр запроса `tags`": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				4128
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 200": true,
+					"Структура ответа должна соответствовать ожидаемой": true,
+					"Должна быть возможность фильтрации рецептов через параметр запроса `tags`": true
+				}
+			]
+		},
+		{
+			"id": "07034fd2-6228-49df-8f80-05946b95e8a7",
+			"name": "get_recipe_detail // No Auth",
+			"url": "http://127.0.0.1:8000/api/recipes/43/",
+			"time": 701,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 200": true,
+				"Структура ответа должна соответствовать ожидаемой": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Структура ответа должна соответствовать ожидаемой": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				701
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 200": true,
+					"Структура ответа должна соответствовать ожидаемой": true
+				}
+			]
+		},
+		{
+			"id": "85199c02-7db7-4efc-acd9-3931c77cddec",
+			"name": "get_recipe_detail // User",
+			"url": "http://127.0.0.1:8000/api/recipes/43/",
+			"time": 721,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 200": true,
+				"Структура ответа должна соответствовать ожидаемой": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Структура ответа должна соответствовать ожидаемой": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				721
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 200": true,
+					"Структура ответа должна соответствовать ожидаемой": true
+				}
+			]
+		},
+		{
+			"id": "b08f3187-c4e2-40b2-ac83-fe82e6defc99",
+			"name": "update_recipe // Second User",
+			"url": "http://127.0.0.1:8000/api/recipes/43/",
+			"time": 1597,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 200": true,
+				"Структура ответа соответствует ожидаемой": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Структура ответа соответствует ожидаемой": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				1597
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 200": true,
+					"Структура ответа соответствует ожидаемой": true
+				}
+			]
+		},
+		{
+			"id": "7b79e5c3-633e-421c-825e-9035ed08dc2a",
+			"name": "create_recipe_without_ingredients // User",
+			"url": "http://127.0.0.1:8000/api/recipes/",
+			"time": 343,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 400": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				343
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 400": true
+				}
+			]
+		},
+		{
+			"id": "0ac12d33-6467-4923-aab4-8115a4934daa",
+			"name": "create_recipe_empty_ingredients_fields // User",
+			"url": "http://127.0.0.1:8000/api/recipes/",
+			"time": 1296,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 400": false
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 400": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				1296
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 400": false
+				}
+			]
+		},
+		{
+			"id": "0ea7ac51-14da-4f95-932b-db88fb778ce4",
+			"name": "create_recipe_with_non_existing_ingredient // User",
+			"url": "http://127.0.0.1:8000/api/recipes/",
+			"time": 399,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 400": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				399
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 400": true
+				}
+			]
+		},
+		{
+			"id": "a3028914-c934-4882-81a5-5031bdeecabc",
+			"name": "create_recipe_with_ingredient_amount_less_than_one // User",
+			"url": "http://127.0.0.1:8000/api/recipes/",
+			"time": 1456,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 400": false
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 400": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				1456
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 400": false
+				}
+			]
+		},
+		{
+			"id": "2a3182a6-d9a1-4e65-a246-7b23783f82e8",
+			"name": "create_recipe_with_repetitive_ingredients // User",
+			"url": "http://127.0.0.1:8000/api/recipes/",
+			"time": 6556,
+			"responseCode": {
+				"code": 500,
+				"name": "Internal Server Error"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 400": false
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 400": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				6556
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 400": false
+				}
+			]
+		},
+		{
+			"id": "478bdcf3-4dde-415f-b945-5a11a4236bbb",
+			"name": "create_recipe_without_tags_field // User",
+			"url": "http://127.0.0.1:8000/api/recipes/",
+			"time": 294,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 400": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				294
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 400": true
+				}
+			]
+		},
+		{
+			"id": "094915d0-ca23-4c8d-82e9-1e1450445b3b",
+			"name": "create_recipe_empty_tags // User",
+			"url": "http://127.0.0.1:8000/api/recipes/",
+			"time": 1117,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 400": false
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 400": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				1117
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 400": false
+				}
+			]
+		},
+		{
+			"id": "244503f9-9f50-45dd-8085-813c1648af45",
+			"name": "create_recipe_with_repetitive_tags // User",
+			"url": "http://127.0.0.1:8000/api/recipes/",
+			"time": 1357,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 400": false
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 400": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				1357
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 400": false
+				}
+			]
+		},
+		{
+			"id": "457ea4b6-0c8f-4f3e-8ffb-fa21da5b5bb4",
+			"name": "create_recipe_with_non_existing_tag // User",
+			"url": "http://127.0.0.1:8000/api/recipes/",
+			"time": 420,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 400": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				420
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 400": true
+				}
+			]
+		},
+		{
+			"id": "e79da4f9-bcc6-4eba-8f76-82f9e242a0c4",
+			"name": "create_recipe_without_image_field // User",
+			"url": "http://127.0.0.1:8000/api/recipes/",
+			"time": 295,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 400": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				295
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 400": true
+				}
+			]
+		},
+		{
+			"id": "e37aeca1-d503-4682-ac9d-b69b4cd59b2f",
+			"name": "create_recipe_empty_image // User",
+			"url": "http://127.0.0.1:8000/api/recipes/",
+			"time": 284,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 400": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				284
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 400": true
+				}
+			]
+		},
+		{
+			"id": "c1dd006b-8567-4ad4-b1d7-1b920aea2ac0",
+			"name": "create_recipe_without_name_field // User",
+			"url": "http://127.0.0.1:8000/api/recipes/",
+			"time": 316,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 400": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				316
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 400": true
+				}
+			]
+		},
+		{
+			"id": "2a50f6ec-5c29-450e-b8d0-47b354882c6c",
+			"name": "create_recipe_empty_name // User",
+			"url": "http://127.0.0.1:8000/api/recipes/",
+			"time": 420,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 400": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				420
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 400": true
+				}
+			]
+		},
+		{
+			"id": "5c4cdeb9-de1e-4870-8ba3-d552a3571490",
+			"name": "create_recipe_too_long_name // User",
+			"url": "http://127.0.0.1:8000/api/recipes/",
+			"time": 285,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 400": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				285
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 400": true
+				}
+			]
+		},
+		{
+			"id": "aa8e0ea3-82c5-497a-b867-14c984ed434b",
+			"name": "create_recipe_without_text_field // User",
+			"url": "http://127.0.0.1:8000/api/recipes/",
+			"time": 283,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 400": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				283
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 400": true
+				}
+			]
+		},
+		{
+			"id": "6fbe3f77-a14b-47fa-b2fe-e4dca691d645",
+			"name": "create_recipe_empty_text // User",
+			"url": "http://127.0.0.1:8000/api/recipes/",
+			"time": 372,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 400": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				372
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 400": true
+				}
+			]
+		},
+		{
+			"id": "26c57895-2d48-4423-b374-b5377653d369",
+			"name": "create_recipe_without_cooking_time_field // User",
+			"url": "http://127.0.0.1:8000/api/recipes/",
+			"time": 346,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 400": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				346
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 400": true
+				}
+			]
+		},
+		{
+			"id": "b010c6f0-e73a-4fc5-ba56-064b3c6c1f3a",
+			"name": "create_recipe_empty_string_as_cooking_time // User",
+			"url": "http://127.0.0.1:8000/api/recipes/",
+			"time": 288,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 400": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				288
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 400": true
+				}
+			]
+		},
+		{
+			"id": "a035a741-19b8-4632-9566-8041d2884e48",
+			"name": "create_recipe_cooking_time_less_than_one // User",
+			"url": "http://127.0.0.1:8000/api/recipes/",
+			"time": 311,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 400": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				311
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 400": true
+				}
+			]
+		},
+		{
+			"id": "528d3a6c-cf63-4ff9-9f7a-0137ace88864",
+			"name": "create_recipe // No Auth",
+			"url": "http://127.0.0.1:8000/api/recipes/",
+			"time": 61,
+			"responseCode": {
+				"code": 401,
+				"name": "Unauthorized"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 401": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 401": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				61
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 401": true
+				}
+			]
+		},
+		{
+			"id": "f0174e7f-3d85-48a5-bf68-19074b7d8c74",
+			"name": "update_recipe_not_author // User",
+			"url": "http://127.0.0.1:8000/api/recipes/44/",
+			"time": 280,
+			"responseCode": {
+				"code": 403,
+				"name": "Forbidden"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 403": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 403": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				280
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 403": true
+				}
+			]
+		},
+		{
+			"id": "0f196582-d3de-4fe6-bdc7-417fba9e52e7",
+			"name": "update_recipe // No Auth",
+			"url": "http://127.0.0.1:8000/api/recipes/44/",
+			"time": 67,
+			"responseCode": {
+				"code": 401,
+				"name": "Unauthorized"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 401": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 401": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				67
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 401": true
+				}
+			]
+		},
+		{
+			"id": "b8442699-5627-4d0d-b4e0-c72802d3d4e7",
+			"name": "update_recipe_without_ingredients_field // Second User",
+			"url": "http://127.0.0.1:8000/api/recipes/44/",
+			"time": 1610,
+			"responseCode": {
+				"code": 500,
+				"name": "Internal Server Error"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 400": false
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 400": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				1610
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 400": false
+				}
+			]
+		},
+		{
+			"id": "29068ecf-bef3-432f-bf92-b3471d1baf6d",
+			"name": "update_recipe_empty_ingredients // Second User",
+			"url": "http://127.0.0.1:8000/api/recipes/44/",
+			"time": 1238,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 400": false
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 400": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				1238
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 400": false
+				}
+			]
+		},
+		{
+			"id": "11400f02-95f4-4272-9c15-edeff8644e55",
+			"name": "update_recipe_with_non_existing_ingredient // Second User",
+			"url": "http://127.0.0.1:8000/api/recipes/44/",
+			"time": 417,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 400": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				417
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 400": true
+				}
+			]
+		},
+		{
+			"id": "aa361bdc-ae83-4c22-b62d-32ec87d6b142",
+			"name": "update_recipe_with_ingredient_amount_less_than_one // Second User",
+			"url": "http://127.0.0.1:8000/api/recipes/44/",
+			"time": 1846,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 400": false
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 400": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				1846
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 400": false
+				}
+			]
+		},
+		{
+			"id": "6cf7d7d5-7f38-4316-80d4-e7b5c1738a90",
+			"name": "update_recipe_with_repetitive_ingredients // Second User",
+			"url": "http://127.0.0.1:8000/api/recipes/44/",
+			"time": 6839,
+			"responseCode": {
+				"code": 500,
+				"name": "Internal Server Error"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 400": false
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 400": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				6839
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 400": false
+				}
+			]
+		},
+		{
+			"id": "0c9dfc57-f954-46eb-afb5-6dcbdc23a466",
+			"name": "update_recipe_without_tags_field // Second User",
+			"url": "http://127.0.0.1:8000/api/recipes/44/",
+			"time": 1307,
+			"responseCode": {
+				"code": 500,
+				"name": "Internal Server Error"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 400": false
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 400": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				1307
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 400": false
+				}
+			]
+		},
+		{
+			"id": "1ac46c1e-bc6b-41f5-a1d8-eb6bb3612abf",
+			"name": "update_recipe_empty_tags // Second User",
+			"url": "http://127.0.0.1:8000/api/recipes/44/",
+			"time": 1424,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 400": false
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 400": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				1424
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 400": false
+				}
+			]
+		},
+		{
+			"id": "7ff9f68e-3180-407b-a390-55fbbd63180b",
+			"name": "update_recipe_with_non_existing_tag // Second User",
+			"url": "http://127.0.0.1:8000/api/recipes/44/",
+			"time": 406,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 400": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				406
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 400": true
+				}
+			]
+		},
+		{
+			"id": "3c7d3579-ba3c-482f-81fa-f064db24ee70",
+			"name": "update_recipe_repetitive_tags  // Second User",
+			"url": "http://127.0.0.1:8000/api/recipes/44/",
+			"time": 1882,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 400": false
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 400": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				1882
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 400": false
+				}
+			]
+		},
+		{
+			"id": "ad991232-0167-421a-ab98-0ffd84cefa48",
+			"name": "update_recipe_empty_image  // Second User",
+			"url": "http://127.0.0.1:8000/api/recipes/44/",
+			"time": 345,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 400": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				345
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 400": true
+				}
+			]
+		},
+		{
+			"id": "94f77ec7-3dee-4d51-959d-098fdb32f10e",
+			"name": "update_recipe_empty_name  // Second User",
+			"url": "http://127.0.0.1:8000/api/recipes/44/",
+			"time": 480,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 400": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				480
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 400": true
+				}
+			]
+		},
+		{
+			"id": "e1544430-6381-4a20-ba01-3a35e62aa4d5",
+			"name": "update_recipe_too_long_name  // Second User",
+			"url": "http://127.0.0.1:8000/api/recipes/44/",
+			"time": 506,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 400": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				506
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 400": true
+				}
+			]
+		},
+		{
+			"id": "d64a5336-2c03-4038-986d-125d0a539110",
+			"name": "update_recipe_empty_text  // Second User",
+			"url": "http://127.0.0.1:8000/api/recipes/44/",
+			"time": 395,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 400": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				395
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 400": true
+				}
+			]
+		},
+		{
+			"id": "ae7bdf3a-d106-4200-9c03-74943a319e76",
+			"name": "update_recipe_empty_string_as_cooking_time  // Second User",
+			"url": "http://127.0.0.1:8000/api/recipes/44/",
+			"time": 441,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 400": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				441
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 400": true
+				}
+			]
+		},
+		{
+			"id": "b3593d48-1594-4b73-afef-77752e86daa4",
+			"name": "update_recipe_empty_cooking_time_less_than_one  // Second User",
+			"url": "http://127.0.0.1:8000/api/recipes/44/",
+			"time": 402,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 400": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				402
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 400": true
+				}
+			]
+		},
+		{
+			"id": "8ae0b45b-6423-49f0-ada0-da77fe8acb1a",
+			"name": "update_none_existing_recipe // Second User",
+			"url": "http://127.0.0.1:8000/api/recipes/9876/",
+			"time": 202,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 404": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 404": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				202
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 404": true
+				}
+			]
+		},
+		{
+			"id": "04bbeeef-9a69-48ea-9e7d-fe13f3da1787",
+			"name": "create_subscription // User",
+			"url": "http://127.0.0.1:8000/api/users/22/subscribe/",
+			"time": 950,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 201": true,
+				"Структура ответа должна соответствовать ожидаемой": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Структура ответа должна соответствовать ожидаемой": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				950
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 201": true,
+					"Структура ответа должна соответствовать ожидаемой": true
+				}
+			]
+		},
+		{
+			"id": "f42977c3-b95c-4552-b2fd-8a6c63e56b9b",
+			"name": "create_subscription_with_recipes_limit_param // User",
+			"url": "http://127.0.0.1:8000/api/users/21/subscribe/?recipes_limit=2",
+			"time": 802,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 201": true,
+				"Структура ответа должна соответствовать ожидаемой": true,
+				"Должна быть возможность изменить количество выводимых рецептов в данных пользователя через параметр `recipes_limit`": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Структура ответа должна соответствовать ожидаемой": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Должна быть возможность изменить количество выводимых рецептов в данных пользователя через параметр `recipes_limit`": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				802
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 201": true,
+					"Структура ответа должна соответствовать ожидаемой": true,
+					"Должна быть возможность изменить количество выводимых рецептов в данных пользователя через параметр `recipes_limit`": true
+				}
+			]
+		},
+		{
+			"id": "7cdd6272-5954-4afe-97d8-283fed3e5410",
+			"name": "get_subscription_list // User",
+			"url": "http://127.0.0.1:8000/api/users/subscriptions/",
+			"time": 876,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 200": true,
+				"Структура ответа должна соответствовать ожидаемой": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Структура ответа должна соответствовать ожидаемой": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				876
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 200": true,
+					"Структура ответа должна соответствовать ожидаемой": true
+				}
+			]
+		},
+		{
+			"id": "91c7f3bb-bffc-4762-a219-82ce332d468b",
+			"name": "get_subscription_list_with_limit_param // User",
+			"url": "http://127.0.0.1:8000/api/users/subscriptions/?limit=1",
+			"time": 827,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 200": true,
+				"Структура ответа должна соответствовать ожидаемой": true,
+				"Должна быть возможность изменить количество объектов на странице через параметр запроса `limit`": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Структура ответа должна соответствовать ожидаемой": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Должна быть возможность изменить количество объектов на странице через параметр запроса `limit`": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				827
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 200": true,
+					"Структура ответа должна соответствовать ожидаемой": true,
+					"Должна быть возможность изменить количество объектов на странице через параметр запроса `limit`": true
+				}
+			]
+		},
+		{
+			"id": "826ed2b1-fe50-4375-b5c9-ccd107ca6a96",
+			"name": "get_subscription_list_with_recipes_limit_param // User",
+			"url": "http://127.0.0.1:8000/api/users/subscriptions/?recipes_limit=2",
+			"time": 803,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 200": true,
+				"Структура ответа должна соответствовать ожидаемой": true,
+				"Убедитесь, что количество выводимых рецептов в данных пользователя можно изменить через параметр `recipes_limit`": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Структура ответа должна соответствовать ожидаемой": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Убедитесь, что количество выводимых рецептов в данных пользователя можно изменить через параметр `recipes_limit`": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				803
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 200": true,
+					"Структура ответа должна соответствовать ожидаемой": true,
+					"Убедитесь, что количество выводимых рецептов в данных пользователя можно изменить через параметр `recipes_limit`": true
+				}
+			]
+		},
+		{
+			"id": "cf7a5010-d8a4-4229-a09b-62e4b2b8f86d",
+			"name": "create_subscription // No Auth",
+			"url": "http://127.0.0.1:8000/api/users/22/subscribe/",
+			"time": 53,
+			"responseCode": {
+				"code": 401,
+				"name": "Unauthorized"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 401": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 401": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				53
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 401": true
+				}
+			]
+		},
+		{
+			"id": "cd4efde4-16cb-4cee-9f93-b61ee05c01b6",
+			"name": "create_duplicated_subscription // User",
+			"url": "http://127.0.0.1:8000/api/users/22/subscribe/",
+			"time": 545,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 400": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				545
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 400": true
+				}
+			]
+		},
+		{
+			"id": "105394ad-ba63-4c1a-8626-4e6d61ba8a03",
+			"name": "create_self_subscription // User",
+			"url": "http://127.0.0.1:8000/api/users/20/subscribe/",
+			"time": 448,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 400": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				448
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 400": true
+				}
+			]
+		},
+		{
+			"id": "ffa446cd-028b-4f46-93fd-1713c900e290",
+			"name": "create_subscription_to_non_existing_author // User",
+			"url": "http://127.0.0.1:8000/api/users/9876/subscribe/",
+			"time": 226,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 404": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 404": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				226
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 404": true
+				}
+			]
+		},
+		{
+			"id": "5be414b0-78af-4da2-9898-57308ffb6e44",
+			"name": "add_to_shopping_cart // User",
+			"url": "http://127.0.0.1:8000/api/recipes/43/shopping_cart/",
+			"time": 608,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 201": true,
+				"Структура ответа должна соответствовать ожидаемой": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Структура ответа должна соответствовать ожидаемой": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				608
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 201": true,
+					"Структура ответа должна соответствовать ожидаемой": true
+				}
+			]
+		},
+		{
+			"id": "ec4cc8c2-3e5e-433c-8120-062d818befc9",
+			"name": "download_shopping_cart // User",
+			"url": "http://127.0.0.1:8000/api/recipes/download_shopping_cart/",
+			"time": 450,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 200": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				450
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 200": true
+				}
+			]
+		},
+		{
+			"id": "fe627596-ae1b-4800-b64d-9ead341fe11d",
+			"name": "add_to_shopping_cart // No Auth",
+			"url": "http://127.0.0.1:8000/api/recipes/43/shopping_cart/",
+			"time": 54,
+			"responseCode": {
+				"code": 401,
+				"name": "Unauthorized"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 401": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 401": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				54
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 401": true
+				}
+			]
+		},
+		{
+			"id": "4eeb44f7-ff0f-412f-8b8e-f7fb1f7d869a",
+			"name": "add_again_to_shopping_cart // User",
+			"url": "http://127.0.0.1:8000/api/recipes/43/shopping_cart/",
+			"time": 470,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 400": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				470
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 400": true
+				}
+			]
+		},
+		{
+			"id": "ccecbb4b-9413-450f-940c-419f74b3ed10",
+			"name": "add_non_existing_recipe_to_shopping_cart // User",
+			"url": "http://127.0.0.1:8000/api/recipes/9876/shopping_cart/",
+			"time": 298,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 400": false
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 400": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				298
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 400": false
+				}
+			]
+		},
+		{
+			"id": "7ac468ff-e260-46b5-9b3e-afc05a262780",
+			"name": "add_to_favorite // User",
+			"url": "http://127.0.0.1:8000/api/recipes/43/favorite/",
+			"time": 740,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 201": true,
+				"Структура ответа должна соответствовать ожидаемой": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Структура ответа должна соответствовать ожидаемой": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				740
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 201": true,
+					"Структура ответа должна соответствовать ожидаемой": true
+				}
+			]
+		},
+		{
+			"id": "20f315ea-1861-469e-ae98-51ce1bfdfbbe",
+			"name": "add_to_favorite // No Auth",
+			"url": "http://127.0.0.1:8000/api/recipes/43/favorite/",
+			"time": 54,
+			"responseCode": {
+				"code": 401,
+				"name": "Unauthorized"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 401": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 401": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				54
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 401": true
+				}
+			]
+		},
+		{
+			"id": "2295295c-fcc2-4215-b40d-583a4fd3b07b",
+			"name": "add_again_to_favorite // User",
+			"url": "http://127.0.0.1:8000/api/recipes/43/favorite/",
+			"time": 470,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 400": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				470
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 400": true
+				}
+			]
+		},
+		{
+			"id": "1b8a24f2-5486-4583-a015-2805c2089570",
+			"name": "add_non_existing_recipe_to_favorite // User",
+			"url": "http://127.0.0.1:8000/api/recipes/9876/favorite/",
+			"time": 218,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 400": false
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 400": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				218
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 400": false
+				}
+			]
+		},
+		{
+			"id": "2ec98735-af0f-47c9-8515-580cadd8b8b1",
+			"name": "get_recipes_list_with_is_in_shopping_cart_param // User",
+			"url": "http://127.0.0.1:8000/api/recipes/?is_in_shopping_cart=1",
+			"time": 997,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 200": true,
+				"Структура ответа должна соответствовать ожидаемой": true,
+				"Должна быть возможность фильтровать рецепты через параметр запроса `is_in_shopping_cart`": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Структура ответа должна соответствовать ожидаемой": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Должна быть возможность фильтровать рецепты через параметр запроса `is_in_shopping_cart`": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				997
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 200": true,
+					"Структура ответа должна соответствовать ожидаемой": true,
+					"Должна быть возможность фильтровать рецепты через параметр запроса `is_in_shopping_cart`": true
+				}
+			]
+		},
+		{
+			"id": "5d94d068-9738-4c6e-a46f-64fb00260edd",
+			"name": "get_recipes_list_with_is_in_shopping_cart_param // No Auth",
+			"url": "http://127.0.0.1:8000/api/recipes/?is_in_shopping_cart=1",
+			"time": 186,
+			"responseCode": {
+				"code": 500,
+				"name": "Internal Server Error"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 200": false,
+				"Структура ответа должна соответствовать ожидаемой": false
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 200": {
+					"pass": 0,
+					"fail": 1
+				},
+				"Структура ответа должна соответствовать ожидаемой": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				186
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 200": false,
+					"Структура ответа должна соответствовать ожидаемой": false
+				}
+			]
+		},
+		{
+			"id": "7830f105-2931-41fe-be62-9bf808701244",
+			"name": "get_recipes_list_with_is_favorited_param // User",
+			"url": "http://127.0.0.1:8000/api/recipes/?is_favorited=1",
+			"time": 1462,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 200": true,
+				"Структура ответа должна соответствовать ожидаемой": true,
+				"Должна быть возможность фильтровать рецепты через параметр запроса `is_favorited`": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Структура ответа должна соответствовать ожидаемой": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Должна быть возможность фильтровать рецепты через параметр запроса `is_favorited`": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				1462
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 200": true,
+					"Структура ответа должна соответствовать ожидаемой": true,
+					"Должна быть возможность фильтровать рецепты через параметр запроса `is_favorited`": true
+				}
+			]
+		},
+		{
+			"id": "e89f79cc-8144-4bcd-ae47-c5babe4e8842",
+			"name": "get_recipes_list_with_is_favorited_param // No Auth",
+			"url": "http://127.0.0.1:8000/api/recipes/?is_favorited=1",
+			"time": 228,
+			"responseCode": {
+				"code": 500,
+				"name": "Internal Server Error"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 200": false,
+				"Структура ответа должна соответствовать ожидаемой": false
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 200": {
+					"pass": 0,
+					"fail": 1
+				},
+				"Структура ответа должна соответствовать ожидаемой": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				228
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 200": false,
+					"Структура ответа должна соответствовать ожидаемой": false
+				}
+			]
+		},
+		{
+			"id": "7e70da26-f91c-43d4-ace9-63211b1ca8f6",
+			"name": "delete_subscription // No Auth",
+			"url": "http://127.0.0.1:8000/api/users/22/subscribe/",
+			"time": 67,
+			"responseCode": {
+				"code": 401,
+				"name": "Unauthorized"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 401": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 401": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				67
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 401": true
+				}
+			]
+		},
+		{
+			"id": "5db745ef-78ac-4d29-bca7-5ea8d0533719",
+			"name": "delete_non_existing_subscription // Second User",
+			"url": "http://127.0.0.1:8000/api/users/22/subscribe/",
+			"time": 396,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 400": false
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 400": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				396
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 400": false
+				}
+			]
+		},
+		{
+			"id": "9478c765-8f22-4984-87af-977b5aa84488",
+			"name": "delete_subscription_with_non_existing_author_in_url // Second User",
+			"url": "http://127.0.0.1:8000/api/users/9876/subscribe/",
+			"time": 259,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 404": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 404": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				259
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 404": true
+				}
+			]
+		},
+		{
+			"id": "deb82e08-6ba9-46f6-84c8-b040a84f548d",
+			"name": "delete_first_subscription // User",
+			"url": "http://127.0.0.1:8000/api/users/22/subscribe/",
+			"time": 434,
+			"responseCode": {
+				"code": 204,
+				"name": "No Content"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 204": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				434
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 204": true
+				}
+			]
+		},
+		{
+			"id": "7c1b7eba-79f4-4970-ab1a-8229c35219cf",
+			"name": "delete_second_subscription // User",
+			"url": "http://127.0.0.1:8000/api/users/21/subscribe/",
+			"time": 410,
+			"responseCode": {
+				"code": 204,
+				"name": "No Content"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 204": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				410
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 204": true
+				}
+			]
+		},
+		{
+			"id": "905bdafc-599b-4750-bd9c-1021533fe675",
+			"name": "remove_from_shopping_cart // No Auth",
+			"url": "http://127.0.0.1:8000/api/recipes/43/shopping_cart/",
+			"time": 60,
+			"responseCode": {
+				"code": 401,
+				"name": "Unauthorized"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 401": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 401": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				60
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 401": true
+				}
+			]
+		},
+		{
+			"id": "0a0147e8-bb38-445f-9487-74be6dfcd2d3",
+			"name": "remove_not_added_from_shopping_cart // Second User",
+			"url": "http://127.0.0.1:8000/api/recipes/43/shopping_cart/",
+			"time": 327,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 400": false
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 400": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				327
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 400": false
+				}
+			]
+		},
+		{
+			"id": "bd735552-49ff-4dad-b86d-de998354e515",
+			"name": "remove_non_existing_recipe_from_shopping_cart // Second User",
+			"url": "http://127.0.0.1:8000/api/recipes/9876/shopping_cart/",
+			"time": 221,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 404": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 404": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				221
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 404": true
+				}
+			]
+		},
+		{
+			"id": "b5f1e44b-6481-41fc-8db6-8983d2ffb1f6",
+			"name": "remove_from_shopping_cart // User",
+			"url": "http://127.0.0.1:8000/api/recipes/43/shopping_cart/",
+			"time": 394,
+			"responseCode": {
+				"code": 204,
+				"name": "No Content"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 204": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				394
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 204": true
+				}
+			]
+		},
+		{
+			"id": "b3a7aee9-cef3-4329-a4bb-c4539be14b07",
+			"name": "remove_from_favorite // No Auth",
+			"url": "http://127.0.0.1:8000/api/recipes/43/favorite/",
+			"time": 54,
+			"responseCode": {
+				"code": 401,
+				"name": "Unauthorized"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 401": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 401": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				54
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 401": true
+				}
+			]
+		},
+		{
+			"id": "21b61412-5cae-437b-b06c-9b13259941c7",
+			"name": "remove_not_added_from_favorite // Second User",
+			"url": "http://127.0.0.1:8000/api/recipes/43/favorite/",
+			"time": 319,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 400": false
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 400": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				319
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 400": false
+				}
+			]
+		},
+		{
+			"id": "28e12bd7-04db-4e4f-855d-b0fde32c1b50",
+			"name": "remove_non_existing_recipe_from_favorite // Second User",
+			"url": "http://127.0.0.1:8000/api/recipes/9876/favorite/",
+			"time": 301,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 404": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 404": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				301
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 404": true
+				}
+			]
+		},
+		{
+			"id": "ffff02a4-0bb4-46a0-8c27-6fe11d6f6ddc",
+			"name": "remove_from_favorite // User",
+			"url": "http://127.0.0.1:8000/api/recipes/43/favorite/",
+			"time": 371,
+			"responseCode": {
+				"code": 204,
+				"name": "No Content"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 204": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				371
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 204": true
+				}
+			]
+		},
+		{
+			"id": "70776fcc-4a97-46c4-9997-09b9d01cf589",
+			"name": "delete_recipe // No Auth",
+			"url": "http://127.0.0.1:8000/api/recipes/47/",
+			"time": 55,
+			"responseCode": {
+				"code": 401,
+				"name": "Unauthorized"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 401": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 401": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				55
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 401": true
+				}
+			]
+		},
+		{
+			"id": "9500cdeb-bed3-4a6b-9cb5-6e911c7b358e",
+			"name": "delete_recipe_not_by_author // Second User",
+			"url": "http://127.0.0.1:8000/api/recipes/47/",
+			"time": 231,
+			"responseCode": {
+				"code": 403,
+				"name": "Forbidden"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 403": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 403": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				231
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 403": true
+				}
+			]
+		},
+		{
+			"id": "46f32fd5-3f14-497c-ba0b-f19fe85440bd",
+			"name": "delete_non_existing_recipe // Second User",
+			"url": "http://127.0.0.1:8000/api/recipes/9876/",
+			"time": 220,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 404": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 404": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				220
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 404": true
+				}
+			]
+		},
+		{
+			"id": "4a1f208b-2fbd-4230-a006-c9458adc2c39",
+			"name": "delete_first_recipe // Second User",
+			"url": "http://127.0.0.1:8000/api/recipes/43/",
+			"time": 689,
+			"responseCode": {
+				"code": 204,
+				"name": "No Content"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 204": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				689
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 204": true
+				}
+			]
+		},
+		{
+			"id": "41109950-99d2-4213-9647-7519a977ba1f",
+			"name": "delete_second_recipe // Second User",
+			"url": "http://127.0.0.1:8000/api/recipes/44/",
+			"time": 676,
+			"responseCode": {
+				"code": 204,
+				"name": "No Content"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 204": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				676
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 204": true
+				}
+			]
+		},
+		{
+			"id": "02eea4a4-e6d5-430a-b818-f21b3138c556",
+			"name": "delete_third_recipe // Second User",
+			"url": "http://127.0.0.1:8000/api/recipes/45/",
+			"time": 667,
+			"responseCode": {
+				"code": 204,
+				"name": "No Content"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 204": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				667
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 204": true
+				}
+			]
+		},
+		{
+			"id": "cdbd0811-58f7-4c30-a291-d91391566cd5",
+			"name": "delete_fourth_recipe // Second User",
+			"url": "http://127.0.0.1:8000/api/recipes/46/",
+			"time": 688,
+			"responseCode": {
+				"code": 204,
+				"name": "No Content"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 204": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				688
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 204": true
+				}
+			]
+		},
+		{
+			"id": "26eb1ea7-fc34-4c3c-8c11-d6ea168b132c",
+			"name": "delete_fifth_recipe // Second User",
+			"url": "http://127.0.0.1:8000/api/recipes/47/",
+			"time": 802,
+			"responseCode": {
+				"code": 204,
+				"name": "No Content"
+			},
+			"tests": {
+				"Статус-код ответа должен быть 204": true
+			},
+			"testPassFailCounts": {
+				"Статус-код ответа должен быть 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				802
+			],
+			"allTests": [
+				{
+					"Статус-код ответа должен быть 204": true
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 99639,
+	"collection": {
+		"requests": [
+			{
+				"id": "a00473f6-9db3-472e-8ce4-f2fcf75db89c",
+				"method": "POST"
+			},
+			{
+				"id": "7983cd7a-0e75-46af-b2e6-3c10b8d2f952",
+				"method": "POST"
+			},
+			{
+				"id": "bd8562fd-9ca1-4eac-b76a-c11745b4d7a1",
+				"method": "POST"
+			},
+			{
+				"id": "75bb8e65-ba6d-4ca1-9f6b-eeee1da44347",
+				"method": "POST"
+			},
+			{
+				"id": "c11dc047-7b20-4804-9150-1d1db29e9b2e",
+				"method": "POST"
+			},
+			{
+				"id": "0a08f52a-3cc3-45be-b5d6-8ff2ada069d0",
+				"method": "POST"
+			},
+			{
+				"id": "d48721e2-5858-4af3-846a-42ee4de9ab80",
+				"method": "POST"
+			},
+			{
+				"id": "389b0f31-53bc-4902-8ffa-24350a0ca36c",
+				"method": "POST"
+			},
+			{
+				"id": "6de7b2ed-dc9f-43ce-a259-555fd4d88ae2",
+				"method": "POST"
+			},
+			{
+				"id": "72d3f7ac-ea0b-4c90-a695-0ec1282c4bba",
+				"method": "POST"
+			},
+			{
+				"id": "0f53ce6b-543b-43ae-93f0-3de7b48a0325",
+				"method": "POST"
+			},
+			{
+				"id": "99b935ac-30dd-4bc9-8bc7-5e813c4f6285",
+				"method": "POST"
+			},
+			{
+				"id": "774e58b7-5ae1-4afb-bf2d-09b23d28bba6",
+				"method": "POST"
+			},
+			{
+				"id": "660ad920-e876-449c-83b5-f6e2b2c6f0f2",
+				"method": "POST"
+			},
+			{
+				"id": "1fee5d8c-cedc-436f-875a-6ddbec5c130e",
+				"method": "POST"
+			},
+			{
+				"id": "a60dbbea-a7ea-49f8-a5b3-85ca64418004",
+				"method": "POST"
+			},
+			{
+				"id": "bb485789-b773-4086-b99b-dba725cb2fc1",
+				"method": "POST"
+			},
+			{
+				"id": "d5436e3a-afc1-4612-a9e0-885f893e1c37",
+				"method": "POST"
+			},
+			{
+				"id": "b3ce31f7-03af-4ce1-bd6b-453e482d3cbb",
+				"method": "POST"
+			},
+			{
+				"id": "17fdff60-a162-42fe-babb-9d63cd43a8dd",
+				"method": "POST"
+			},
+			{
+				"id": "5e123fdf-f59f-4264-8e5e-ee148a6b2f76",
+				"method": "POST"
+			},
+			{
+				"id": "0fda6b48-fd7b-47ea-a2ab-e10e8efff1c3",
+				"method": "POST"
+			},
+			{
+				"id": "858dbb28-a8b2-4acd-9886-1742f0c2dcb5",
+				"method": "GET"
+			},
+			{
+				"id": "003518a0-74bb-43f6-9389-bcdac0933d81",
+				"method": "GET"
+			},
+			{
+				"id": "f03cadae-0c12-42bc-9b73-b5a22cb1a95f",
+				"method": "GET"
+			},
+			{
+				"id": "eb02302c-61db-48f7-978d-60b0df01233b",
+				"method": "GET"
+			},
+			{
+				"id": "e13cd168-5887-40ab-9147-97f7e24174df",
+				"method": "GET"
+			},
+			{
+				"id": "dac28e2a-dc85-4355-b162-5fe0ce21f10f",
+				"method": "GET"
+			},
+			{
+				"id": "3ac39b18-7b92-476c-9d9c-d62eb4cb3a9c",
+				"method": "POST"
+			},
+			{
+				"id": "b80279de-3aaf-47e6-b6ad-5233914d1ddd",
+				"method": "POST"
+			},
+			{
+				"id": "bdb54b50-e4b9-48f1-8852-e7b5841cf815",
+				"method": "POST"
+			},
+			{
+				"id": "125ded83-282b-4c40-a5c4-a3f408be6c41",
+				"method": "POST"
+			},
+			{
+				"id": "02772772-0710-4a44-89cd-444b1c21ad73",
+				"method": "GET"
+			},
+			{
+				"id": "6079b9e5-17c0-4f24-897b-46658c7fbda6",
+				"method": "GET"
+			},
+			{
+				"id": "dc16c75b-0898-400b-a0ce-acf9f85578af",
+				"method": "POST"
+			},
+			{
+				"id": "2c3d55b6-0c21-4fb6-b209-586932276aec",
+				"method": "GET"
+			},
+			{
+				"id": "828b45dc-9109-419a-8894-8669ab87db2e",
+				"method": "GET"
+			},
+			{
+				"id": "f439c321-704d-46e9-b6a3-b0a8448efb3a",
+				"method": "GET"
+			},
+			{
+				"id": "e4d8ca36-ed09-4e7b-b904-2056a22f1d87",
+				"method": "GET"
+			},
+			{
+				"id": "c0fa1314-07c9-4fc6-8a71-6fd53cc86d74",
+				"method": "GET"
+			},
+			{
+				"id": "afc86c6e-daab-44a7-b639-d9d1565ecaf0",
+				"method": "POST"
+			},
+			{
+				"id": "d37fbe62-3ed5-4b72-92b9-a9b3ff1902c2",
+				"method": "PUT"
+			},
+			{
+				"id": "c6da5001-4414-4aa0-85cd-c83ea901921e",
+				"method": "PATCH"
+			},
+			{
+				"id": "16da8b6c-2ece-4856-81f2-a252d86253a0",
+				"method": "DELETE"
+			},
+			{
+				"id": "18107bab-2864-4278-abe0-925217cc205d",
+				"method": "GET"
+			},
+			{
+				"id": "86f2ab64-5d27-4e4f-92f6-ddca162840c2",
+				"method": "GET"
+			},
+			{
+				"id": "ddd98e1c-991f-46b2-9afb-300f17e8668f",
+				"method": "GET"
+			},
+			{
+				"id": "7be4255b-bf9b-4767-a618-183f925aa37d",
+				"method": "GET"
+			},
+			{
+				"id": "62a866e2-a5b3-4e86-98af-031be3c1e846",
+				"method": "GET"
+			},
+			{
+				"id": "57e9e054-3670-4413-ac09-f25859fdac7f",
+				"method": "GET"
+			},
+			{
+				"id": "dc9a4a37-e5c4-45f3-8563-5d9f0bb7464e",
+				"method": "POST"
+			},
+			{
+				"id": "192f5878-8213-41bc-ab20-9938a04b05c3",
+				"method": "PUT"
+			},
+			{
+				"id": "c3245d2b-e241-45b4-97c1-5efbb62357a3",
+				"method": "PATCH"
+			},
+			{
+				"id": "4e98a5af-c6b4-4455-82b8-3c70d7306466",
+				"method": "DELETE"
+			},
+			{
+				"id": "cea7c12c-dc1a-478d-8c22-ad56bcdc13b4",
+				"method": "POST"
+			},
+			{
+				"id": "28ee517b-1591-473e-9e1e-ac1d80e43745",
+				"method": "POST"
+			},
+			{
+				"id": "03b4bf6e-fc87-401e-acc3-236be3b18a47",
+				"method": "POST"
+			},
+			{
+				"id": "0135daf4-8191-43f8-957e-245c56ed2879",
+				"method": "POST"
+			},
+			{
+				"id": "8cd6f987-0957-48f0-b7c5-688a92013c1f",
+				"method": "POST"
+			},
+			{
+				"id": "d51c04c5-46c4-4866-80aa-0b1d37d01fda",
+				"method": "GET"
+			},
+			{
+				"id": "b2436b95-ee8d-4f2e-a910-365cd3950d05",
+				"method": "GET"
+			},
+			{
+				"id": "9dad5f9d-1ebd-44c1-8d92-d9e4d252f5e3",
+				"method": "GET"
+			},
+			{
+				"id": "120186d1-f377-4126-be8d-e6a2c359c0b9",
+				"method": "GET"
+			},
+			{
+				"id": "bf650248-9c0f-4931-96da-8d86ff2ace65",
+				"method": "GET"
+			},
+			{
+				"id": "07034fd2-6228-49df-8f80-05946b95e8a7",
+				"method": "GET"
+			},
+			{
+				"id": "85199c02-7db7-4efc-acd9-3931c77cddec",
+				"method": "GET"
+			},
+			{
+				"id": "b08f3187-c4e2-40b2-ac83-fe82e6defc99",
+				"method": "PATCH"
+			},
+			{
+				"id": "7b79e5c3-633e-421c-825e-9035ed08dc2a",
+				"method": "POST"
+			},
+			{
+				"id": "0ac12d33-6467-4923-aab4-8115a4934daa",
+				"method": "POST"
+			},
+			{
+				"id": "0ea7ac51-14da-4f95-932b-db88fb778ce4",
+				"method": "POST"
+			},
+			{
+				"id": "a3028914-c934-4882-81a5-5031bdeecabc",
+				"method": "POST"
+			},
+			{
+				"id": "2a3182a6-d9a1-4e65-a246-7b23783f82e8",
+				"method": "POST"
+			},
+			{
+				"id": "478bdcf3-4dde-415f-b945-5a11a4236bbb",
+				"method": "POST"
+			},
+			{
+				"id": "094915d0-ca23-4c8d-82e9-1e1450445b3b",
+				"method": "POST"
+			},
+			{
+				"id": "244503f9-9f50-45dd-8085-813c1648af45",
+				"method": "POST"
+			},
+			{
+				"id": "457ea4b6-0c8f-4f3e-8ffb-fa21da5b5bb4",
+				"method": "POST"
+			},
+			{
+				"id": "e79da4f9-bcc6-4eba-8f76-82f9e242a0c4",
+				"method": "POST"
+			},
+			{
+				"id": "e37aeca1-d503-4682-ac9d-b69b4cd59b2f",
+				"method": "POST"
+			},
+			{
+				"id": "c1dd006b-8567-4ad4-b1d7-1b920aea2ac0",
+				"method": "POST"
+			},
+			{
+				"id": "2a50f6ec-5c29-450e-b8d0-47b354882c6c",
+				"method": "POST"
+			},
+			{
+				"id": "5c4cdeb9-de1e-4870-8ba3-d552a3571490",
+				"method": "POST"
+			},
+			{
+				"id": "aa8e0ea3-82c5-497a-b867-14c984ed434b",
+				"method": "POST"
+			},
+			{
+				"id": "6fbe3f77-a14b-47fa-b2fe-e4dca691d645",
+				"method": "POST"
+			},
+			{
+				"id": "26c57895-2d48-4423-b374-b5377653d369",
+				"method": "POST"
+			},
+			{
+				"id": "b010c6f0-e73a-4fc5-ba56-064b3c6c1f3a",
+				"method": "POST"
+			},
+			{
+				"id": "a035a741-19b8-4632-9566-8041d2884e48",
+				"method": "POST"
+			},
+			{
+				"id": "528d3a6c-cf63-4ff9-9f7a-0137ace88864",
+				"method": "POST"
+			},
+			{
+				"id": "f0174e7f-3d85-48a5-bf68-19074b7d8c74",
+				"method": "PATCH"
+			},
+			{
+				"id": "0f196582-d3de-4fe6-bdc7-417fba9e52e7",
+				"method": "PATCH"
+			},
+			{
+				"id": "b8442699-5627-4d0d-b4e0-c72802d3d4e7",
+				"method": "PATCH"
+			},
+			{
+				"id": "29068ecf-bef3-432f-bf92-b3471d1baf6d",
+				"method": "PATCH"
+			},
+			{
+				"id": "11400f02-95f4-4272-9c15-edeff8644e55",
+				"method": "PATCH"
+			},
+			{
+				"id": "aa361bdc-ae83-4c22-b62d-32ec87d6b142",
+				"method": "PATCH"
+			},
+			{
+				"id": "6cf7d7d5-7f38-4316-80d4-e7b5c1738a90",
+				"method": "PATCH"
+			},
+			{
+				"id": "0c9dfc57-f954-46eb-afb5-6dcbdc23a466",
+				"method": "PATCH"
+			},
+			{
+				"id": "1ac46c1e-bc6b-41f5-a1d8-eb6bb3612abf",
+				"method": "PATCH"
+			},
+			{
+				"id": "7ff9f68e-3180-407b-a390-55fbbd63180b",
+				"method": "PATCH"
+			},
+			{
+				"id": "3c7d3579-ba3c-482f-81fa-f064db24ee70",
+				"method": "PATCH"
+			},
+			{
+				"id": "ad991232-0167-421a-ab98-0ffd84cefa48",
+				"method": "PATCH"
+			},
+			{
+				"id": "94f77ec7-3dee-4d51-959d-098fdb32f10e",
+				"method": "PATCH"
+			},
+			{
+				"id": "e1544430-6381-4a20-ba01-3a35e62aa4d5",
+				"method": "PATCH"
+			},
+			{
+				"id": "d64a5336-2c03-4038-986d-125d0a539110",
+				"method": "PATCH"
+			},
+			{
+				"id": "ae7bdf3a-d106-4200-9c03-74943a319e76",
+				"method": "PATCH"
+			},
+			{
+				"id": "b3593d48-1594-4b73-afef-77752e86daa4",
+				"method": "PATCH"
+			},
+			{
+				"id": "8ae0b45b-6423-49f0-ada0-da77fe8acb1a",
+				"method": "PATCH"
+			},
+			{
+				"id": "04bbeeef-9a69-48ea-9e7d-fe13f3da1787",
+				"method": "POST"
+			},
+			{
+				"id": "f42977c3-b95c-4552-b2fd-8a6c63e56b9b",
+				"method": "POST"
+			},
+			{
+				"id": "7cdd6272-5954-4afe-97d8-283fed3e5410",
+				"method": "GET"
+			},
+			{
+				"id": "91c7f3bb-bffc-4762-a219-82ce332d468b",
+				"method": "GET"
+			},
+			{
+				"id": "826ed2b1-fe50-4375-b5c9-ccd107ca6a96",
+				"method": "GET"
+			},
+			{
+				"id": "cf7a5010-d8a4-4229-a09b-62e4b2b8f86d",
+				"method": "POST"
+			},
+			{
+				"id": "cd4efde4-16cb-4cee-9f93-b61ee05c01b6",
+				"method": "POST"
+			},
+			{
+				"id": "105394ad-ba63-4c1a-8626-4e6d61ba8a03",
+				"method": "POST"
+			},
+			{
+				"id": "ffa446cd-028b-4f46-93fd-1713c900e290",
+				"method": "POST"
+			},
+			{
+				"id": "5be414b0-78af-4da2-9898-57308ffb6e44",
+				"method": "POST"
+			},
+			{
+				"id": "ec4cc8c2-3e5e-433c-8120-062d818befc9",
+				"method": "GET"
+			},
+			{
+				"id": "fe627596-ae1b-4800-b64d-9ead341fe11d",
+				"method": "POST"
+			},
+			{
+				"id": "4eeb44f7-ff0f-412f-8b8e-f7fb1f7d869a",
+				"method": "POST"
+			},
+			{
+				"id": "ccecbb4b-9413-450f-940c-419f74b3ed10",
+				"method": "POST"
+			},
+			{
+				"id": "7ac468ff-e260-46b5-9b3e-afc05a262780",
+				"method": "POST"
+			},
+			{
+				"id": "20f315ea-1861-469e-ae98-51ce1bfdfbbe",
+				"method": "POST"
+			},
+			{
+				"id": "2295295c-fcc2-4215-b40d-583a4fd3b07b",
+				"method": "POST"
+			},
+			{
+				"id": "1b8a24f2-5486-4583-a015-2805c2089570",
+				"method": "POST"
+			},
+			{
+				"id": "2ec98735-af0f-47c9-8515-580cadd8b8b1",
+				"method": "GET"
+			},
+			{
+				"id": "5d94d068-9738-4c6e-a46f-64fb00260edd",
+				"method": "GET"
+			},
+			{
+				"id": "7830f105-2931-41fe-be62-9bf808701244",
+				"method": "GET"
+			},
+			{
+				"id": "e89f79cc-8144-4bcd-ae47-c5babe4e8842",
+				"method": "GET"
+			},
+			{
+				"id": "7e70da26-f91c-43d4-ace9-63211b1ca8f6",
+				"method": "DELETE"
+			},
+			{
+				"id": "5db745ef-78ac-4d29-bca7-5ea8d0533719",
+				"method": "DELETE"
+			},
+			{
+				"id": "9478c765-8f22-4984-87af-977b5aa84488",
+				"method": "DELETE"
+			},
+			{
+				"id": "deb82e08-6ba9-46f6-84c8-b040a84f548d",
+				"method": "DELETE"
+			},
+			{
+				"id": "7c1b7eba-79f4-4970-ab1a-8229c35219cf",
+				"method": "DELETE"
+			},
+			{
+				"id": "905bdafc-599b-4750-bd9c-1021533fe675",
+				"method": "DELETE"
+			},
+			{
+				"id": "0a0147e8-bb38-445f-9487-74be6dfcd2d3",
+				"method": "DELETE"
+			},
+			{
+				"id": "bd735552-49ff-4dad-b86d-de998354e515",
+				"method": "DELETE"
+			},
+			{
+				"id": "b5f1e44b-6481-41fc-8db6-8983d2ffb1f6",
+				"method": "DELETE"
+			},
+			{
+				"id": "b3a7aee9-cef3-4329-a4bb-c4539be14b07",
+				"method": "DELETE"
+			},
+			{
+				"id": "21b61412-5cae-437b-b06c-9b13259941c7",
+				"method": "DELETE"
+			},
+			{
+				"id": "28e12bd7-04db-4e4f-855d-b0fde32c1b50",
+				"method": "DELETE"
+			},
+			{
+				"id": "ffff02a4-0bb4-46a0-8c27-6fe11d6f6ddc",
+				"method": "DELETE"
+			},
+			{
+				"id": "70776fcc-4a97-46c4-9997-09b9d01cf589",
+				"method": "DELETE"
+			},
+			{
+				"id": "9500cdeb-bed3-4a6b-9cb5-6e911c7b358e",
+				"method": "DELETE"
+			},
+			{
+				"id": "46f32fd5-3f14-497c-ba0b-f19fe85440bd",
+				"method": "DELETE"
+			},
+			{
+				"id": "4a1f208b-2fbd-4230-a006-c9458adc2c39",
+				"method": "DELETE"
+			},
+			{
+				"id": "41109950-99d2-4213-9647-7519a977ba1f",
+				"method": "DELETE"
+			},
+			{
+				"id": "02eea4a4-e6d5-430a-b818-f21b3138c556",
+				"method": "DELETE"
+			},
+			{
+				"id": "cdbd0811-58f7-4c30-a291-d91391566cd5",
+				"method": "DELETE"
+			},
+			{
+				"id": "26eb1ea7-fc34-4c3c-8c11-d6ea168b132c",
+				"method": "DELETE"
+			}
+		]
+	}
+}
