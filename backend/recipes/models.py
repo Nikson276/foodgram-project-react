@@ -23,7 +23,7 @@ class Tag(models.Model):
 class Ingredient(models.Model):
     """ Модель ингредиентов."""
     name = models.CharField('Название', max_length=200, default='dummy')
-    measurement_unit = models.CharField('ЕИ', max_length=4, default='г')
+    measurement_unit = models.CharField('ЕИ', max_length=15, default='г')
 
     class Meta:
         verbose_name = 'Ингредиент'

@@ -47,3 +47,5 @@ tzdata==2023.4
 uritemplate==4.1.1
 urllib3==2.2.0
 webcolors==1.11.1
+django-filter==23.5
+reportlab
