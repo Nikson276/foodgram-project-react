@@ -1,29 +1,26 @@
-from rest_framework import viewsets
-from rest_framework.decorators import action
-from rest_framework.response import Response
-from rest_framework.permissions import AllowAny, IsAuthenticated
-from rest_framework.pagination import LimitOffsetPagination
-from djoser.views import UserViewSet as DjoserUserViewSet
-from djoser.permissions import CurrentUserOrAdmin
-from rest_framework import permissions
 from typing import Optional
-from users.models import User, Follow
-from recipes.models import (
-    Tag, Ingredient, RecipeIngredient,
-    Recipe, Favorite, ShoppingList
-)
-from .serializers import (
-    RecipeIngredientSerializer, RecipeListSerializer, RecipeCreateSerializer,
-    FollowSerializer, FavoriteSerializer, ShoppingListSerializer,
-    IngredientSerializer, TagSerializer, FollowReadListSerializer
-)
-from .mixins import (
-    UserRelatedModelMixin, ShoppingListDownloadHelper, AuthorUserOrAdmin
-)
-from .filters import (
-    RecipeViewSetFilter, RecipeCustomFilter, CustomSearchFilter
-)
+
+from djoser.permissions import CurrentUserOrAdmin
+from djoser.views import UserViewSet as DjoserUserViewSet
 from foodgram.settings import ATTACHMENT_FORMAT
+from recipes.models import (Favorite, Ingredient, Recipe, RecipeIngredient,
+                            ShoppingList, Tag)
+from rest_framework import permissions, viewsets
+from rest_framework.decorators import action
+from rest_framework.pagination import LimitOffsetPagination
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.response import Response
+from users.models import Follow, User
+
+from .filters import (CustomSearchFilter, RecipeCustomFilter,
+                      RecipeViewSetFilter)
+from .mixins import (AuthorUserOrAdmin, ShoppingListDownloadHelper,
+                     UserRelatedModelMixin)
+from .serializers import (FavoriteSerializer, FollowReadListSerializer,
+                          FollowSerializer, IngredientSerializer,
+                          RecipeCreateSerializer, RecipeIngredientSerializer,
+                          RecipeListSerializer, ShoppingListSerializer,
+                          TagSerializer)
 
 
 # app classes - users

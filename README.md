@@ -1,11 +1,25 @@
 # praktikum_new_diplom
 
+sudo docker compose -f docker-compose.production.yml up -d
+sudo docker compose -f docker-compose.production.yml exec backend python manage.py migrate
+sudo docker compose -f docker-compose.production.yml exec backend python manage.py collectstatic
+sudo docker compose -f docker-compose.production.yml exec backend cp -r /app/collected_static/. /backend_static/static/
+sudo docker compose -f docker-compose.production.yml exec backend python manage.py load_csv
+
+
+http://130.193.54.101:8000/
+http://130.193.54.101:3000/
+
+Public IP 130.193.54.101
+Domain: https://foodgram-nikson.serveblog.net/
+
+
 
 superuser
 Username: admin
 Email address: admin@admin.ru
 fw9S3YJsyLG5Zjw
-Token 887d946ac671e57707b2125eb2260f456c025f62
+Token 
 
 
 user1
@@ -22,12 +36,3 @@ user3
 user3@ya.ru
 fw9S3YJsyLG5Zjw
 Token 
-
-
-{
-    "users": "http://127.0.0.1:8000/api/users/",
-    "tags": "http://127.0.0.1:8000/api/tags/",
-    "recipes": "http://127.0.0.1:8000/api/recipes/",
-    "recipes/download_shopping_cart": "http://127.0.0.1:8000/api/recipes/download_shopping_cart/",
-    "ingredients": "http://127.0.0.1:8000/api/ingredients/"
-}

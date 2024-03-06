@@ -25,7 +25,7 @@ services:
     volumes:     
       - static:/frontend_static
   gateway:
-    build: nikson276/foodgram_gateway # Качаем с Docker Hub
+    image: nikson276/foodgram_gateway # Качаем с Docker Hub
     env_file: .env
     volumes:   
       - static:/staticfiles

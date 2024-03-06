@@ -1,7 +1,6 @@
 from http import HTTPStatus
 
 import pytest
-
 from posts.models import Comment
 
 
@@ -158,7 +157,6 @@ class TestCommentAPI:
             '`/api/v1/posts/{post.id}/comments/` для полей `author` и `post` '
             'установлен свойство "Только для чтения"'
         )
-
 
     def test_comments_id_available(self, user_client, post, comment_1_post):
         response = user_client.get(

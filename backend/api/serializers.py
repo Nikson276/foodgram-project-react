@@ -1,20 +1,19 @@
 import base64
+
 import webcolors
-from djoser.serializers import (
-    UserCreateSerializer as DjoserUserCreateSerializer,
-    UserSerializer as DjoserUserSerializer,
-    SetPasswordSerializer
-)
 from django.core.files.base import ContentFile
+from djoser.serializers import SetPasswordSerializer
+from djoser.serializers import \
+    UserCreateSerializer as DjoserUserCreateSerializer
+from djoser.serializers import UserSerializer as DjoserUserSerializer
+from recipes.models import (Favorite, Ingredient, Recipe, RecipeIngredient,
+                            ShoppingList, Tag)
 from rest_framework import serializers
-from users.models import User, Follow
-from recipes.models import (
-    Tag, Ingredient, RecipeIngredient,
-    Recipe, Favorite, ShoppingList
-)
+from rest_framework.utils import model_meta
+from users.models import Follow, User
+
 from .mixins import RecipeRelationHelper
 from .validators import RecipeCreateValidation
-from rest_framework.utils import model_meta
 
 
 class Hex2NameColor(serializers.Field):
