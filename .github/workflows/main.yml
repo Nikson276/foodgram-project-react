@@ -1,9 +1,9 @@
-name: Main Foodgram workflow
+name: Master Foodgram workflow
 
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   tests:
