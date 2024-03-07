@@ -18,6 +18,7 @@ jobs:
           POSTGRES_USER: django_user
           POSTGRES_PASSWORD: mysecretpassword
           POSTGRES_DB: django
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
         ports:
           - 5432:5432
         # Эта конструкция описывает проверку готовности сервиса postgres
@@ -43,6 +44,7 @@ jobs:
         POSTGRES_USER: django_user
         POSTGRES_PASSWORD: mysecretpassword
         POSTGRES_DB: django
+        SECRET_KEY: ${{ secrets.SECRET_KEY }}
         # Сервер БД запущен в Docker, но его порт проброшен на хост
         # Поэтому подключаемся к 127.0.0.1:5432
         DB_HOST: 127.0.0.1
