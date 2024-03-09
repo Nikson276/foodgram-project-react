@@ -56,7 +56,7 @@ jobs:
 
 # Добавляем новую задачу: деплой приложения
   build_and_push_to_docker_hub:
-    name: Push Docker image to DockerHub
+    name: Push backend Docker image to DockerHub
     runs-on: ubuntu-latest
     needs: tests
     steps:
