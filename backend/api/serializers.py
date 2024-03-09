@@ -173,6 +173,10 @@ class RecipeListSerializer(serializers.ModelSerializer):
         source='rel_RecipeIngredient',
         many=True,
     )
+    image = serializers.SerializerMethodField(
+        'get_image_url',
+        read_only=True,
+    )
     is_favorited = serializers.SerializerMethodField()
     is_in_shopping_cart = serializers.SerializerMethodField()
 
@@ -184,7 +188,7 @@ class RecipeListSerializer(serializers.ModelSerializer):
             'is_favorited', 'is_in_shopping_cart',
             'name', 'image', 'text', 'cooking_time'
         )
-        read_only_fields = ('id', 'name', 'image', 'text', 'cooking_time')
+        read_only_fields = ('id', 'name', 'text', 'cooking_time')
 
     def is_model_instance_exist(self, obj, model):
         """ Метод хелпер - находится ли в модели объект """
@@ -201,6 +205,11 @@ class RecipeListSerializer(serializers.ModelSerializer):
     def get_is_in_shopping_cart(self, obj):
         """ Находится ли в списке покупок """
         return self.is_model_instance_exist(obj=obj, model=ShoppingList)
+
+    def get_image_url(self, obj):
+        if obj.image:
+            return obj.image.url
+        return None
 
 
 class RecipeShortListSerializer(serializers.ModelSerializer):
