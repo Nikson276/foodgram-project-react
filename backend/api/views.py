@@ -7,7 +7,6 @@ from recipes.models import (Favorite, Ingredient, Recipe, RecipeIngredient,
                             ShoppingList, Tag)
 from rest_framework import permissions, viewsets
 from rest_framework.decorators import action
-from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from users.models import Follow, User
@@ -16,6 +15,7 @@ from .filters import (CustomSearchFilter, RecipeCustomFilter,
                       RecipeViewSetFilter)
 from .mixins import (AuthorUserOrAdmin, ShoppingListDownloadHelper,
                      UserRelatedModelMixin)
+from .pagination import CustomPageNumberPagination
 from .serializers import (FavoriteSerializer, FollowReadListSerializer,
                           FollowSerializer, IngredientSerializer,
                           RecipeCreateSerializer, RecipeIngredientSerializer,
@@ -30,7 +30,7 @@ class CustomUserViewSet(
 ):
     queryset = User.objects.all()
     search_fields = ('username', 'email')
-    pagination_class = LimitOffsetPagination
+    pagination_class = CustomPageNumberPagination
 
     def get_permissions(self):
         """ Переопределим полномочия в зависимости от действия"""
@@ -47,7 +47,7 @@ class CustomUserViewSet(
             methods=['get'],
             serializer_class=FollowReadListSerializer,
             permission_classes=[CurrentUserOrAdmin,],
-            pagination_class=LimitOffsetPagination,
+            pagination_class=CustomPageNumberPagination,
             url_path='subscriptions',
             )
     def subscriptions(self, request):
@@ -120,7 +120,7 @@ class RecipeViewSet(
     """ Обработка эндпоинта /recipes"""
     queryset = Recipe.objects.all()
     filterset_class = RecipeViewSetFilter
-    pagination_class = LimitOffsetPagination
+    pagination_class = CustomPageNumberPagination
 
     def get_permissions(self):
         """ Переопределим полномочия в зависимости от действия"""

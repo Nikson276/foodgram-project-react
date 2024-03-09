@@ -208,4 +208,4 @@ jobs:
       with:
         to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
-        message: Деплой Foodgram успешно выполнен! Поздравляю, можно спать!
+        message: Деплой Foodgram успешно выполнен! https://foodgram-nikson.serveblog.net/
