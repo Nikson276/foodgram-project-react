@@ -35,18 +35,18 @@ class CustomUserViewSet(
     def get_permissions(self):
         """ Переопределим полномочия в зависимости от действия"""
         if self.action == "me":
-            self.permission_classes = [CurrentUserOrAdmin,]
+            self.permission_classes = [CurrentUserOrAdmin, ]
         elif self.request.method in permissions.SAFE_METHODS:
             # allow GET, HEAD or OPTIONS requests
-            self.permission_classes = [AllowAny,]
+            self.permission_classes = [AllowAny, ]
         else:
-            self.permission_classes = [CurrentUserOrAdmin,]
+            self.permission_classes = [CurrentUserOrAdmin, ]
         return super().get_permissions()
 
     @action(detail=False,
             methods=['get'],
             serializer_class=FollowReadListSerializer,
-            permission_classes=[CurrentUserOrAdmin,],
+            permission_classes=[CurrentUserOrAdmin, ],
             pagination_class=CustomPageNumberPagination,
             url_path='subscriptions',
             )
@@ -73,7 +73,7 @@ class CustomUserViewSet(
 
     @action(detail=True,
             methods=['post', 'delete'],
-            permission_classes=[IsAuthenticated,],
+            permission_classes=[IsAuthenticated, ],
             url_name='subscribe',
             )
     def subscribe(self, request, id):
@@ -126,9 +126,9 @@ class RecipeViewSet(
         """ Переопределим полномочия в зависимости от действия"""
         if self.request.method in permissions.SAFE_METHODS:
             # allow GET, HEAD or OPTIONS requests
-            self.permission_classes = [AllowAny,]
+            self.permission_classes = [AllowAny, ]
         else:
-            self.permission_classes = [AuthorUserOrAdmin,]
+            self.permission_classes = [AuthorUserOrAdmin, ]
         return super().get_permissions()
 
     def get_queryset(self):
@@ -163,7 +163,7 @@ class RecipeViewSet(
 
     @action(detail=True,
             methods=['post', 'delete'],
-            permission_classes=[IsAuthenticated,],
+            permission_classes=[IsAuthenticated, ],
             url_name='favorite'
             )
     def favorite(self, request, pk):
@@ -181,7 +181,7 @@ class RecipeViewSet(
 
     @action(detail=True,
             methods=['post', 'delete'],
-            permission_classes=[IsAuthenticated,],
+            permission_classes=[IsAuthenticated, ],
             url_name='shopping_cart'
             )
     def shopping_cart(self, request, pk):
