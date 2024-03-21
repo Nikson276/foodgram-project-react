@@ -3,13 +3,12 @@ from typing import Optional
 from django.conf import settings
 from djoser.permissions import CurrentUserOrAdmin
 from djoser.views import UserViewSet as DjoserUserViewSet
+from recipes.models import (Favorite, Ingredient, Recipe, RecipeIngredient,
+                            ShoppingList, Tag)
 from rest_framework import permissions, viewsets
 from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
-
-from recipes.models import (Favorite, Ingredient, Recipe, RecipeIngredient,
-                            ShoppingList, Tag)
 from users.models import Follow, User
 
 from .filters import (CustomSearchFilter, RecipeCustomFilter,

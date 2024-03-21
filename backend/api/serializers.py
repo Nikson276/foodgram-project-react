@@ -6,11 +6,10 @@ from djoser.serializers import SetPasswordSerializer
 from djoser.serializers import \
     UserCreateSerializer as DjoserUserCreateSerializer
 from djoser.serializers import UserSerializer as DjoserUserSerializer
-from rest_framework import serializers
-from rest_framework.utils import model_meta
-
 from recipes.models import (Favorite, Ingredient, Recipe, RecipeIngredient,
                             ShoppingList, Tag)
+from rest_framework import serializers
+from rest_framework.utils import model_meta
 from users.models import Follow, User
 
 from .mixins import RecipeCreateValidationMixin, RecipeRelationMixin
