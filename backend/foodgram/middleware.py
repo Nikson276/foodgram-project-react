@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.http import JsonResponse
 
 
@@ -7,6 +9,9 @@ class Handle404Middleware:
 
     def __call__(self, request):
         response = self.get_response(request)
-        if response.status_code == 404:
-            return JsonResponse({'error': 'Not found'}, status=404)
+        if response.status_code == HTTPStatus.NOT_FOUND:
+            return JsonResponse(
+                {'error': 'Not found'},
+                status=HTTPStatus.NOT_FOUND
+            )
         return response

@@ -1,0 +1,28 @@
+# User creation request
+POST http://127.0.0.1:8000/api/users/
+Content-type: application/json
+
+{
+    "email": "user@yandex.ru",
+    "username": "test.user1",
+    "first_name": "user1",
+    "last_name": "test",
+    "password": "MySecretPas$word"
+}
+
+###
+# Users token receiving part
+POST http://127.0.0.1:8000/api/auth/token/login/
+Content-type: application/json
+
+{
+    "email": "user@yandex.ru",
+    "password": "MySecretPas$word"
+}
+
+###
+
+#
+
+
+

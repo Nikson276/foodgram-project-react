@@ -1,4 +1,4 @@
-from foodgram.settings import REST_FRAMEWORK
+from django.conf import settings
 from rest_framework.pagination import PageNumberPagination
 
 
@@ -11,4 +11,4 @@ class CustomPageNumberPagination(PageNumberPagination):
 
     # Set to an integer to limit the maximum page size the client may request.
     # Only relevant if 'page_size_query_param' has also been set.
-    max_page_size = REST_FRAMEWORK['PAGE_SIZE']
+    max_page_size = settings.REST_FRAMEWORK['PAGE_SIZE']

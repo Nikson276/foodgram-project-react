@@ -1,21 +1,23 @@
 from typing import Optional
 
+from django.conf import settings
 from djoser.permissions import CurrentUserOrAdmin
 from djoser.views import UserViewSet as DjoserUserViewSet
-from foodgram.settings import ATTACHMENT_FORMAT
-from recipes.models import (Favorite, Ingredient, Recipe, RecipeIngredient,
-                            ShoppingList, Tag)
 from rest_framework import permissions, viewsets
 from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
+
+from recipes.models import (Favorite, Ingredient, Recipe, RecipeIngredient,
+                            ShoppingList, Tag)
 from users.models import Follow, User
 
 from .filters import (CustomSearchFilter, RecipeCustomFilter,
                       RecipeViewSetFilter)
-from .mixins import (AuthorUserOrAdmin, ShoppingListDownloadHelper,
-                     UserRelatedModelMixin)
+from .helpers import ShoppingListDownloadHelper
+from .mixins import UserRelatedModelMixin
 from .pagination import CustomPageNumberPagination
+from .permissions import AuthorUserOrAdmin
 from .serializers import (FavoriteSerializer, FollowReadListSerializer,
                           FollowSerializer, IngredientSerializer,
                           RecipeCreateSerializer, RecipeIngredientSerializer,
@@ -23,7 +25,6 @@ from .serializers import (FavoriteSerializer, FollowReadListSerializer,
                           TagSerializer)
 
 
-# app classes - users
 class CustomUserViewSet(
     DjoserUserViewSet,
     UserRelatedModelMixin
@@ -80,15 +81,19 @@ class CustomUserViewSet(
         """ Метод для создание и удаления подписки на юзера по ид"""
         model = Follow
         serializer_class = FollowSerializer
+        params = {
+            'par_model': User,
+            'rel_model': model,
+            'rel_name': 'following',
+            'serializer_class': serializer_class,
+            'request': request,
+            'pk': id
+        }
 
-        return self.add_delete_model_helper(
-            par_model=User,
-            rel_model=model,
-            rel_name='following',
-            serializer_class=serializer_class,
-            request=request,
-            pk=id
-        )
+        if request.method == 'POST':
+            return self.add_model(**params)
+        else:
+            return self.delete_model(**params)
 
 
 # app classes - recipes
@@ -170,14 +175,19 @@ class RecipeViewSet(
         """ Метод добавления/удаления рецепта в избранное"""
         model = Favorite
         serializer_class = FavoriteSerializer
-        return self.add_delete_model_helper(
-            par_model=Recipe,
-            rel_model=model,
-            rel_name='recipe',
-            serializer_class=serializer_class,
-            request=request,
-            pk=pk
-        )
+        params = {
+            'par_model': Recipe,
+            'rel_model': model,
+            'rel_name': 'recipe',
+            'serializer_class': serializer_class,
+            'request': request,
+            'pk': pk
+        }
+
+        if request.method == 'POST':
+            return self.add_model(**params)
+        else:
+            return self.delete_model(**params)
 
     @action(detail=True,
             methods=['post', 'delete'],
@@ -188,14 +198,19 @@ class RecipeViewSet(
         """ Метод добавления/удаления в список покупок"""
         model = ShoppingList
         serializer_class = ShoppingListSerializer
-        return self.add_delete_model_helper(
-            par_model=Recipe,
-            rel_model=model,
-            rel_name='recipe',
-            serializer_class=serializer_class,
-            request=request,
-            pk=pk
-        )
+        params = {
+            'par_model': Recipe,
+            'rel_model': model,
+            'rel_name': 'recipe',
+            'serializer_class': serializer_class,
+            'request': request,
+            'pk': pk
+        }
+
+        if request.method == 'POST':
+            return self.add_model(**params)
+        else:
+            return self.delete_model(**params)
 
     @action(detail=False,
             methods=['get'],
@@ -205,8 +220,7 @@ class RecipeViewSet(
     def download_shopping_cart(self, request):
         """ Метод выгрузки списка продуктов"""
         user = request.user
-        shopping_list = ShoppingList.objects.filter(
-            user=user
+        shopping_list = user.users_shoppinglist.all(
         ).prefetch_related('recipe')
 
         final_list: dict = {}
@@ -222,8 +236,8 @@ class RecipeViewSet(
                     final_list[position.ingredient] = position.amount
             recipe_list.append(f'# {item.recipe.name}')
 
-        return self.create_file_helper(
-            file_format=ATTACHMENT_FORMAT,
+        return self.create_file(
+            file_format=settings.ATTACHMENT_FORMAT,
             array1=recipe_list,
             array2=final_list
         )

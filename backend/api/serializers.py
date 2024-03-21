@@ -6,14 +6,19 @@ from djoser.serializers import SetPasswordSerializer
 from djoser.serializers import \
     UserCreateSerializer as DjoserUserCreateSerializer
 from djoser.serializers import UserSerializer as DjoserUserSerializer
-from recipes.models import (Favorite, Ingredient, Recipe, RecipeIngredient,
-                            ShoppingList, Tag)
 from rest_framework import serializers
 from rest_framework.utils import model_meta
+
+from recipes.models import (Favorite, Ingredient, Recipe, RecipeIngredient,
+                            ShoppingList, Tag)
 from users.models import Follow, User
 
-from .mixins import RecipeRelationHelper
-from .validators import RecipeCreateValidation
+from .mixins import RecipeCreateValidationMixin, RecipeRelationMixin
+
+MIN_AMOUNT = 1
+MAX_AMOUNT = 32000
+MIN_TIME_MINUTES = 1
+MAX_TIME_MINUTE = 32000
 
 
 class Hex2NameColor(serializers.Field):
@@ -42,7 +47,6 @@ class Base64ImageField(serializers.ImageField):
         return super().to_internal_value(data)
 
 
-# app classes - users
 class CustomUserCreateSerializer(DjoserUserCreateSerializer):
     """ Создание или изменение юзера"""
 
@@ -80,13 +84,13 @@ class UserListSerializer(DjoserUserSerializer):
                 return False
         request = self.context.get('request')
         get_subscribtions = self.context.get('subscribtions')
+        user = request.user
 
         if get_subscribtions:
             # from subscribtions endpoint, always True
             return True
-        return (request.user.is_authenticated
-                and Follow.objects.filter(
-                    user=request.user,
+        return (user.is_authenticated
+                and user.follower.filter(
                     following=obj
                 ).exists()
                 )
@@ -102,7 +106,6 @@ class UserSetPassSerializer(SetPasswordSerializer):
         )
 
 
-# app classes - recipes
 class TagSerializer(serializers.ModelSerializer):
     """ Теги """
 
@@ -126,10 +129,9 @@ class RecipeIngredientSerializer(serializers.ModelSerializer):
     id = serializers.PrimaryKeyRelatedField(
         queryset=Ingredient.objects.all()
     )
-    amount = serializers.DecimalField(
-        max_digits=5,
-        decimal_places=1,
-        default=0.5
+    amount = serializers.IntegerField(
+        max_value=MAX_AMOUNT,
+        min_value=MIN_AMOUNT
     )
 
     class Meta:
@@ -140,18 +142,16 @@ class RecipeIngredientSerializer(serializers.ModelSerializer):
 class ReadRecipeIngredientSerializer(serializers.ModelSerializer):
     """ Рендер ингредиента в рецепт"""
     name = serializers.CharField(
-        source="ingredient.name",
+        source='ingredient.name',
         read_only=True
     )
     measurement_unit = serializers.CharField(
-        source="ingredient.measurement_unit",
+        source='ingredient.measurement_unit',
         read_only=True
     )
-    amount = serializers.DecimalField(
-        max_digits=5,
-        decimal_places=1,
-        default=0.5,
-        read_only=True
+    amount = serializers.IntegerField(
+        max_value=MAX_AMOUNT,
+        min_value=MIN_AMOUNT
     )
 
     class Meta:
@@ -227,8 +227,8 @@ class RecipeShortListSerializer(serializers.ModelSerializer):
 
 class RecipeCreateSerializer(
     serializers.ModelSerializer,
-    RecipeRelationHelper,
-    RecipeCreateValidation
+    RecipeRelationMixin,
+    RecipeCreateValidationMixin
 ):
     """ Сериализатор создания рецепта"""
     author = UserListSerializer(
@@ -248,7 +248,8 @@ class RecipeCreateSerializer(
         required=True,
         allow_null=True)
     cooking_time = serializers.IntegerField(
-        min_value=1,
+        max_value=MAX_TIME_MINUTE,
+        min_value=MIN_TIME_MINUTES,
         required=True
     )
 
@@ -263,7 +264,7 @@ class RecipeCreateSerializer(
         error_message = self.run_custom_validation(attrs)
         if error_message:
             raise serializers.ValidationError(
-                {"message": error_message}
+                {'message': error_message}
             )
         return super().validate(attrs)
 
@@ -370,7 +371,7 @@ class FollowSerializer(serializers.ModelSerializer):
     def validate(self, attrs):
         if self.context['request'].user == attrs['following']:
             raise serializers.ValidationError(
-                {"message": "Нельзя подписаться на себя!"}
+                {'message': 'Нельзя подписаться на себя!'}
             )
         return super().validate(attrs)
 
