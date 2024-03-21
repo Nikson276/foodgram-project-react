@@ -1,7 +1,8 @@
 import django_filters
 from django.db.models import Q
-from recipes.models import Recipe
 from rest_framework import filters
+
+from recipes.models import Recipe
 
 
 class RecipeViewSetFilter(django_filters.FilterSet):

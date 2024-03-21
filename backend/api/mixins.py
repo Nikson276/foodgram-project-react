@@ -1,30 +1,16 @@
-import csv
 from typing import Optional
 
-from django.http import Http404, HttpResponse
+from django.core.exceptions import ValidationError
+from django.db import models
+from django.http import HttpRequest
 from django.shortcuts import get_object_or_404
-from recipes.models import Recipe, RecipeIngredient
-from reportlab.pdfbase import pdfmetrics
-from reportlab.pdfbase.ttfonts import TTFont
-from reportlab.pdfgen import canvas
-from rest_framework import permissions, status
-from rest_framework.exceptions import APIException
+from rest_framework import serializers, status
 from rest_framework.response import Response
+
+from recipes.models import Recipe, RecipeIngredient
 from users.models import User
 
-
-class AuthorUserOrAdmin(permissions.IsAuthenticated):
-    """ Class for custom permission """
-    def has_object_permission(self, request, view, obj):
-        user = request.user
-        return user.is_staff or obj.author_id == user.id
-
-
-class ObjectNotFound(APIException):
-    """ Class helper with exceptions 400"""
-    status_code = status.HTTP_400_BAD_REQUEST
-    default_detail = 'Объект не найден'
-    default_code = 'Not found'
+from .exception import ObjectNotFound
 
 
 class UserRelatedModelMixin:
@@ -33,140 +19,79 @@ class UserRelatedModelMixin:
     to user
     """
     def get_or_400(self, model_or_qs, **kwargs):
-        try:
-            return get_object_or_404(model_or_qs, **kwargs)
-        except Http404:
+        obj = model_or_qs.objects.filter(**kwargs).first()
+        if obj is None:
             raise ObjectNotFound
+        return obj
 
-    def add_delete_model_helper(
+    def add_model(
         self,
-        par_model,
-        rel_model,
-        rel_name,
-        serializer_class,
-        request,
-        pk
+        par_model: models.Model,
+        rel_model: models.Model,
+        rel_name: str,
+        serializer_class: serializers.ModelSerializer,
+        request: HttpRequest,
+        pk: int
     ):
-        """ Helper method to add/delete obj to model"""
+        """ Helper method to add obj to model"""
 
         user: Optional[User] = request.user
         parent_obj = get_object_or_404(par_model, id=pk)
 
-        if request.method == 'POST':
-            serializer = serializer_class(
-                data={'user': user.pk, rel_name: parent_obj.pk},
-                context={'request': request}
-            )
-            if serializer.is_valid():
-                serializer.save()
-                return Response(
-                    serializer.data,
-                    status=status.HTTP_201_CREATED
-                )
-            else:
-                return Response(
-                    serializer.errors,
-                    status=status.HTTP_400_BAD_REQUEST
-                )
-        else:
-            # DELETE
-            if isinstance(parent_obj, Recipe):
-                model_obj = self.get_or_400(
-                    rel_model,
-                    user=user,
-                    recipe=parent_obj
-                )
-            elif isinstance(parent_obj, User):
-                model_obj = self.get_or_400(
-                    rel_model,
-                    user=user,
-                    following=parent_obj
-                )
-            else:
-                return Response(
-                    'Not implemented parent model',
-                    status=status.HTTP_400_BAD_REQUEST
-                )
-            model_obj.delete()
-            return Response(status=status.HTTP_204_NO_CONTENT)
-
-
-class ShoppingListDownloadHelper:
-    """ Class helper to implement file download in diff format"""
-    def create_csv(self, array1: list, array2: dict) -> HttpResponse:
-        """ Создание .csv файла """
-
-        filename = 'shopping_list.csv'
-        response = HttpResponse(content_type='text/csv')
-        response[
-            'Content-Disposition'
-        ] = 'attachment; filename="{0}"'.format(filename)
-
-        writer = csv.writer(response)
-        # Устанавливаем кодировку UTF-8 для файла .csv
-        # Добавляем BOM для корректного отображения в Excel
-        response.write(u'\ufeff'.encode('utf8'))
-
-        writer.writerow(['Список рецептов:'])
-        writer.writerow([array1])
-        writer.writerow([' '])
-        writer.writerow(['ИТОГО Список покупок:'])
-        for pos, amount in array2.items():
-            writer.writerow([f'{pos} --- {amount}'])
-
-        return response
-
-    def create_pdf(self, array1: list, array2: dict) -> HttpResponse:
-        """ Создание .pdf файла """
-        response = HttpResponse(content_type='application/pdf')
-        response[
-            'Content-Disposition'
-        ] = 'attachment; filename="shopping_cart.pdf"'
-
-        # Генерация содержимого PDF
-        p = canvas.Canvas(response)
-        # Устанавливаем шрифт и кодировку для кириллицы
-        pdfmetrics.registerFont(TTFont('Arial', './static/fonts/Arial.ttf'))
-        p.setFont('Arial', 12)
-
-        p.drawString(100, 800, "Список рецептов:")
-        y = 780
-        for recipe in array1:
-            p.drawString(100, y, recipe)
-            y -= 20
-        y -= 10
-        p.line(100, y, 300, y)
-        y -= 30
-        p.drawString(100, y, "Список продуктов:")
-        y -= 20
-        for pos, amount in array2.items():
-            ingredient = f'{pos} --- {amount}'
-            p.drawString(100, y, ingredient)
-            y -= 20
-        p.showPage()
-        p.save()
-
-        return response
-
-    def create_file_helper(
-        self, file_format, array1: list, array2: dict
-    ) -> HttpResponse:
-        """ Медот для создания файла выгрузки в нужном формате"""
-        if file_format == 'csv':
-            # Создание .csv файла:
-            return self.create_csv(array1=array1, array2=array2)
-
-        elif file_format == 'pdf':
-            # Создание PDF-файла
-            return self.create_pdf(array1=array1, array2=array2)
-        return Response(
-            'ATTACHMENT_FORMAT_ERROR Please contact your administrator',
-            status=status.HTTP_400_BAD_REQUEST
+        serializer = serializer_class(
+            data={'user': user.pk, rel_name: parent_obj.pk},
+            context={'request': request}
         )
+        try:
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+            return Response(
+                serializer.data,
+                status=status.HTTP_201_CREATED
+            )
+        except ValidationError as exc:
+            return Response(
+                exc.errors,
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+    def delete_model(
+        self,
+        par_model: models.Model,
+        rel_model: models.Model,
+        rel_name: str,
+        serializer_class: serializers.ModelSerializer,
+        request: HttpRequest,
+        pk: int
+    ):
+        """ Helper method to delete obj to model"""
+
+        user: Optional[User] = request.user
+        parent_obj = get_object_or_404(par_model, id=pk)
+
+        if isinstance(parent_obj, Recipe):
+            model_obj = self.get_or_400(
+                rel_model,
+                user=user,
+                recipe=parent_obj
+            )
+        elif isinstance(parent_obj, User):
+            model_obj = self.get_or_400(
+                rel_model,
+                user=user,
+                following=parent_obj
+            )
+        else:
+            return Response(
+                'Not implemented parent model',
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        model_obj.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-class RecipeRelationHelper:
-    """ Class helper to create new relations
+class RecipeRelationMixin:
+    """ Class mixin to create new relations
     between Recipe and Tags and Ingredients
     """
 
@@ -193,3 +118,34 @@ class RecipeRelationHelper:
             instance.tags.add(tag_id)
 
         return instance
+
+
+class RecipeCreateValidationMixin:
+    """ Class mixin to custom validation"""
+    error_message: Optional[str] = None
+
+    def run_custom_validation(self, attrs: dict) -> Optional[str]:
+        """ Реализация дополнительной валидации ингредиентов и тегов"""
+        if not attrs.get('ingredients'):
+            self.error_message = 'Ингредиенты не переданы'
+        else:
+            ingredients_list: list = []
+            for ingredient in attrs['ingredients']:
+                ingredients_list.append(ingredient['id'])
+
+            if (len(ingredients_list) > 0
+                    and len(ingredients_list) != len(set(ingredients_list))):
+                self.error_message = 'Ингредиенты повторяются'
+
+        if self.error_message:
+            return self.error_message
+
+        if not attrs.get('tags'):
+            self.error_message = 'Теги не переданы'
+        else:
+            tags_list = [tag.id for tag in attrs['tags']]
+            if len(tags_list) != len(set(tags_list)):
+                self.error_message = 'Теги повторяются'
+
+        if self.error_message:
+            return self.error_message
