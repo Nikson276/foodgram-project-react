@@ -3,13 +3,10 @@ from typing import Optional
 from django.conf import settings
 from djoser.permissions import CurrentUserOrAdmin
 from djoser.views import UserViewSet as DjoserUserViewSet
-from recipes.models import (Favorite, Ingredient, Recipe, RecipeIngredient,
-                            ShoppingList, Tag)
 from rest_framework import permissions, viewsets
 from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
-from users.models import Follow, User
 
 from .filters import (CustomSearchFilter, RecipeCustomFilter,
                       RecipeViewSetFilter)
@@ -22,6 +19,9 @@ from .serializers import (FavoriteSerializer, FollowReadListSerializer,
                           RecipeCreateSerializer, RecipeIngredientSerializer,
                           RecipeListSerializer, ShoppingListSerializer,
                           TagSerializer)
+from recipes.models import (Favorite, Ingredient, Recipe, RecipeIngredient,
+                            ShoppingList, Tag)
+from users.models import Follow, User
 
 
 class CustomUserViewSet(
@@ -91,8 +91,7 @@ class CustomUserViewSet(
 
         if request.method == 'POST':
             return self.add_model(**params)
-        else:
-            return self.delete_model(**params)
+        return self.delete_model(**params)
 
 
 # app classes - recipes
@@ -159,8 +158,7 @@ class RecipeViewSet(
         """ Определим какой сериализатор выдать"""
         if self.action in ('list', 'retrieve'):
             return RecipeListSerializer
-        else:
-            return RecipeCreateSerializer
+        return RecipeCreateSerializer
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
@@ -185,8 +183,7 @@ class RecipeViewSet(
 
         if request.method == 'POST':
             return self.add_model(**params)
-        else:
-            return self.delete_model(**params)
+        return self.delete_model(**params)
 
     @action(detail=True,
             methods=['post', 'delete'],
@@ -208,8 +205,7 @@ class RecipeViewSet(
 
         if request.method == 'POST':
             return self.add_model(**params)
-        else:
-            return self.delete_model(**params)
+        return self.delete_model(**params)
 
     @action(detail=False,
             methods=['get'],

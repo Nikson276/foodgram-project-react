@@ -23,7 +23,6 @@
 
 *Updates*
 - push to master --> will start CI&CD
-    - `sudo docker compose -f docker-compose.production.yml exec backend python manage.py migrate`
 
 ## API
 [Redoc](docs\redoc.html)

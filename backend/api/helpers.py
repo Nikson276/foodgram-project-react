@@ -7,13 +7,13 @@ from reportlab.pdfgen import canvas
 from rest_framework import status
 from rest_framework.response import Response
 
-# coardinates
 X_POS = 100
 X_END_POS = 300
 Y_POS = 800
 SM_INDENT_STEP = 10
 MD_INDENT_STEP = 20
 DEVIDER_INDENT_STEP = 30
+FONT_SIZE = 12
 
 
 class ShoppingListDownloadHelper:
@@ -52,7 +52,7 @@ class ShoppingListDownloadHelper:
         p = canvas.Canvas(response)
         # Устанавливаем шрифт и кодировку для кириллицы
         pdfmetrics.registerFont(TTFont('Arial', './static/fonts/Arial.ttf'))
-        p.setFont('Arial', 12)
+        p.setFont('Arial', FONT_SIZE)
 
         p.drawString(X_POS, Y_POS, 'Список рецептов:')
         y = Y_POS - MD_INDENT_STEP
@@ -81,9 +81,10 @@ class ShoppingListDownloadHelper:
             # Создание .csv файла:
             return self.create_csv(array1=array1, array2=array2)
 
-        elif file_format == 'pdf':
+        if file_format == 'pdf':
             # Создание PDF-файла
             return self.create_pdf(array1=array1, array2=array2)
+
         return Response(
             'ATTACHMENT_FORMAT_ERROR Please contact your administrator',
             status=status.HTTP_400_BAD_REQUEST

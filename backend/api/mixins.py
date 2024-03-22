@@ -4,12 +4,12 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.http import HttpRequest
 from django.shortcuts import get_object_or_404
-from recipes.models import Recipe, RecipeIngredient
 from rest_framework import serializers, status
 from rest_framework.response import Response
-from users.models import User
 
 from .exception import ObjectNotFound
+from recipes.models import Recipe, RecipeIngredient
+from users.models import User
 
 
 class UserRelatedModelMixin:

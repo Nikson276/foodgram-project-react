@@ -3,16 +3,15 @@ import base64
 import webcolors
 from django.core.files.base import ContentFile
 from djoser.serializers import SetPasswordSerializer
-from djoser.serializers import \
-    UserCreateSerializer as DjoserUserCreateSerializer
-from djoser.serializers import UserSerializer as DjoserUserSerializer
-from recipes.models import (Favorite, Ingredient, Recipe, RecipeIngredient,
-                            ShoppingList, Tag)
+from djoser.serializers import UserCreateSerializer as DjUserCreateSerializer
+from djoser.serializers import UserSerializer as DjUserSerializer
 from rest_framework import serializers
 from rest_framework.utils import model_meta
-from users.models import Follow, User
 
 from .mixins import RecipeCreateValidationMixin, RecipeRelationMixin
+from recipes.models import (Favorite, Ingredient, Recipe, RecipeIngredient,
+                            ShoppingList, Tag)
+from users.models import Follow, User
 
 MIN_AMOUNT = 1
 MAX_AMOUNT = 32000
@@ -46,7 +45,7 @@ class Base64ImageField(serializers.ImageField):
         return super().to_internal_value(data)
 
 
-class CustomUserCreateSerializer(DjoserUserCreateSerializer):
+class CustomUserCreateSerializer(DjUserCreateSerializer):
     """ Создание или изменение юзера"""
 
     class Meta:
@@ -58,7 +57,7 @@ class CustomUserCreateSerializer(DjoserUserCreateSerializer):
         )
 
 
-class UserListSerializer(DjoserUserSerializer):
+class UserListSerializer(DjUserSerializer):
     """ Чтение данных юзера"""
     is_subscribed = serializers.SerializerMethodField(read_only=True)
 
@@ -86,7 +85,6 @@ class UserListSerializer(DjoserUserSerializer):
         user = request.user
 
         if get_subscribtions:
-            # from subscribtions endpoint, always True
             return True
         return (user.is_authenticated
                 and user.follower.filter(
