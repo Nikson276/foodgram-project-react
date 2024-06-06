@@ -37,13 +37,7 @@
 Public IP 130.193.54.101
 Domain: https://foodgram-nikson.serveblog.net/
 
-### Admin cred's for reviewer (TO DELETE)
-superuser
-Username: admin
-Email address: admin@admin.ru
-fw9S3YJsyLG5Zjw
 
 ## Об авторе
 [Никита Михайлов](https://github.com/Nikson276)
-Студент Yandex Practicum
 Back-end developer
