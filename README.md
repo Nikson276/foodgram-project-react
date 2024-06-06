@@ -24,6 +24,8 @@
 *Updates*
 - push to master --> will start CI&CD
 
+Результат работы пайплайна можно получать в Телеграмм через бота.
+
 ## API
 [Redoc](docs\redoc.html)
 
